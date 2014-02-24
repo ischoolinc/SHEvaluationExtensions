@@ -1,0 +1,9 @@
+D:\TFS2010\ischoolteam\ischool_Senior with FISCA\Modules\SHEvaluationExtensions\SHEvaluationExtensions\bin\Debug\SHEvaluationExtensions.pdb
+D:\TFS2010\ischoolteam\ischool_Senior with FISCA\Modules\SHEvaluationExtensions\SHEvaluationExtensions\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\TFS2010\ischoolteam\ischool_Senior with FISCA\Modules\SHEvaluationExtensions\SHEvaluationExtensions\obj\x86\Debug\SHEvaluationExtensions.pdb
+D:\TFS2010\ischoolteam\ischool_Senior with FISCA\Modules\SHEvaluationExtensions\SHEvaluationExtensions\bin\Debug\SHEvaluationExtensions.dll
+D:\TFS2010\ischoolteam\ischool_Senior with FISCA\Modules\SHEvaluationExtensions\SHEvaluationExtensions\obj\x86\Debug\SHEvaluationExtensions.Course.ExportStudentV2.resources
+D:\TFS2010\ischoolteam\ischool_Senior with FISCA\Modules\SHEvaluationExtensions\SHEvaluationExtensions\obj\x86\Debug\SHEvaluationExtensions.Course.ImportStudentV2.resources
+D:\TFS2010\ischoolteam\ischool_Senior with FISCA\Modules\SHEvaluationExtensions\SHEvaluationExtensions\obj\x86\Debug\GenerateResource.read.1.tlog
+D:\TFS2010\ischoolteam\ischool_Senior with FISCA\Modules\SHEvaluationExtensions\SHEvaluationExtensions\obj\x86\Debug\GenerateResource.write.1.tlog
+D:\TFS2010\ischoolteam\ischool_Senior with FISCA\Modules\SHEvaluationExtensions\SHEvaluationExtensions\obj\x86\Debug\SHEvaluationExtensions.dll
