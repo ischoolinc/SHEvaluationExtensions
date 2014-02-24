@@ -12,7 +12,6 @@ namespace SHEvaluationExtensions
         [MainMethod()]
         public static void Main()
         {
-            
             // 匯出課程修課學生
             RibbonBarItem rbItemCourseImportExport = K12.Presentation.NLDPanels.Course.RibbonBarItems["資料統計"];
             rbItemCourseImportExport["匯出"]["匯出課程修課學生"].Enable =UserAcl.Current["SHSchool.Course.ExportCourseStudent"].Executable;

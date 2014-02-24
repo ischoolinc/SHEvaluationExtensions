@@ -55,6 +55,9 @@ namespace SHEvaluationExtensions.Course
                 #region 產生 Row Data
                 foreach (SHCourseRecord course in courses)
                 {
+                    //Debug
+                    if (!scattends.ContainsKey(course.ID)) continue;
+
                     foreach (SHSCAttendRecord record in scattends[course.ID])
                     {
                         RowData row = new RowData();
