@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml-stylesheet type="text/xsl" href="format.xsl" ?>
+<ValidateRule Name="課程規劃表">
+
+    <DuplicateDetection>
+
+        <Detector Name="課程規劃表名稱,科目名稱,級別" IsImportKey="False">
+            <Field Name="課程規劃表名稱" />
+            <Field Name="科目名稱" />
+            <Field Name="科目級別" />
+        </Detector>
+
+        <Detector Name="課程規劃表名稱,科目名稱,年級,學期">
+            <Field Name="課程規劃表名稱" />
+            <Field Name="科目名稱" />
+            <Field Name="年級" />
+            <Field Name="學期" />
+        </Detector>
+
+    </DuplicateDetection>
+
+    <FieldList>
+
+        <Field Required="True" Name="課程規劃表名稱">
+            <Validate AutoCorrect="False" Description="「課程規劃表名稱」不允許空白。" ErrorType="Error" Validator="不可空白" When="" />
+        </Field>
+
+        <Field Required="True" Name="領域名稱" EmptyAlsoValidate="false">
+        </Field>
+
+        <Field Required="True" Name="分項名稱">
+            <Validate AutoCorrect="False" Description="「分項類別」不允許空白。" ErrorType="Error" Validator="不可空白" When="" />
+            <Validate AutoCorrect="True" Description="「分項類別」只允許「學業」、「體育」、「國防通識」、「健康與護理」、「實習科目」及「專業科目」。" ErrorType="Error" Validator="分項列舉" When="" />
+        </Field>
+
+        <Field Required="True" Name="年級">
+            <Validate AutoCorrect="False" Description="「年級」只允許1到4。" ErrorType="Error" Validator="年級列舉" When="" />
+        </Field>
+
+        <Field Required="True" Name="學期">
+            <Validate AutoCorrect="False" Description="「學期」只允許1或2。" ErrorType="Error" Validator="學期列舉" When="" />
+        </Field>
+
+        <Field Required="True" Name="科目名稱">
+            <Validate AutoCorrect="False" Description="「科目名稱」不允許空白。" ErrorType="Error" Validator="不可空白" When="" />
+        </Field>
+
+        <Field Required="True" Name="科目級別" EmptyAlsoValidate="false">
+            <Validate AutoCorrect="False" Description="「科目級別」只允許「1」到「10」。" ErrorType="Error" Validator="學分數列舉" When="" />
+        </Field>
+
+        <Field Required="True" Name="校定/部訂">
+            <Validate AutoCorrect="True" Description="「校定/部訂」只允許「校」或「部」。" ErrorType="Error" Validator="校部訂列舉" When="" />
+        </Field>
+
+        <Field Required="True" Name="必選修">
+            <Validate AutoCorrect="True" Description="「必選修」只允許「必」或「選」。" ErrorType="Error" Validator="必選修列舉" When="" />
+        </Field>
+
+        <Field Required="True" Name="學分數">
+            <Validate AutoCorrect="True" Description="「學分數」只允許「0」到「10」。" ErrorType="Error" Validator="學分數列舉" When="" />
+        </Field>
+        <Field Required="True" Name="不計學分" EmptyAlsoValidate="false">
+            <Validate AutoCorrect="True" Description="「不計學分」只允許「是」或填入空白。" ErrorType="Error" Validator="只能為是列舉" When="" />
+        </Field>
+
+        <Field Required="True" Name="不需評分" EmptyAlsoValidate="false">
+            <Validate AutoCorrect="True" Description="「不需評分」只允許「是」或填入空白。" ErrorType="Error" Validator="只能為是列舉" When="" />
+        </Field>
+
+    </FieldList>
+
+    <ValidatorList>
+
+        <FieldValidator Name="不可空白" Type="STRINGLENGTH">
+            <MinLength>1</MinLength>
+        </FieldValidator>
+
+
+        <FieldValidator Name="多個數字逗號分隔" Type="Regex">
+            <ValidPattern>
+                <![CDATA[^[A-Za-z0-9]+$]]> <!-- 正規表示法 -->
+            </ValidPattern>
+        </FieldValidator>
+
+        <FieldValidator Name="分項列舉" Type="Enumeration">
+                <Item Value="學業">
+                    <Variation>學</Variation>
+                </Item>
+
+                <Item Value="體育">
+                    <Variation>體</Variation>
+                </Item>
+
+                <Item Value="國防通識">
+                    <Variation>國</Variation>
+                    <Variation>國防通識(軍訓)</Variation>
+                    <Variation>國防通識（軍訓）</Variation>
+                </Item>
+
+                <Item Value="健康與護理">
+                    <Variation>健</Variation>
+                    <Variation>健康</Variation>
+                    <Variation>建</Variation>
+                    <Variation>建康</Variation>
+                    <Variation>護</Variation>
+                    <Variation>護理</Variation>
+                </Item>
+
+                <Item Value="實習科目">
+                    <Variation>實</Variation>
+                    <Variation>實習</Variation>
+                </Item>
+
+             <Item Value="專業科目">
+                    <Variation>專</Variation>
+                    <Variation>專業</Variation>
+                </Item>
+         </FieldValidator>
+
+
+        <FieldValidator Name="年級列舉" Type="Enumeration">
+            <Item Value="1">
+                <Variation>I</Variation>
+                <Variation>Ⅰ</Variation>
+            </Item>
+
+            <Item Value="2">
+                <Variation>II</Variation>
+                <Variation>Ⅱ</Variation>
+            </Item>
+
+            <Item Value="3">
+                <Variation>III</Variation>
+                <Variation>Ⅲ</Variation>
+            </Item>
+
+            <Item Value="4">
+                <Variation>IV</Variation>
+                <Variation>Ⅳ</Variation>
+            </Item>
+	</FieldValidator>
+
+        <FieldValidator Name="學期列舉" Type="Enumeration">
+            <Item Value="1">
+                <Variation>I</Variation>
+                <Variation>Ⅰ</Variation>
+            </Item>
+            <Item Value="2">
+                <Variation>II</Variation>
+                <Variation>Ⅱ</Variation>
+            </Item>
+	</FieldValidator>
+
+        <FieldValidator Name="學分數列舉" Type="Enumeration">
+            <Item Value="0"/>
+
+            <Item Value="1">
+                <Variation>I</Variation>
+                <Variation>Ⅰ</Variation>
+            </Item>
+            <Item Value="2">
+                <Variation>II</Variation>
+                <Variation>Ⅱ</Variation>
+            </Item>
+            <Item Value="3">
+                <Variation>III</Variation>
+                <Variation>Ⅲ</Variation>
+            </Item>
+
+            <Item Value="4">
+                <Variation>IV</Variation>
+                <Variation>Ⅳ</Variation>
+            </Item>
+
+            <Item Value="5">
+                <Variation>V</Variation>
+                <Variation>Ⅴ</Variation>
+            </Item>
+
+            <Item Value="6">
+                <Variation>VI</Variation>
+                <Variation>Ⅵ</Variation>
+            </Item>
+
+            <Item Value="7">
+                <Variation>VII</Variation>
+                <Variation>Ⅶ</Variation>
+            </Item>
+
+            <Item Value="8">
+                <Variation>VIII</Variation>
+                <Variation>Ⅷ</Variation>
+            </Item>
+
+            <Item Value="9">
+                <Variation>IX</Variation>
+                <Variation>Ⅸ</Variation>
+            </Item>
+
+            <Item Value="10">
+                <Variation>X</Variation>
+                <Variation>Ⅹ</Variation>
+            </Item>
+        </FieldValidator>
+
+        <FieldValidator Name="只能為是列舉" Type="Enumeration">
+            <Item Value="是">
+                <Variation>TRUE</Variation>
+                <Variation>True</Variation>
+                <Variation>true</Variation>
+                <Variation>YES</Variation>
+                <Variation>Yes</Variation>
+                <Variation>yes</Variation>
+                <Variation>Y</Variation>
+                <Variation>y</Variation>
+            </Item>
+            <Item Value="">
+                <Variation>否</Variation>
+                <Variation>FALSE</Variation>
+                <Variation>False</Variation>
+                <Variation>false</Variation>
+                <Variation>NO</Variation>
+                <Variation>No</Variation>
+                <Variation>no</Variation>
+                <Variation>N</Variation>
+                <Variation>n</Variation>
+            </Item>
+        </FieldValidator>
+
+
+            <FieldValidator Name="校部訂列舉" Type="Enumeration">
+                <Item Value="校">
+                    <Variation>校訂</Variation>
+                    <Variation>校定</Variation>
+                </Item>
+                <Item Value="部">
+                    <Variation>部訂</Variation>
+                    <Variation>部定</Variation>
+                </Item>
+            </FieldValidator>
+
+            <FieldValidator Name="必選修列舉" Type="Enumeration">
+                <Item Value="必">
+                    <Variation>必修</Variation>
+                </Item>
+                <Item Value="選">
+                    <Variation>選修</Variation>
+                </Item>
+            </FieldValidator>
+
+        </ValidatorList>
+
+    <RowValidate>
+
+    </RowValidate>
+
+    <ConditionList/>
+</ValidateRule>

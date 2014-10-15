@@ -1,0 +1,20 @@
+﻿<GraduationPlan>
+    <Subject Category="" Credit="1" Domain="" Entry="學業" FullName="國文 V" GradeYear="1" Level="5" NotIncludedInCalc="False" NotIncludedInCredit="True" Required="必修" RequiredBy="校訂" Semester="1" SubjectName="國文">
+        <Grouping RowIndex="1" startLevel="5"/>
+    </Subject>
+    <Subject Category="" Credit="2" Domain="" Entry="學業" FullName="國文 VI" GradeYear="1" Level="6" NotIncludedInCalc="False" NotIncludedInCredit="True" Required="必修" RequiredBy="校訂" Semester="2" SubjectName="國文">
+        <Grouping RowIndex="1" startLevel="5"/>
+    </Subject>
+    <Subject Category="" Credit="1" Domain="" Entry="學業" FullName="國文 VII" GradeYear="2" Level="7" NotIncludedInCalc="False" NotIncludedInCredit="True" Required="必修" RequiredBy="校訂" Semester="1" SubjectName="國文">
+        <Grouping RowIndex="1" startLevel="5"/>
+    </Subject>
+    <Subject Category="" Credit="3" Domain="" Entry="學業" FullName="國文 VIII" GradeYear="3" Level="8" NotIncludedInCalc="False" NotIncludedInCredit="True" Required="必修" RequiredBy="校訂" Semester="1" SubjectName="國文">
+        <Grouping RowIndex="1" startLevel="5"/>
+    </Subject>
+    <Subject Category="" Credit="4" Domain="" Entry="學業" FullName="國文 IX" GradeYear="3" Level="9" NotIncludedInCalc="False" NotIncludedInCredit="True" Required="必修" RequiredBy="校訂" Semester="2" SubjectName="國文">
+        <Grouping RowIndex="1" startLevel="5"/>
+    </Subject>
+    <Subject Category="" Credit="1" Domain="" Entry="學業" FullName="聯課活動" GradeYear="2" Level="" NotIncludedInCalc="False" NotIncludedInCredit="False" Required="必修" RequiredBy="校訂" Semester="1" SubjectName="聯課活動">
+        <Grouping RowIndex="2" startLevel=""/>
+    </Subject>
+</GraduationPlan>

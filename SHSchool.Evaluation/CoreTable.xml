@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml-stylesheet type="text/xsl" href="format.xsl" ?>
+<ValidateRule Name="自訂畢業應修及格科目表">
+
+    <DuplicateDetection>
+        <Detector Name="科目表名稱,科目名稱">
+            <Field Name="科目表名稱" />
+            <Field Name="科目名稱" />
+        </Detector>
+    </DuplicateDetection>
+
+    <FieldList>
+
+        <Field Required="True" Name="科目表名稱">
+            <Validate AutoCorrect="False" Description="「科目表名稱」不允許空白。" ErrorType="Error" Validator="不可空白" When="" />
+            <Validate AutoCorrect="False" Description="「科目表名稱」不存在系統中，在匯入時將先自動新增此科目表。" ErrorType="Warning" Validator="畢業應修及格科目表名稱是否存在" When="" />
+        </Field>
+
+        <Field Required="True" Name="科目名稱">
+            <Validate AutoCorrect="False" Description="「科目名稱」不允許空白。" ErrorType="Error" Validator="不可空白" When="" />
+        </Field>
+
+        <Field Required="False" Name="級別" EmptyAlsoValidate="false">
+            <Validate AutoCorrect="False" Description="「級別」需使用多個數字逗號分隔，例如「1,2,3,4」。" ErrorType="Error" Validator="多個數字逗號分隔" When=""/>
+        </Field>
+    </FieldList>
+
+    <ValidatorList>
+        <FieldValidator Name="畢業應修及格科目表名稱是否存在" Type="CoreTableNameCheck"/>
+
+        <FieldValidator Name="多個數字逗號分隔" Type="Regex">
+            <ValidPattern>
+                <![CDATA[^[A-Za-z0-9]+$]]> <!-- 正規表示法 -->
+            </ValidPattern>
+        </FieldValidator>
+
+        <FieldValidator Name="不可空白" Type="STRINGLENGTH">
+            <MinLength>1</MinLength>
+        </FieldValidator>
+
+
+    </ValidatorList>
+
+    <RowValidate>
+
+    </RowValidate>
+
+    <ConditionList/>
+</ValidateRule>
