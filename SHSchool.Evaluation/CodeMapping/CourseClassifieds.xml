@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CourseClassifieds>
+  <CourseClassified code="1" name= "部定必修" />
+  <CourseClassified code="2" name= "校訂必修" />
+  <CourseClassified code="3" name= "選修-加深加廣選修" />
+  <CourseClassified code="4" name= "選修-補強性選修" />
+  <CourseClassified code="5" name= "選修-多元選修" />
+  <CourseClassified code="6" name= "選修-其他" />
+  <CourseClassified code="7" name= "校訂選修" />
+  <CourseClassified code="8" name= "團體活動時間" />
+  <CourseClassified code="9" name= "彈性學習時間" />
+  <CourseClassified code="A" name= "大學預修課程" />
+</CourseClassifieds>

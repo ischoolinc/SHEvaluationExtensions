@@ -65,6 +65,10 @@
       <HintPath>Library\Campus.Windows.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="DevComponents.DotNetBar2, Version=9.5.0.1, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Library\DevComponents.DotNetBar2.dll</HintPath>
+    </Reference>
     <Reference Include="FISCA, Version=2.5.0.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Library\FISCA.dll</HintPath>
@@ -98,6 +102,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -108,6 +113,14 @@
     <Compile Include="Import\ImportCoreTable.cs" />
     <Compile Include="Import\ImportProgramPlan.cs" />
     <Compile Include="Import\ImportSubjectTable.cs" />
+    <Compile Include="InportForm\ImportCurriculumMappingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InportForm\ImportCurriculumMappingForm.Designer.cs">
+      <DependentUpon>ImportCurriculumMappingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CourseInfo.cs" />
+    <Compile Include="Model\MappingInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Import\Helper\ProgramPlanHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -118,6 +131,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CodeMapping\ClassGroup.xml" />
+    <Content Include="CodeMapping\CourseClassifieds.xml" />
+    <Content Include="CodeMapping\CourseTypes.xml" />
+    <Content Include="CodeMapping\Depts.xml" />
+    <Content Include="CodeMapping\FieldNames.xml" />
+    <Content Include="CodeMapping\GroupTypes.xml" />
+    <Content Include="CodeMapping\OpenWays.xml" />
+    <Content Include="CodeMapping\SubjectAttributes.xml" />
+    <Content Include="CodeMapping\SubjectFixedCodes.xml" />
     <Content Include="CoreTable.xml" />
     <Content Include="Import.Image.png" />
     <Content Include="Library\Aspose.Cells.dll" />
@@ -135,6 +157,8 @@
     <Content Include="Library\Campus.Windows.dll" />
     <Content Include="Library\Campus.Windows.pdb" />
     <Content Include="Library\Campus.Windows.xml" />
+    <Content Include="Library\DevComponents.DotNetBar2.dll" />
+    <Content Include="Library\DevComponents.DotNetBar2.xml" />
     <Content Include="Library\FISCA.Data.dll" />
     <Content Include="Library\FISCA.Data.pdb" />
     <Content Include="Library\FISCA.Data.xml" />
@@ -159,10 +183,16 @@
     <Content Include="XMLFile3.xml" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="InportForm\ImportCurriculumMappingForm.resx">
+      <DependentUpon>ImportCurriculumMappingForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Templete\高中課程名稱_轉換匯出.xlsx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

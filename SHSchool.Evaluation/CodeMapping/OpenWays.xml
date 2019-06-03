@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<OpenWays>
+  <OpenWay  code="0" name="原班級" />
+  <OpenWay  code="1" name="跨班選修(班群開課)" />
+  <OpenWay  code="2" name="綜高跨年級選修" />
+  <OpenWay  code="A" name="同科單班選修" />
+  <OpenWay  code="B" name="同科跨班選修" />
+  <OpenWay  code="C" name="同群跨科(學程)選修" />
+  <OpenWay  code="D" name="同校跨群選修" />
+  <OpenWay  code="E" name="跨校選修" />
+</OpenWays>

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--課程類型-->
+<CourseTypes>
+  <CourseType code="H"  name="普通型"  />
+  <CourseType code="V"  name="技術型"  />
+  <CourseType code="M"  name="綜合型"  />
+  <CourseType code="S"  name="單科型"  />
+  <CourseType code="C"  name="進修部"  />
+  <CourseType code="E"  name="實用技能學程(日)"  />
+  <CourseType code="F"  name="實用技能學程(夜)"  />
+</CourseTypes>
