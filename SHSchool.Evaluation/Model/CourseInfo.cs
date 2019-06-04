@@ -66,6 +66,8 @@ namespace SHSchool.Evaluation.Model
 
         public string ClassGroupDetail { get; set; }     // 6.班群 每校自定義 有範例檔  (1)
 
+        
+
         //-----------------------------------------------------------------------
 
 
@@ -78,6 +80,12 @@ namespace SHSchool.Evaluation.Model
         public string FieldNameDetail { get; set; }    //領域名稱（2） 會先將"領域兩字trim"
 
         public string SubjectFixedCodeDetail { get; set; }     // 科目名稱代碼（2）
+
+        /// <summary>
+        /// level  
+        /// </summary>
+        public int  StartLevel { get; set; }
+
 
         /// <summary>
         /// 對應至原本欄位 Required  由 課程類別 轉換而來
@@ -101,6 +109,7 @@ namespace SHSchool.Evaluation.Model
             this.CourseCodeFromMOE = courseCodeFromMOE;
             this.SubjectName = subjectName;
             this.Credit = credit;
+            this.StartLevel = 1;
             SliceToEachColumn();
         }
 
@@ -126,7 +135,6 @@ namespace SHSchool.Evaluation.Model
         /// </summary>
         private void GetListCreditEachSemester()
         {
-
             this.DicCreditEachSemester = new Dictionary<int, string>(); 
 
             Dictionary<char, string> creditConvert = new Dictionary<char, string>(); //針對對開課程 A-D(代碼)/1-4(學分) 放對照數
@@ -158,9 +166,7 @@ namespace SHSchool.Evaluation.Model
                     {
                         this.DicCreditEachSemester.Add(semester, creaditEach.ToString());
                         semester++;
-
                     }
-
                 }
             }
         }

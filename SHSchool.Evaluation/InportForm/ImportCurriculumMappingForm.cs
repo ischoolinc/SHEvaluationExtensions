@@ -76,6 +76,9 @@ namespace SHSchool.Evaluation.InportForm
         Dictionary<int, dynamic> _DicMappingSemester = new Dictionary<int, dynamic>();
 
 
+        private Dictionary<string, int> _DicLevel;
+
+
         public ImportCurriculumMappingForm()
         {
             InitializeComponent();
@@ -98,6 +101,7 @@ namespace SHSchool.Evaluation.InportForm
             _DicSubjectAttribute = new Dictionary<string, string>();
             _DicFieldName = new Dictionary<string, MappingInfo>();
             _DicFixedCodes = new Dictionary<string, MappingInfo>();
+            _DicLevel = new Dictionary<string, int>();
 
             // 1. 載入 對照表  與課程規劃表名稱有關之 欄位
             LoadCodeMapping();
@@ -107,25 +111,25 @@ namespace SHSchool.Evaluation.InportForm
             GetGradeYearAndSenmester();
 
 
-            Console.WriteLine("1.存放CSVFile : " + _DicCourseInfo.Count() + "筆");
+            //Console.WriteLine("1.存放CSVFile : " + _DicCourseInfo.Count() + "筆");
 
-            Console.WriteLine("2.課程類型 : " + _DicCourseType.Count() + "筆");
+            //Console.WriteLine("2.課程類型 : " + _DicCourseType.Count() + "筆");
 
-            Console.WriteLine("3.群別 : " + _DicGroupType.Count() + "筆");
+            //Console.WriteLine("3.群別 : " + _DicGroupType.Count() + "筆");
 
-            Console.WriteLine("4.科別 : " + _DicDept.Count() + "筆");
+            //Console.WriteLine("4.科別 : " + _DicDept.Count() + "筆");
 
-            Console.WriteLine("5.班群 : " + _DicClassGroup.Count() + "筆");
+            //Console.WriteLine("5.班群 : " + _DicClassGroup.Count() + "筆");
 
-            Console.WriteLine("6.課程類別 : " + _DicCourseClassified.Count() + "筆");
+            //Console.WriteLine("6.課程類別 : " + _DicCourseClassified.Count() + "筆");
 
-            Console.WriteLine("7.開課方式 : " + _DicOpenWay.Count() + "筆");
+            //Console.WriteLine("7.開課方式 : " + _DicOpenWay.Count() + "筆");
 
-            Console.WriteLine("8.科目屬性 : " + _DicSubjectAttribute.Count() + "筆");
+            //Console.WriteLine("8.科目屬性 : " + _DicSubjectAttribute.Count() + "筆");
 
-            Console.WriteLine("9.領域名稱 : " + _DicFieldName.Count() + "筆");
+            //Console.WriteLine("9.領域名稱 : " + _DicFieldName.Count() + "筆");
 
-            Console.WriteLine("10.領域名稱 : " + _DicFixedCodes.Count() + "筆");
+            //Console.WriteLine("10.領域名稱 : " + _DicFixedCodes.Count() + "筆");
 
 
         }
@@ -160,9 +164,8 @@ namespace SHSchool.Evaluation.InportForm
         {
             if (!_Worker.IsBusy)
             {
-                MotherForm.SetStatusBarMessage("1/3缺曠人數統計中...");
+                MotherForm.SetStatusBarMessage("課程規劃表匯入中....");
                 btnImprt.Enabled = false;
-
                 _Worker.RunWorkerAsync();
             }
         }
@@ -173,23 +176,18 @@ namespace SHSchool.Evaluation.InportForm
             LoadCSVFile(this._FileInfo);
 
             // 讀取 CSV檔 並解析
-            Console.WriteLine("1.存放CSVFile : " + _DicCourseInfo.Count() + "筆");
-
-            XmlDocument xmlDoc = new XmlDocument(); // xml檔
+            XmlDocument xmlDoc = new XmlDocument(); 
 
             XmlElement graduationPlan = xmlDoc.CreateElement("GraduationPlan");
 
-            xmlDoc.AppendChild(graduationPlan);
-
             int rows = 0;
-            int count = 0;
+            int count = 0; // 目前第幾筆 主要是要最後一筆時要儲存 AND 第一筆時要 寫入名稱做紀錄 
             foreach (string keyCodeFromMOE/**/ in this._DicCourseInfo.Keys)
             {
                 count++;
                 rows++;
 
-
-                #region 轉換中文 並裝入XML
+                #region 轉換中文 
 
                 //取得切割後code
                 string courseCodeFromMOE = _DicCourseInfo[keyCodeFromMOE].CourseCodeFromMOE;    // 1 .課程代碼
@@ -231,7 +229,6 @@ namespace SHSchool.Evaluation.InportForm
 
                 //trim 掉 "領域兩字" 【領域特殊處理】
 
-
                 string filedNameOrigin = _DicCourseInfo[keyCodeFromMOE].FieldNameDetail;
 
                 _DicCourseInfo[keyCodeFromMOE].FieldNameDetail = filedNameOrigin.Substring(filedNameOrigin.Length - 2, 2) == "領域" ? filedNameOrigin.Substring(0, filedNameOrigin.Length - 2) : filedNameOrigin;
@@ -239,32 +236,37 @@ namespace SHSchool.Evaluation.InportForm
 
                 //檢視課程規劃表名稱
 
-
+                //如果是第一筆
                 if (count == 1)
                 {
                     this.CurrentCurriculumMappingName = $"{_DicCourseInfo[keyCodeFromMOE].EnterYear}{_DicCourseInfo[keyCodeFromMOE].DeptCodeDetail}{_DicCourseInfo[keyCodeFromMOE].ClassGroupDetail}";//裝目前課程規劃表名稱
+
+                    graduationPlan = xmlDoc.CreateElement("GraduationPlan");
+
+                    graduationPlan.SetAttribute("SchoolYear", EnterYear);
+
+                    xmlDoc.AppendChild(graduationPlan);
                 }
 
 
                 if (this.CurrentCurriculumMappingName != $"{_DicCourseInfo[keyCodeFromMOE].EnterYear}{_DicCourseInfo[keyCodeFromMOE].DeptCodeDetail}{_DicCourseInfo[keyCodeFromMOE].ClassGroupDetail}")
                 {
-
                     Console.WriteLine("開始寫入資料庫 ");
 
-
                     InsertGraduationPlan(CurrentCurriculumMappingName, xmlDoc.OuterXml);
-
 
                     rows = 1;
 
                     this.CurrentCurriculumMappingName = $"{_DicCourseInfo[keyCodeFromMOE].EnterYear}{_DicCourseInfo[keyCodeFromMOE].DeptCodeDetail}{_DicCourseInfo[keyCodeFromMOE].ClassGroupDetail}";//裝目前課程規劃表名稱
 
 
+                    this._DicLevel.Clear(); //清除級別字典 要開始裝新的
+
                     xmlDoc = new XmlDocument();
 
                     graduationPlan = xmlDoc.CreateElement("GraduationPlan");
 
-                    graduationPlan.SetAttribute("SchoolYear" , EnterYear);
+                    graduationPlan.SetAttribute("SchoolYear", EnterYear);
 
                     xmlDoc.AppendChild(graduationPlan);
 
@@ -272,37 +274,59 @@ namespace SHSchool.Evaluation.InportForm
 
 
                 #region 填入XML
+                //如果 
+                int startLevel = this._DicLevel.ContainsKey(_DicCourseInfo[keyCodeFromMOE].SubjectName) ? this._DicLevel[_DicCourseInfo[keyCodeFromMOE].SubjectName] + 1 : 1;
 
-                int level = 1;
-                foreach (KeyValuePair<int, string> semesterAndCredit in this._DicCourseInfo[keyCodeFromMOE].DicCreditEachSemester)
+                //放個學期的學分數
+                Dictionary<int,string> DicCreditEachSemester =this._DicCourseInfo[keyCodeFromMOE].DicCreditEachSemester;
+
+
+                int level = startLevel;
+                foreach (int semester in DicCreditEachSemester.Keys)
                 {
                     XmlElement subject = xmlDoc.CreateElement("Subject");
 
                     #region 生成XML
 
                     subject.SetAttribute("Category", "");
-                    subject.SetAttribute("Credit", semesterAndCredit.Value);
+                    subject.SetAttribute("Credit", DicCreditEachSemester[semester]);
                     subject.SetAttribute("Domain", (_DicCourseInfo[keyCodeFromMOE].FieldNameDetail));
                     subject.SetAttribute("Entry", _DicCourseInfo[keyCodeFromMOE].Entry);
                     subject.SetAttribute("FullName", "");
-                    subject.SetAttribute("GradeYear", this._DicMappingSemester[semesterAndCredit.Key].GredeYear.ToString());
+                    subject.SetAttribute("GradeYear", this._DicMappingSemester[semester].GredeYear.ToString());
 
-                    subject.SetAttribute("Level", level++.ToString());
+                    //加入
+
+
+                    if (!this._DicLevel.ContainsKey(_DicCourseInfo[keyCodeFromMOE].SubjectName))
+                    {
+
+                        this._DicLevel.Add(_DicCourseInfo[keyCodeFromMOE].SubjectName, level);
+                        subject.SetAttribute("Level", level.ToString());
+                        level++;
+
+                    }
+                    else
+                    {
+                        this._DicLevel[_DicCourseInfo[keyCodeFromMOE].SubjectName] = level;
+                        subject.SetAttribute("Level", level.ToString());
+                        level++;
+                    }
 
                     subject.SetAttribute("NotIncludedInCalc", "False");
                     subject.SetAttribute("NotIncludedInCredit", "False");
-                    subject.SetAttribute("Required", _DicCourseInfo[keyCodeFromMOE].Required); //可將  課程類別 寫入 如果不是
+                    subject.SetAttribute("Required", _DicCourseInfo[keyCodeFromMOE].Required);    //可將  課程類別 寫入 如果不是
                     subject.SetAttribute("RequiredBy", _DicCourseInfo[keyCodeFromMOE].RequiredBy);
-                    subject.SetAttribute("Semester", this._DicMappingSemester[semesterAndCredit.Key].semester.ToString());
-
+                    subject.SetAttribute("Semester", this._DicMappingSemester[semester].semester.ToString());
                     subject.SetAttribute("SubjectName", _DicCourseInfo[keyCodeFromMOE].SubjectName);
+
                     subject.SetAttribute("課程代碼", _DicCourseInfo[keyCodeFromMOE].CourseCodeFromMOE);
                     subject.SetAttribute("課程類別", _DicCourseInfo[keyCodeFromMOE].ClassClassifiedDetail);
                     subject.SetAttribute("開課方式", _DicCourseInfo[keyCodeFromMOE].OpenWayDetail);
                     subject.SetAttribute("科目屬性", _DicCourseInfo[keyCodeFromMOE].SubjectAttributeDetail);
                     subject.SetAttribute("領域名稱", _DicCourseInfo[keyCodeFromMOE].FieldNameDetail);
                     subject.SetAttribute("課程名稱", _DicCourseInfo[keyCodeFromMOE].SubjectName);
-                    subject.SetAttribute("學分", semesterAndCredit.Value);
+                    subject.SetAttribute("學分", DicCreditEachSemester[semester]);
 
                     graduationPlan.AppendChild(subject);
 
@@ -310,21 +334,27 @@ namespace SHSchool.Evaluation.InportForm
 
                     grouping.SetAttribute("RowIndex", (rows).ToString());
                     Console.WriteLine((rows).ToString());
-                    grouping.SetAttribute("startLevel", "1");
-
+                    grouping.SetAttribute("startLevel", startLevel.ToString());
 
                     subject.AppendChild(grouping);
                     #endregion
                 }
                 #endregion
 
-            }
 
+                //最後一筆 課程資料可以儲存
+                if (count == this._DicCourseInfo.Count)
+                {
+                    InsertGraduationPlan(CurrentCurriculumMappingName, xmlDoc.OuterXml);
+                    Console.WriteLine("最後一本");
+                }
+            }
         }
 
         private void RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-
+            FISCA.Presentation.MotherForm.SetStatusBarMessage("課程規劃表已匯入");
+            this.Close();
         }
 
 
@@ -450,7 +480,7 @@ namespace SHSchool.Evaluation.InportForm
 
 
         /// <summary>
-        /// 載入 代碼對照表 
+        /// 載入 代碼對照表 ()
         /// </summary>
         private void LoadCCodeMappingElse()
         {
@@ -536,8 +566,7 @@ namespace SHSchool.Evaluation.InportForm
 
             }
             #endregion
-            //科目固定編碼
-
+         
             #region  科目固定編碼
             xmlDoc.LoadXml(Properties.Resources.SubjectFixedCodes);
 
@@ -569,7 +598,6 @@ namespace SHSchool.Evaluation.InportForm
         /// <param name="semester"></param>
         private void GetGradeYearAndSenmester()
         {
-
             _DicMappingSemester.Add(1, new { GredeYear = 1, semester = 1 });
             _DicMappingSemester.Add(2, new { GredeYear = 1, semester = 2 });
             _DicMappingSemester.Add(3, new { GredeYear = 2, semester = 1 });
@@ -584,23 +612,35 @@ namespace SHSchool.Evaluation.InportForm
         /// <param name="queryString"></param>
         private void InsertGraduationPlan(string graduationPlanName, string content)
         {
-            //先確認是否存在
-            string checkQueryString = $"SELECT * FROM graduation_plan WHERE name = '{graduationPlanName}'";
-
-            DataTable exitdRows = _Qh.Select(checkQueryString);
-
-            if (exitdRows.Rows.Count!=0 && exitdRows!=null) //如果 資料庫已經有 就 更新 
+            try
             {
-                string UpDateString = $"UPDATE graduation_plan SET  content ='{content}' WHERE  name = '{graduationPlanName}'　";
-            }
-            else //如果資料庫沒有就 新增
+                //先確認是否存在
+                string checkQueryString = $"SELECT * FROM graduation_plan WHERE name = '{graduationPlanName}'";
 
+                DataTable existdRows = _Qh.Select(checkQueryString);
+              
+                if (existdRows.Rows.Count != 0 && existdRows != null)
+                {
+                    {
+                        string UpDateString = $"UPDATE graduation_plan SET  content ='{content}' WHERE  name = '{graduationPlanName}' RETURNING *";
+
+                        _Qh.Select(UpDateString);
+                    }
+                }
+                else //如果資料庫沒有就 新增
+
+                {
+                    string insertString = $"INSERT INTO graduation_plan (name , content ) VALUES ('{graduationPlanName}' , '{content}')  RETURNING * ";
+
+                    DataTable insertedRows = _Qh.Select(insertString);
+                }
+
+            }
+            catch (Exception ex)
             {
-                string insertString = $"INSERT INTO graduation_plan (name , content ) VALUES ('{graduationPlanName}' , '{content}')  RETURNING * ";
-
-                DataTable insertedRows = _Qh.Select(insertString);
-
-            }
+                MsgBox.Show("檔案儲存失敗:" + ex.Message, "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
         }
     }
+}
