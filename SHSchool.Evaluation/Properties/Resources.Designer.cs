@@ -64,16 +64,8 @@ namespace SHSchool.Evaluation.Properties {
         ///   查詢類似 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
         ///&lt;!--班群對照表--&gt;
         ///&lt;ClassGroups&gt;
-        ///&lt;ClassGroup code= &quot;A&quot; name=&quot;外語文史哲班群&quot;/&gt;
-        ///&lt;ClassGroup code= &quot;B&quot; name=&quot;法政班群&quot;/&gt;
-        ///&lt;ClassGroup code= &quot;C&quot; name=&quot;教育傳播班群&quot;/&gt;
-        ///&lt;ClassGroup code= &quot;D&quot; name=&quot;商管財經班群&quot;/&gt;
-        ///&lt;ClassGroup code= &quot;E&quot; name=&quot;工程資訊班群&quot;/&gt;
-        ///&lt;ClassGroup code= &quot;F&quot; name=&quot;基礎科學班群&quot;/&gt;
-        ///&lt;ClassGroup code= &quot;G&quot; name=&quot;建築設計班群&quot;/&gt;
-        ///&lt;ClassGroup code= &quot;H&quot; name=&quot;醫牙藥班群&quot;/&gt;
-        ///&lt;ClassGroup code= &quot;I&quot; name=&quot;生命科學、衛生班群&quot;/&gt;
-        ///&lt;ClassGroup code= &quot;J&quot; name=&quot;生物資源班群&quot;/&gt;
+        ///&lt;ClassGroup code= &quot;0&quot; name=&quot;不分班群&quot;/&gt;
+        ///&lt;ClassGroup code= &quot;1&quot; name=&quot;建教合作班群&quot;/&gt;
         ///&lt;/ClassGroups&gt; 的當地語系化字串。
         /// </summary>
         internal static string ClassGroup {
@@ -209,6 +201,16 @@ namespace SHSchool.Evaluation.Properties {
         internal static System.Drawing.Bitmap Import_Image {
             get {
                 object obj = ResourceManager.GetObject("Import_Image", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類型 System.Drawing.Bitmap 的當地語系化資源。
+        /// </summary>
+        internal static System.Drawing.Bitmap loding {
+            get {
+                object obj = ResourceManager.GetObject("loding", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

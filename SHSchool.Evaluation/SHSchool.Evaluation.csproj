@@ -178,6 +178,7 @@
     <Content Include="Library\SHSchool.Data.pdb" />
     <Content Include="Library\SHSchool.Data.xml" />
     <Content Include="ProgramPlan.xml" />
+    <None Include="Resources\loding.gif" />
     <Content Include="SubjectTable.xml" />
     <Content Include="XMLFile2.xml" />
     <Content Include="XMLFile3.xml" />
