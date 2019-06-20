@@ -157,7 +157,13 @@
   <data name="SubjectTable" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\subjecttable.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="課程規劃表匯入_0學分清單" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\templete\課程規劃表匯入_0學分清單.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="高中課程名稱_轉換匯出" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\templete\高中課程名稱_轉換匯出.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="高中課程規劃表匯入_錯誤清單" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\templete\高中課程規劃表匯入_錯誤清單.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

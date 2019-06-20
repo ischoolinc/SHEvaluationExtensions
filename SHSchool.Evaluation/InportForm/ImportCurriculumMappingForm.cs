@@ -11,6 +11,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -18,16 +19,21 @@ namespace SHSchool.Evaluation.InportForm
 {
     public partial class ImportCurriculumMappingForm : BaseForm
     {
-
         private BackgroundWorker _Worker = new BackgroundWorker();
         private QueryHelper _Qh = new QueryHelper();
+
+        private FileInfo _FileInfoForMD5;
+
+        private FileInfo _FileInfoForcClassGroup;
+
+        private Regex rgx = new Regex(@"^[A-Z]"); //班群對照表驗證用
+
 
         /// <summary>
         /// 目前課程規劃表_名稱
         /// </summary>
         private string CurrentCurriculumMappingName;
 
-        private FileInfo _FileInfo;
         /// <summary>
         /// 存放CSVFile 轉成物件 
         /// </summary>
@@ -47,7 +53,7 @@ namespace SHSchool.Evaluation.InportForm
         /// <summary>
         /// 班群 對照表
         /// </summary>
-        private Dictionary<string, MappingInfo> _DicClassGroup;
+        private Dictionary<string, string> _DicClassGroup;
 
         /// <summary>
         /// 課程類別 對照表
@@ -104,7 +110,7 @@ namespace SHSchool.Evaluation.InportForm
             _DicCourseType = new Dictionary<string, MappingInfo>();
             _DicGroupType = new Dictionary<string, MappingInfo>();
             _DicDept = new Dictionary<string, MappingInfo>();
-            _DicClassGroup = new Dictionary<string, MappingInfo>();
+            _DicClassGroup = new Dictionary<string, string>();
             _DicCourseClassified = new Dictionary<string, string>();
             _DicOpenWay = new Dictionary<string, string>();
             _DicSubjectAttribute = new Dictionary<string, string>();
@@ -116,34 +122,12 @@ namespace SHSchool.Evaluation.InportForm
             LoadCodeMapping();
             // 2. 載入 對照表 其他 欄位
             LoadCCodeMappingElse();
-            // 3.載若學期對照表 
+            // 3.載入學期對照表 
             GetGradeYearAndSenmester();
-
-
-            //Console.WriteLine("1.存放CSVFile : " + _DicCourseInfo.Count() + "筆");
-
-            //Console.WriteLine("2.課程類型 : " + _DicCourseType.Count() + "筆");
-
-            //Console.WriteLine("3.群別 : " + _DicGroupType.Count() + "筆");
-
-            //Console.WriteLine("4.科別 : " + _DicDept.Count() + "筆");
-
-            //Console.WriteLine("5.班群 : " + _DicClassGroup.Count() + "筆");
-
-            //Console.WriteLine("6.課程類別 : " + _DicCourseClassified.Count() + "筆");
-
-            //Console.WriteLine("7.開課方式 : " + _DicOpenWay.Count() + "筆");
-
-            //Console.WriteLine("8.科目屬性 : " + _DicSubjectAttribute.Count() + "筆");
-
-            //Console.WriteLine("9.領域名稱 : " + _DicFieldName.Count() + "筆");
-
-            //Console.WriteLine("10.領域名稱 : " + _DicFixedCodes.Count() + "筆");
-
 
         }
 
-        //選擇檔案 
+        //選擇檔案 (MD5)
         private void btnSelectFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -161,9 +145,9 @@ namespace SHSchool.Evaluation.InportForm
                 {
                     //檔案資訊 放入一個 FileInfo 物件
 
-                    _FileInfo = new FileInfo(ofd.FileNames[0]);
+                    _FileInfoForMD5 = new FileInfo(ofd.FileNames[0]);
 
-                    txtFileName.Text = _FileInfo.Name;
+                    txtFileName.Text = _FileInfoForMD5.Name;
                 }
             }
         }
@@ -175,6 +159,8 @@ namespace SHSchool.Evaluation.InportForm
             {
                 MotherForm.SetStatusBarMessage("課程規劃表匯入中....");
                 btnImprt.Enabled = false;
+                this._DicErrorCourse.Clear();
+                this._DicZeroCreditEachSems.Clear();
                 _Worker.RunWorkerAsync();
             }
         }
@@ -182,7 +168,8 @@ namespace SHSchool.Evaluation.InportForm
         private void DoWork(object sender, DoWorkEventArgs e)
         {
             //讀取 CSV 資料
-            LoadCSVFile(this._FileInfo);
+            LoadCSVFileForClassGroup(_FileInfoForcClassGroup);
+            LoadCSVFile(_FileInfoForMD5);
 
             // 讀取 CSV檔 並解析
             XmlDocument xmlDoc = new XmlDocument();
@@ -191,7 +178,7 @@ namespace SHSchool.Evaluation.InportForm
 
             int rows = 0;
             int count = 0; // 目前第幾筆 主要是要最後一筆時要儲存 AND 第一筆時要 寫入名稱做紀錄 
-            foreach (string keyCodeFromMOE/**/ in this._DicCourseInfo.Keys)
+            foreach (string keyCodeFromMOE/**/ in this._DicCourseInfo.Keys)//將資料轉換加入中文欄位 組成XML 
             {
                 count++;
                 rows++;
@@ -216,8 +203,8 @@ namespace SHSchool.Evaluation.InportForm
                 string FieldName = _DicCourseInfo[keyCodeFromMOE].FieldName;                    // 領域名稱
                 string SubjectFixedCode = _DicCourseInfo[keyCodeFromMOE].SubjectFixedCode;       //科目固定編碼 
 
-                //裝入 轉換後中文欄位
 
+                #region 轉換後中文欄位
                 if (_DicCourseType.ContainsKey(CourseType)) //課程類型
                     _DicCourseInfo[keyCodeFromMOE].CourseTypeDetail = _DicCourseType[CourseType].IsCodeUniqe ? _DicCourseType[CourseType].Name : _DicCourseType[CourseType].DicForDuplicate[CourseType];
                 else
@@ -242,7 +229,7 @@ namespace SHSchool.Evaluation.InportForm
                 }
 
                 if (_DicClassGroup.ContainsKey(ClassGroup)) //班群
-                    _DicCourseInfo[keyCodeFromMOE].ClassGroupDetail = _DicClassGroup[ClassGroup].IsCodeUniqe ? _DicClassGroup[ClassGroup].Name : _DicClassGroup[ClassGroup].DicForDuplicate[CourseType];
+                    _DicCourseInfo[keyCodeFromMOE].ClassGroupDetail =  _DicClassGroup[ClassGroup];
                 else
                 {
                     _DicCourseInfo[keyCodeFromMOE].ErrorMessage.Add($"班群代碼{ClassGroup}不存在對照表中");
@@ -290,16 +277,16 @@ namespace SHSchool.Evaluation.InportForm
                 else
                 {
                     _DicCourseInfo[keyCodeFromMOE].ErrorMessage.Add($"領域名稱{FieldName}不存在對照表中");
-                }
+                } 
+                #endregion
 
-        
+
                 //取得課程規劃表名稱
                 _DicCourseInfo[keyCodeFromMOE].GetCurriiculumMapName();
 
                 if (_DicCourseInfo[keyCodeFromMOE].ErrorMessage.Count > 0)
                 {
                     _DicErrorCourse.Add(keyCodeFromMOE, _DicCourseInfo[keyCodeFromMOE]);
-
 
                 }
                 #endregion
@@ -351,7 +338,7 @@ namespace SHSchool.Evaluation.InportForm
 
 
                 #region 填入XML
-                //如果 
+
                 int startLevel = this._DicLevel.ContainsKey(_DicCourseInfo[keyCodeFromMOE].SubjectName) ? this._DicLevel[_DicCourseInfo[keyCodeFromMOE].SubjectName] + 1 : 1;
 
                 //放個學期的學分數
@@ -372,16 +359,14 @@ namespace SHSchool.Evaluation.InportForm
                     subject.SetAttribute("FullName", "");
                     subject.SetAttribute("GradeYear", this._DicMappingSemester[semester].GredeYear.ToString());
 
-                    //加入
+                 
 
 
                     if (!this._DicLevel.ContainsKey(_DicCourseInfo[keyCodeFromMOE].SubjectName))
                     {
-
                         this._DicLevel.Add(_DicCourseInfo[keyCodeFromMOE].SubjectName, level);
                         subject.SetAttribute("Level", level.ToString());
                         level++;
-
                     }
                     else
                     {
@@ -392,7 +377,7 @@ namespace SHSchool.Evaluation.InportForm
 
                     subject.SetAttribute("NotIncludedInCalc", "False");
                     subject.SetAttribute("NotIncludedInCredit", "False");
-                    subject.SetAttribute("Required", _DicCourseInfo[keyCodeFromMOE].Required);    //可將  課程類別 寫入 如果不是
+                    subject.SetAttribute("Required", _DicCourseInfo[keyCodeFromMOE].Required);   
                     subject.SetAttribute("RequiredBy", _DicCourseInfo[keyCodeFromMOE].RequiredBy);
                     subject.SetAttribute("Semester", this._DicMappingSemester[semester].semester.ToString());
                     subject.SetAttribute("SubjectName", _DicCourseInfo[keyCodeFromMOE].SubjectName);
@@ -427,13 +412,14 @@ namespace SHSchool.Evaluation.InportForm
                 }
             }
 
+            //如果錯誤無錯誤訊息
             if (this._DicErrorCourse.Count > 0)
             {
-                DialogResult result = MsgBox.Show("上傳資料有誤，是否印出錯誤清單?", MessageBoxButtons.YesNo);
+                DialogResult result = MsgBox.Show("上傳資料有誤，是否開啟錯誤清單?", MessageBoxButtons.YesNo);
 
                 if (result == DialogResult.Yes)
                 {
-                    //產出錯誤清單excel
+                    GetErrorMessageFile();
                 }
                 else
                 {
@@ -444,10 +430,24 @@ namespace SHSchool.Evaluation.InportForm
 
         private void RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            //如果有每學期皆為0學分之課程 >印出
+            if (_DicZeroCreditEachSems.Count > 0)
+            {
+                DialogResult result = MsgBox.Show($"有{_DicZeroCreditEachSems.Count}筆 每學期皆為0學分之課程 未放入課程規表 ，是否印出?", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    GetZeroCreditCourseFile();
+                }
+                else
+                {
+                    return;
+                }
+            }
+
             FISCA.Presentation.MotherForm.SetStatusBarMessage("課程規劃表已匯入");
+
             this.Close();
         }
-
 
         /// <summary>
         /// 將匯入檔案讀進來  並解析
@@ -459,7 +459,6 @@ namespace SHSchool.Evaluation.InportForm
                 string row;
                 while ((row = sr.ReadLine()) != null)
                 {
-                    //string row = sr.ReadLine();
                     string[] itemInRow = row.Split(',');
 
                     CourseInfo courseInfo = new CourseInfo(itemInRow[0], itemInRow[1], itemInRow[2]); //初始化 先裝入 課程代碼 / 課程名稱 / 學分
@@ -467,6 +466,32 @@ namespace SHSchool.Evaluation.InportForm
                     _DicCourseInfo.Add(courseInfo.CourseCodeFromMOE, courseInfo);
                 }
             }
+        }
+        /// <summary>
+        /// load 班群資料
+        /// </summary>
+        /// <param name="_fileInfo"></param>
+        private void LoadCSVFileForClassGroup(FileInfo _fileInfo)
+        {
+            using (StreamReader sr = new StreamReader(_FileInfoForcClassGroup.OpenRead()))
+            {
+                string row;
+                while ((row = sr.ReadLine()) != null)
+                {
+                    string[] itemInRow = row.Split(',');
+
+                    if (this.rgx.IsMatch(itemInRow[4]))
+                    {
+                        if (!_DicClassGroup.ContainsKey(itemInRow[4]))
+                            _DicClassGroup.Add(itemInRow[4], itemInRow[5]);
+                    }
+                    else
+                    {
+                        MsgBox.Show("班群代碼為 A-Z");
+                    }
+                }
+            }
+
         }
 
 
@@ -562,8 +587,7 @@ namespace SHSchool.Evaluation.InportForm
             {
                 string code = ((XmlElement)courseType).GetAttribute("code");
                 string name = ((XmlElement)courseType).GetAttribute("name");
-                //  string courseTypeApplicable = ((XmlElement)courseType).GetAttribute("crstype");
-                this._DicClassGroup.Add(code, new MappingInfo(code, name));
+                this._DicClassGroup.Add(code, name);
             }
 
             #endregion
@@ -710,12 +734,23 @@ namespace SHSchool.Evaluation.InportForm
 
                 DataTable existdRows = _Qh.Select(checkQueryString);
 
+                //如果 同樣名稱已存在。
                 if (existdRows.Rows.Count != 0 && existdRows != null)
                 {
                     {
-                        string UpDateString = $"UPDATE graduation_plan SET  content ='{content}' WHERE  name = '{graduationPlanName}' RETURNING *";
+                        DialogResult result = MsgBox.Show($"{graduationPlanName}已經存在,是否更新", MessageBoxButtons.YesNo);
 
-                        _Qh.Select(UpDateString);
+                        if (result == DialogResult.No) //如果使用者 不要覆蓋
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            string UpDateString = $"UPDATE graduation_plan SET  content ='{content}' WHERE  name = '{graduationPlanName}' RETURNING *";
+
+                            _Qh.Select(UpDateString);
+
+                        }
                     }
                 }
                 else //如果資料庫沒有就 新增
@@ -739,13 +774,84 @@ namespace SHSchool.Evaluation.InportForm
         /// </summary>
         private void GetErrorMessageFile()
         {
-            Workbook wb =new Workbook();
-            Worksheet wsheet=wb.Worksheets[0];
+            Workbook template = new Workbook(new MemoryStream(Properties.Resources.高中課程規劃表匯入_錯誤清單));
+
+            Worksheet wsheet = template.Worksheets[0];
+            Style styleRed = new Style();
+            styleRed.ForegroundColor = Color.Red;
+            int i = 0;
             foreach (string errKey in _DicErrorCourse.Keys)
             {
-                
+                i++;
+                wsheet.Cells[i, 0].PutValue(_DicErrorCourse[errKey].CourseCodeFromMOE);
+                wsheet.Cells[i, 1].PutValue(_DicErrorCourse[errKey].SubjectName);
+                wsheet.Cells[i, 2].PutValue(_DicErrorCourse[errKey].Credit);
+                wsheet.Cells[i, 3].PutValue(String.Join(",", _DicErrorCourse[errKey].ErrorMessage));
+                wsheet.Cells[i, 3].SetStyle(styleRed);
+            }
+            template.Save(Application.StartupPath + "\\Reports\\課程規劃表匯入_錯誤清單.xlsx", SaveFormat.Xlsx);
+            System.Diagnostics.Process.Start(Application.StartupPath + "\\Reports\\課程規劃表匯入_錯誤清單.xlsx");
+        }
+
+        /// <summary>
+        /// 產生0學分課程清單
+        /// </summary>
+        private void GetZeroCreditCourseFile()
+        {
+            Workbook template = new Workbook(new MemoryStream(Properties.Resources.課程規劃表匯入_0學分清單));
+            Worksheet wsheet = template.Worksheets[0];
+
+            int i = 0;
+            foreach (string key in _DicZeroCreditEachSems.Keys)
+            {
+                i++;
+                int j = 0;
+                wsheet.Cells[i, j++].PutValue(_DicZeroCreditEachSems[key].CourseCodeFromMOE);
+                wsheet.Cells[i, j++].PutValue(_DicZeroCreditEachSems[key].SubjectName);
+                wsheet.Cells[i, j++].PutValue(_DicZeroCreditEachSems[key].Credit);
+                wsheet.Cells[i, j++].PutValue(_DicZeroCreditEachSems[key].EnterYear); //入學年度
+                wsheet.Cells[i, j++].PutValue(_DicZeroCreditEachSems[key].CourseTypeDetail);
+                wsheet.Cells[i, j++].PutValue(_DicZeroCreditEachSems[key].GroupCodeDetail);
+                wsheet.Cells[i, j++].PutValue(_DicZeroCreditEachSems[key].DeptCodeDetail);
+                wsheet.Cells[i, j++].PutValue(_DicZeroCreditEachSems[key].ClassGroupDetail);
+                wsheet.Cells[i, j++].PutValue(_DicZeroCreditEachSems[key].ClassClassifiedDetail);
+                wsheet.Cells[i, j++].PutValue(_DicZeroCreditEachSems[key].OpenWayDetail);
+                wsheet.Cells[i, j++].PutValue(_DicZeroCreditEachSems[key].SubjectAttributeDetail);
+                wsheet.Cells[i, j++].PutValue(_DicZeroCreditEachSems[key].FieldNameDetail);
             }
 
+            template.Save(Application.StartupPath + "\\Reports\\課程規劃表匯入_0學分清單.xlsx", SaveFormat.Xlsx);
+            System.Diagnostics.Process.Start(Application.StartupPath + "\\Reports\\課程規劃表匯入_0學分清單.xlsx");
+        }
+
+
+        /// <summary>
+        /// 選擇 MD5檔
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSelectedClassGroup_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.CheckFileExists = true;
+            ofd.CheckPathExists = true;
+            ofd.Filter = "CSV(逗號分隔)(*.csv)|*.csv";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                if (ofd.FileNames.Count() > 1)
+                {
+                    //   一次只能上傳一分檔案  跳出視窗 
+
+                }
+                else if (ofd.FileNames.Count() == 1)
+                {
+                    //檔案資訊 放入一個 FileInfo 物件
+
+                    _FileInfoForcClassGroup = new FileInfo(ofd.FileNames[0]);
+
+                    textFileCassGroup.Text = _FileInfoForcClassGroup.Name;
+                }
+            }
         }
     }
 }

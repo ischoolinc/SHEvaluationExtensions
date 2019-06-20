@@ -35,10 +35,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Aspose.Cells, Version=4.3.0.0, Culture=neutral, PublicKeyToken=9a40d5a4b59e5256, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Aspose.Cells">
       <HintPath>Library\Aspose.Cells.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="Campus.DocumentValidator, Version=1.0.0.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -131,7 +129,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CodeMapping\ClassGroup.xml" />
+    <Content Include="CodeMapping\ClassGroup.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="CodeMapping\CourseClassifieds.xml" />
     <Content Include="CodeMapping\CourseTypes.xml" />
     <Content Include="CodeMapping\Depts.xml" />
@@ -142,8 +142,8 @@
     <Content Include="CodeMapping\SubjectFixedCodes.xml" />
     <Content Include="CoreTable.xml" />
     <Content Include="Import.Image.png" />
-    <Content Include="Library\Aspose.Cells.dll" />
-    <Content Include="Library\Aspose.Cells.xml" />
+    <Content Include="Library\Aspose.Cells_201402.dll" />
+    <Content Include="Library\Aspose.Cells_201402.xml" />
     <Content Include="Library\Campus.DocumentValidator.dll" />
     <Content Include="Library\Campus.DocumentValidator.pdb" />
     <Content Include="Library\Campus.DocumentValidator.xml" />
@@ -189,10 +189,13 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Templete\課程規劃表匯入_0學分清單.xlsx" />
     <None Include="Templete\高中課程名稱_轉換匯出.xlsx" />
+    <None Include="Templete\高中課程規劃表匯入_錯誤清單.xlsx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

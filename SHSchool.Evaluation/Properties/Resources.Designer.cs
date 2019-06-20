@@ -322,9 +322,29 @@ namespace SHSchool.Evaluation.Properties {
         /// <summary>
         ///   查詢類型 System.Byte[] 的當地語系化資源。
         /// </summary>
+        internal static byte[] 課程規劃表匯入_0學分清單 {
+            get {
+                object obj = ResourceManager.GetObject("課程規劃表匯入_0學分清單", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類型 System.Byte[] 的當地語系化資源。
+        /// </summary>
         internal static byte[] 高中課程名稱_轉換匯出 {
             get {
                 object obj = ResourceManager.GetObject("高中課程名稱_轉換匯出", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類型 System.Byte[] 的當地語系化資源。
+        /// </summary>
+        internal static byte[] 高中課程規劃表匯入_錯誤清單 {
+            get {
+                object obj = ResourceManager.GetObject("高中課程規劃表匯入_錯誤清單", resourceCulture);
                 return ((byte[])(obj));
             }
         }

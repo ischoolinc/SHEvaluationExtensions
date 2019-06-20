@@ -1,14 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <!--班群對照表-->
 <ClassGroups>
-<ClassGroup code= "A" name="外語文史哲班群"/>
-<ClassGroup code= "B" name="法政班群"/>
-<ClassGroup code= "C" name="教育傳播班群"/>
-<ClassGroup code= "D" name="商管財經班群"/>
-<ClassGroup code= "E" name="工程資訊班群"/>
-<ClassGroup code= "F" name="基礎科學班群"/>
-<ClassGroup code= "G" name="建築設計班群"/>
-<ClassGroup code= "H" name="醫牙藥班群"/>
-<ClassGroup code= "I" name="生命科學、衛生班群"/>
-<ClassGroup code= "J" name="生物資源班群"/>
+<ClassGroup code= "0" name="不分班群"/>
+<ClassGroup code= "1" name="建教合作班群"/>
 </ClassGroups>
