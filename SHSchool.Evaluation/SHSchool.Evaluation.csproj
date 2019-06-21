@@ -97,6 +97,9 @@
       <HintPath>Library\SHSchool.Data.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="SmartSchool.Evaluation.HS">
+      <HintPath>Library\SmartSchool.Evaluation.HS.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />

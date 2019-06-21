@@ -146,7 +146,7 @@ namespace SHSchool.Evaluation.InportForm
                 }
             }
         }
-
+        //按下匯入
         private void btnImprt_Click(object sender, EventArgs e)
         {
             // 1. UI 鎖住 
@@ -217,10 +217,10 @@ namespace SHSchool.Evaluation.InportForm
             }
             //產生XML格式並更新
             MotherForm.SetStatusBarMessage("課程規劃表匯入中....");
-            CreateXmlAndInsert();
             LuckUI();
+            CreateXmlAndInsert();
             PrintZeroCredit();
-
+            SmartSchool.Evaluation.GraduationPlan.GraduationPlan.Instance.Reflash();//同步 課程規劃表
         }
 
 
@@ -463,7 +463,7 @@ namespace SHSchool.Evaluation.InportForm
                     XmlElement grouping = xmlDoc.CreateElement("Grouping");
 
                     grouping.SetAttribute("RowIndex", (rows).ToString());
-                    Console.WriteLine((rows).ToString());
+                 
                     grouping.SetAttribute("startLevel", startLevel.ToString());
 
                     subject.AppendChild(grouping);
@@ -475,7 +475,7 @@ namespace SHSchool.Evaluation.InportForm
                 if (count == this._DicCourseInfo.Count)
                 {
                     InsertGraduationPlan(CurrentCurriculumMappingName, xmlDoc.OuterXml);
-                    Console.WriteLine("最後一本");
+                   
                 }
             }
 
@@ -498,9 +498,7 @@ namespace SHSchool.Evaluation.InportForm
         private void PrintZeroCredit()
         {
             FISCA.Presentation.MotherForm.SetStatusBarMessage("課程規劃表已匯入");
-            btnSelectFile.Enabled = true;
-            btnSelectedClassGroup.Enabled = true;
-            this.pbLoding.Visible = true;
+    
             if (_ListinSertSuccess.Count > 0)
             {
                 string successInsert = String.Join("\n", this._ListinSertSuccess);
@@ -586,7 +584,7 @@ namespace SHSchool.Evaluation.InportForm
 
 
         /// <summary>
-        /// 載入代碼對照表 (與課程規劃表名稱有關之欄位) 來源:群國高級中等學校_課程計畫平台 (http://course.tchcvs.tw/QueryCode.asp?T=SCH)
+        /// 載入代碼對照表 (與課程規劃表名稱有關之欄位) 來源:全國高級中等學校_課程計畫平台 (http://course.tchcvs.tw/QueryCode.asp?T=SCH)
         /// </summary>
         private void LoadCodeMapping()
         {
@@ -616,11 +614,11 @@ namespace SHSchool.Evaluation.InportForm
             nodeList = xmlDoc.SelectNodes("GroupTypes/GroupType");
 
 
-            Console.WriteLine("印出課程群別對照表 數量");
+            //Console.WriteLine("印出課程群別對照表 數量");
             foreach (XmlNode courseType in nodeList)
             {
 
-                Console.WriteLine("有重複" + courseType);
+                //Console.WriteLine("有重複" + courseType);
                 string code = ((XmlElement)courseType).GetAttribute("code");
                 string name = ((XmlElement)courseType).GetAttribute("name");
                 string courseTypeApplicable = ((XmlElement)courseType).GetAttribute("crstype");
@@ -826,7 +824,7 @@ namespace SHSchool.Evaluation.InportForm
                 if (existdRows.Rows.Count != 0 && existdRows != null)
                 {
                     {
-                        DialogResult result = MsgBox.Show($"{graduationPlanName}已經存在,是否更新", MessageBoxButtons.YesNo);
+                        DialogResult result = MsgBox.Show($"{graduationPlanName}已經存在,是否更新?", MessageBoxButtons.YesNo);
 
                         if (result == DialogResult.No) //如果使用者 不要覆蓋
                         {
@@ -912,7 +910,8 @@ namespace SHSchool.Evaluation.InportForm
         /// </summary>
         private void GetZeroCreditCourseFile()
         {
-            Workbook template = new Workbook(new MemoryStream(Properties.Resources.課程規劃表匯入_0學分清單));
+            LuckUI();
+             Workbook template = new Workbook(new MemoryStream(Properties.Resources.課程規劃表匯入_0學分清單));
             Worksheet wsheet = template.Worksheets[0];
 
             int i = 0;

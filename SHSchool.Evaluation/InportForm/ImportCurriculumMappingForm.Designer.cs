@@ -76,7 +76,7 @@
             this.btnImprt.Size = new System.Drawing.Size(75, 23);
             this.btnImprt.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnImprt.TabIndex = 2;
-            this.btnImprt.Text = "開始上傳";
+            this.btnImprt.Text = "匯入";
             this.btnImprt.Click += new System.EventHandler(this.btnImprt_Click);
             // 
             // textFileCassGroup
@@ -117,7 +117,7 @@
             this.lab1.Name = "lab1";
             this.lab1.Size = new System.Drawing.Size(189, 23);
             this.lab1.TabIndex = 6;
-            this.lab1.Text = "步驟一：上傳【班群代碼檔】";
+            this.lab1.Text = "步驟一：選擇【班群代碼檔】";
             // 
             // labelX2
             // 
@@ -131,7 +131,7 @@
             this.labelX2.Name = "labelX2";
             this.labelX2.Size = new System.Drawing.Size(208, 23);
             this.labelX2.TabIndex = 7;
-            this.labelX2.Text = "步驟二：上傳【課程代碼資料檔】";
+            this.labelX2.Text = "步驟二：選擇【課程代碼資料檔】";
             // 
             // pbLoding
             // 
