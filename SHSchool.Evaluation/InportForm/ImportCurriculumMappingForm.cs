@@ -22,7 +22,7 @@ namespace SHSchool.Evaluation.InportForm
         private QueryHelper _Qh = new QueryHelper();
         private FileInfo _FileInfoForMD5;
         private FileInfo _FileInfoForcClassGroup;
-        private Regex rgx = new Regex(@"^[A-Z]"); //班群對照表驗證用
+        private Regex rgx = new Regex(@"^[A-Z]{1,1}"); //班群對照表驗證用
 
 
         /// <summary>
@@ -86,6 +86,11 @@ namespace SHSchool.Evaluation.InportForm
         /// 有錯誤課程
         /// </summary>
         Dictionary<string, CourseInfo> _DicErrorCourse = new Dictionary<string, CourseInfo>();
+
+        /// <summary>
+        /// 長度有誤
+        /// </summary>
+        Dictionary<string, CourseInfo> _DictionaryLengthErr = new Dictionary<string, CourseInfo>();
 
         private List<string> _ListinSertSuccess = new List<string>();
 
@@ -192,7 +197,7 @@ namespace SHSchool.Evaluation.InportForm
             _DicZeroCreditEachSems.Clear();
             _ListinSertSuccess.Clear();
 
-            // (驗證)班群對照表  
+            // 載入 【班群對照表】  
             Boolean loadCalssGroupOK = LoadCSVFileForClassGroup(_FileInfoForcClassGroup);
             if (!loadCalssGroupOK)
             {
@@ -200,9 +205,24 @@ namespace SHSchool.Evaluation.InportForm
                 UnlockUI();
                 return;
             }
-
+            //載入【課程代碼資料檔】
+            LoadCSVFile(_FileInfoForMD5);
+            if (this._DictionaryLengthErr.Count > 0)
+            {
+                string alertString = "部分【課程代碼(23)】或【授課學期學分(6)】長度有誤。";
+                DialogResult result =MsgBox.Show(alertString , MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    GetErrorMessageFile();
+                }
+                this.ClearDic();
+                UnlockUI();
+                return;
+            }
+            else { 
             // (驗證) 課程資料檔
             ValidateCourseFileContent();
+
             if (_DicErrorCourse.Count > 0)
             {
                 UnlockUI();
@@ -221,6 +241,8 @@ namespace SHSchool.Evaluation.InportForm
             CreateXmlAndInsert();
             PrintZeroCredit();
             SmartSchool.Evaluation.GraduationPlan.GraduationPlan.Instance.Reflash();//同步 課程規劃表
+
+            }
         }
 
 
@@ -231,7 +253,9 @@ namespace SHSchool.Evaluation.InportForm
         private void ValidateCourseFileContent()
         {
             //讀取 CSV 資料  
-            LoadCSVFile(_FileInfoForMD5);
+          
+            //如果載入有誤
+         
             //將資料轉成對應中文
             foreach (string keyCodeFromMOE in this._DicCourseInfo.Keys)
             {
@@ -259,14 +283,21 @@ namespace SHSchool.Evaluation.InportForm
                     _DicCourseInfo[keyCodeFromMOE].CourseTypeDetail = _DicCourseType[CourseType].IsCodeUniqe ? _DicCourseType[CourseType].Name : _DicCourseType[CourseType].DicForDuplicate[CourseType];
                 else
                 {
-                    _DicCourseInfo[keyCodeFromMOE].ErrorMessage.Add($"課程類型{CourseType}不存在對照表中");
+                    _DicCourseInfo[keyCodeFromMOE].ErrorMessage.Add($"課程類型 {CourseType} 不存在對照表中");
                 }
 
                 if (_DicGroupType.ContainsKey(GroupCode)) //群別代碼
-                    _DicCourseInfo[keyCodeFromMOE].GroupCodeDetail = _DicGroupType[GroupCode].IsCodeUniqe ? _DicGroupType[GroupCode].Name : _DicGroupType[GroupCode].DicForDuplicate[CourseType];
+                    if (_DicGroupType[GroupCode].DicForDuplicate.ContainsKey(CourseType))
+                    {
+                        _DicCourseInfo[keyCodeFromMOE].GroupCodeDetail = _DicGroupType[GroupCode].IsCodeUniqe ? _DicGroupType[GroupCode].Name : _DicGroupType[GroupCode].DicForDuplicate[CourseType];
+                    }
+                    else {
+
+                        _DicCourseInfo[keyCodeFromMOE].ErrorMessage.Add($"群別代碼 {GroupCode} 與課程類型 對應有誤");
+                    }
                 else
                 {
-                    _DicCourseInfo[keyCodeFromMOE].ErrorMessage.Add($"群別代碼{GroupCode}不存在對照表中");
+                    _DicCourseInfo[keyCodeFromMOE].ErrorMessage.Add($"群別代碼 {GroupCode} 不存在對照表中");
 
                 }
 
@@ -274,7 +305,7 @@ namespace SHSchool.Evaluation.InportForm
                     _DicCourseInfo[keyCodeFromMOE].DeptCodeDetail = _DicDept[Dept].IsCodeUniqe ? _DicDept[Dept].Name : _DicDept[Dept].DicForDuplicate[CourseType];
                 else
                 {
-                    _DicCourseInfo[keyCodeFromMOE].ErrorMessage.Add($"科別代碼{Dept}不存在對照表中");
+                    _DicCourseInfo[keyCodeFromMOE].ErrorMessage.Add($"科別代碼 {Dept} 不存在對照表中");
 
                 }
 
@@ -282,7 +313,7 @@ namespace SHSchool.Evaluation.InportForm
                     _DicCourseInfo[keyCodeFromMOE].ClassGroupDetail = _DicClassGroup[ClassGroup];
                 else
                 {
-                    _DicCourseInfo[keyCodeFromMOE].ErrorMessage.Add($"班群代碼{ClassGroup}不存在對照表中");
+                    _DicCourseInfo[keyCodeFromMOE].ErrorMessage.Add($"班群代碼 {ClassGroup} 不存在對照表中");
                 }
 
 
@@ -294,7 +325,7 @@ namespace SHSchool.Evaluation.InportForm
                 }
                 else
                 {
-                    _DicCourseInfo[keyCodeFromMOE].ErrorMessage.Add($"課程類別{ClassClassified}不存在對照表中");
+                    _DicCourseInfo[keyCodeFromMOE].ErrorMessage.Add($"課程類別 {ClassClassified} 不存在對照表中");
 
                 }
 
@@ -302,7 +333,7 @@ namespace SHSchool.Evaluation.InportForm
                     _DicCourseInfo[keyCodeFromMOE].OpenWayDetail = _DicOpenWay[OpenWay];
                 else
                 {
-                    _DicCourseInfo[keyCodeFromMOE].ErrorMessage.Add($"開課方式{OpenWay}不存在對照表中");
+                    _DicCourseInfo[keyCodeFromMOE].ErrorMessage.Add($"開課方式 {OpenWay} 不存在對照表中");
                 }
 
                 if (_DicSubjectAttribute.ContainsKey(SubjectAttribute)) //科目屬性
@@ -312,7 +343,7 @@ namespace SHSchool.Evaluation.InportForm
                 }
                 else
                 {
-                    _DicCourseInfo[keyCodeFromMOE].ErrorMessage.Add($"開課方式{SubjectAttribute}不存在對照表中");
+                    _DicCourseInfo[keyCodeFromMOE].ErrorMessage.Add($"開課方式 {SubjectAttribute} 不存在對照表中");
                 }
 
                 if (_DicFieldName.ContainsKey(FieldName))//領域名稱
@@ -324,7 +355,7 @@ namespace SHSchool.Evaluation.InportForm
                 }
                 else
                 {
-                    _DicCourseInfo[keyCodeFromMOE].ErrorMessage.Add($"領域名稱{FieldName}不存在對照表中");
+                    _DicCourseInfo[keyCodeFromMOE].ErrorMessage.Add($"領域名稱 {FieldName} 不存在對照表中");
                 }
                 #endregion
 
@@ -480,6 +511,8 @@ namespace SHSchool.Evaluation.InportForm
             }
 
             //如果錯誤無錯誤訊息
+       
+
             if (this._DicErrorCourse.Count > 0)
             {
                 DialogResult result = MsgBox.Show("上傳資料有誤，是否開啟錯誤清單?", MessageBoxButtons.YesNo);
@@ -535,9 +568,20 @@ namespace SHSchool.Evaluation.InportForm
                     {
                         string[] itemInRow = row.Split(',');
 
+                        //驗證長度 (課程代碼& 學期學分)
+                        String  lenErr =VaildateEachColumn(itemInRow);
+
                         CourseInfo courseInfo = new CourseInfo(itemInRow[0], itemInRow[1], itemInRow[2]); //初始化 先裝入 課程代碼 / 課程名稱 / 學分
 
-                        _DicCourseInfo.Add(courseInfo.CourseCodeFromMOE, courseInfo);
+                        if (lenErr == "")
+                        {
+                            _DicCourseInfo.Add(courseInfo.CourseCodeFromMOE, courseInfo);
+                        }
+                        else
+                        {
+                            courseInfo.ErrorMessage .Add( lenErr);
+                            _DictionaryLengthErr.Add($"{itemInRow[0]}", courseInfo);
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -870,13 +914,16 @@ namespace SHSchool.Evaluation.InportForm
             Style styleRed = new Style();
             styleRed.ForegroundColor = Color.Red;
             int i = 0;
-            foreach (string errKey in _DicErrorCourse.Keys)
+
+            Dictionary<string, CourseInfo> exportTarget = this._DictionaryLengthErr.Count > 0 ? _DictionaryLengthErr : _DicErrorCourse;
+
+            foreach (string errKey in exportTarget.Keys)
             {
                 i++;
-                wsheet.Cells[i, 0].PutValue(_DicErrorCourse[errKey].CourseCodeFromMOE);
-                wsheet.Cells[i, 1].PutValue(_DicErrorCourse[errKey].SubjectName);
-                wsheet.Cells[i, 2].PutValue(_DicErrorCourse[errKey].Credit);
-                wsheet.Cells[i, 3].PutValue(String.Join(",", _DicErrorCourse[errKey].ErrorMessage));
+                wsheet.Cells[i, 0].PutValue(exportTarget[errKey].CourseCodeFromMOE);
+                wsheet.Cells[i, 1].PutValue(exportTarget[errKey].SubjectName);
+                wsheet.Cells[i, 2].PutValue(exportTarget[errKey].Credit);
+                wsheet.Cells[i, 3].PutValue(String.Join(",", exportTarget[errKey].ErrorMessage));
                 wsheet.Cells[i, 3].SetStyle(styleRed);
             }
             try
@@ -1007,6 +1054,38 @@ namespace SHSchool.Evaluation.InportForm
             btnSelectFile.Enabled = true;
             btnSelectedClassGroup.Enabled = true;
             pbLoding.Visible = false;
+        }
+
+        /// <summary>
+        /// 驗證個欄位長度
+        /// </summary>
+        /// <param name="colstring"></param>
+        /// <param name="colNum"></param>
+        /// <returns></returns>
+        private  string   VaildateEachColumn( string[] itemInRow)
+        {
+            string lenStr = "";
+
+            if (itemInRow[0].Length != 23)
+            {
+                lenStr= lenStr +"【課程代碼】長度有誤";
+            }
+             if (itemInRow[2].Length != 6)
+            {
+                lenStr = lenStr + "【授課學期學分】長度有誤";
+            }
+            return lenStr;
+        }
+
+        /// <summary>
+        /// 清除字典
+        /// </summary>
+        private void ClearDic()
+        {
+            this._DicCourseInfo.Clear();
+            this._DictionaryLengthErr.Clear();
+            this._DicClassGroup.Clear();
+            this._DicErrorCourse.Clear();
         }
     }
 }

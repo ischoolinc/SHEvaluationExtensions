@@ -40,7 +40,7 @@ namespace SHSchool.Evaluation.Model
         /// <summary>
         /// 課程類型 ex H/普通型 V/技術型 (1)
         /// </summary>
-        public string CourseType { get; set; }   
+        public string CourseType { get; set; }
         /// <summary>
         /// 群別代碼 (2)
         /// </summary>
@@ -83,7 +83,7 @@ namespace SHSchool.Evaluation.Model
         /// <summary>
         /// 存放個學期學分 
         /// </summary>
-        public Dictionary<int ,string> DicCreditEachSemester { get; set; }   //
+        public Dictionary<int, string> DicCreditEachSemester { get; set; }   
 
 
         //-------對應之中文之 ---------------------------------------------------------------------
@@ -95,11 +95,11 @@ namespace SHSchool.Evaluation.Model
         /// <summary>
         /// 群別代碼 (2)
         /// </summary>
-        public string GroupCodeDetail { get; set; }  
+        public string GroupCodeDetail { get; set; }
         /// <summary>
         /// 科別代碼  (3)
         /// </summary>
-        public string DeptCodeDetail { get; set; }     
+        public string DeptCodeDetail { get; set; }
 
         /// <summary>
         /// 班群 每校自定義 有範例檔  (1)
@@ -107,32 +107,32 @@ namespace SHSchool.Evaluation.Model
         public string ClassGroupDetail { get; set; }
 
 
-      
+
         /// <summary>
         /// 課程類別 
         /// </summary>
-        public string ClassClassifiedDetail { get; set; }   
+        public string ClassClassifiedDetail { get; set; }
         /// <summary>
         ///  開課方式
         /// </summary>
-        public string OpenWayDetail { get; set; }   
+        public string OpenWayDetail { get; set; }
         /// <summary>
         /// 科目屬性
         /// </summary>
-        public string SubjectAttributeDetail { get; set; }   
+        public string SubjectAttributeDetail { get; set; }
         /// <summary>
         /// 領域名稱
         /// </summary>
-        public string FieldNameDetail { get; set; }   
+        public string FieldNameDetail { get; set; }
         /// <summary>
         /// 科目名稱代碼
         /// </summary>
-        public string SubjectFixedCodeDetail { get; set; }    
+        public string SubjectFixedCodeDetail { get; set; }
 
         /// <summary>
         /// level  
         /// </summary>
-        public int  StartLevel { get; set; }
+        public int StartLevel { get; set; }
 
 
         /// <summary>
@@ -143,12 +143,12 @@ namespace SHSchool.Evaluation.Model
         /// <summary>
         /// 對應至原本欄位 RequiredBy  由 課程類別 轉換而來
         /// </summary>
-        public string  RequiredBy  { get; set; }
+        public string RequiredBy { get; set; }
 
         /// <summary> 
         ///  對應至原本欄位  Entry 
         /// </summary>
-        public string  Entry { get; set; }
+        public string Entry { get; set; }
 
         /// <summary>
         /// 是否每學期接0學分
@@ -172,92 +172,96 @@ namespace SHSchool.Evaluation.Model
         /// <param name="courseCodeFromMOE"></param>
         /// <param name="subjectName"></param>
         /// <param name="credit"></param>
-        public CourseInfo(string courseCodeFromMOE ,string subjectName ,string credit )
+        public CourseInfo(string courseCodeFromMOE, string subjectName, string credit)
         {
             this.CourseCodeFromMOE = courseCodeFromMOE;
             this.SubjectName = subjectName;
             this.Credit = credit;
             this.StartLevel = 1;
             this.ErrorMessage = new List<string>();
-           
+
             SliceToEachColumn();
         }
         /// <summary>
         /// 解析對應代碼
         /// </summary>
-        private void SliceToEachColumn()
+        private void   SliceToEachColumn()
         {
-            this.EnterYear = CourseCodeFromMOE.Substring(0, 3);
-            this.SchoolCode = CourseCodeFromMOE.Substring(3, 6);
-            this.CourseType = CourseCodeFromMOE.Substring(9, 1);
-            this.GroupCode = CourseCodeFromMOE.Substring(10, 2);
-            this.DeptCode = CourseCodeFromMOE.Substring(12, 3);
-            this.ClassGroup = CourseCodeFromMOE.Substring(15, 1);
-            this.ClassClassified = CourseCodeFromMOE.Substring(16, 1);
-            this.OpenWay = CourseCodeFromMOE.Substring(17, 1);
-            this.SubjectAttribute = CourseCodeFromMOE.Substring(18, 1);
-            this.FieldName = CourseCodeFromMOE.Substring(19, 2);
-            this.SubjectFixedCode = CourseCodeFromMOE.Substring(21, 2);
-            GetListCreditEachSemester();   //將學分代碼轉換 至各學期對應之dic
-
-        }
-
-        /// <summary>
-        /// 將學分之代碼拆解至各學期
-        /// </summary>
-        private void GetListCreditEachSemester()
-        {
-            this.DicCreditEachSemester = new Dictionary<int, string>(); 
-
-            Dictionary<char, string> creditConvert = new Dictionary<char, string>(); //針對對開課程 A-D(代碼)/1-4(學分) 放對照數
-            creditConvert.Add('A', "1");
-            creditConvert.Add('B', "2");
-            creditConvert.Add('C', "3");
-            creditConvert.Add('D', "4");
-
-           char[] CreditEach  = this.Credit.ToCharArray();
-
-            //放進各學期學分數的Dic裡
-            int semester = 1;
-            int creditZeroCount = 0;
-            foreach (char creaditEach in CreditEach)
+            if (CourseCodeFromMOE.Length == 23 && Credit.Length ==6)
             {
-                if (creaditEach == '0') 
-                {
-                    semester++;
-                    creditZeroCount++; //計算0學分之數目 若六學期皆為0可印出
-                    if (creditZeroCount==6)
-                    {
-                        this.IsZeroCreditEachSem = true;
-                    }
-                    continue;
+                this.EnterYear = CourseCodeFromMOE.Substring(0, 3);
+                this.SchoolCode = CourseCodeFromMOE.Substring(3, 6);
+                this.CourseType = CourseCodeFromMOE.Substring(9, 1);
+                this.GroupCode = CourseCodeFromMOE.Substring(10, 2);
+                this.DeptCode = CourseCodeFromMOE.Substring(12, 3);
+                this.ClassGroup = CourseCodeFromMOE.Substring(15, 1);
+                this.ClassClassified = CourseCodeFromMOE.Substring(16, 1);
+                this.OpenWay = CourseCodeFromMOE.Substring(17, 1);
+                this.SubjectAttribute = CourseCodeFromMOE.Substring(18, 1);
+                this.FieldName = CourseCodeFromMOE.Substring(19, 2);
+                this.SubjectFixedCode = CourseCodeFromMOE.Substring(21, 2);
+                GetListCreditEachSemester();   //將學分代碼轉換 至各學期對應之dic
+            }
+            else {
+                return;
+            }
+        }
+            /// <summary>
+            /// 將學分之代碼拆解至各學期
+            /// </summary>
+            private void GetListCreditEachSemester()
+            {
+                this.DicCreditEachSemester = new Dictionary<int, string>();
 
-                }else//不等於 0
+                Dictionary<char, string> creditConvert = new Dictionary<char, string>(); //針對對開課程 A-D(代碼)/1-4(學分) 放對照數
+                creditConvert.Add('A', "1");
+                creditConvert.Add('B', "2");
+                creditConvert.Add('C', "3");
+                creditConvert.Add('D', "4");
+
+                char[] CreditEach = this.Credit.ToCharArray();
+
+                //放進各學期學分數的Dic裡
+                int semester = 1;
+                int creditZeroCount = 0;
+                foreach (char creaditEach in CreditEach)
                 {
-                    //為ABCD
-                    if (creaditEach == 'A' || creaditEach == 'B' || creaditEach == 'C' || creaditEach == 'D')
+                    if (creaditEach == '0')
                     {
-                        this.DicCreditEachSemester.Add(semester, creditConvert[creaditEach]);
                         semester++;
+                        creditZeroCount++; //計算0學分之數目 若六學期皆為0可印出
+                        if (creditZeroCount == 6)
+                        {
+                            this.IsZeroCreditEachSem = true;
+                        }
+                        continue;
+
                     }
-                    else
+                    else//不等於 0
                     {
-                        this.DicCreditEachSemester.Add(semester, creaditEach.ToString());
-                        semester++;
+                        //為ABCD
+                        if (creaditEach == 'A' || creaditEach == 'B' || creaditEach == 'C' || creaditEach == 'D')
+                        {
+                            this.DicCreditEachSemester.Add(semester, creditConvert[creaditEach]);
+                            semester++;
+                        }
+                        else
+                        {
+                            this.DicCreditEachSemester.Add(semester, creaditEach.ToString());
+                            semester++;
+                        }
                     }
                 }
-             }
-        }
+            }
 
-        /// <summary>
-        /// 取得課程規劃表名稱
-        /// </summary>
-        /// <returns></returns>
-        public string GetCurriiculumMapName()
-        {
-
-           CurrucyCurriculumMapName = $"{ this.EnterYear }{this.DeptCodeDetail}{this.ClassGroupDetail}";
-            return CurrucyCurriculumMapName;
+            /// <summary>
+            /// 取得課程規劃表名稱
+            /// </summary>
+            /// <returns></returns>
+            public string GetCurriiculumMapName()
+            {
+                CurrucyCurriculumMapName = $"{ this.EnterYear }{this.DeptCodeDetail}{this.ClassGroupDetail}";
+                return CurrucyCurriculumMapName;
+            }
         }
     }
-}
