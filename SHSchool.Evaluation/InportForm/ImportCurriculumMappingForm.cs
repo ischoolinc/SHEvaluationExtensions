@@ -636,7 +636,7 @@ namespace SHSchool.Evaluation.InportForm
 
                         string courseName = itemInRow[1].Trim();
 
-                        CourseInfo courseInfo = new CourseInfo(itemInRow[0], itemInRow[1], itemInRow[2]); //初始化 先裝入 課程代碼 / 課程名稱 / 學分
+                        CourseInfo courseInfo = new CourseInfo(itemInRow[0], courseName, itemInRow[2]); //初始化 先裝入 課程代碼 / 課程名稱 / 學分
 
                         if (lenErr == "")
                         {
