@@ -441,138 +441,93 @@ namespace SHSchool.Evaluation.InportForm
         /// </summary>
         private void CreateXmlAndInsert()
         {
-
-            // 讀取 CSV檔 並解析
-            XmlDocument xmlDoc = new XmlDocument();
-
-            XmlElement graduationPlan = xmlDoc.CreateElement("GraduationPlan");
-
-            int rows = 0;
-            int count = 0; // 目前第幾筆 主要是要最後一筆時要儲存 AND 第一筆時要 寫入名稱做紀錄 
-            foreach (string keyCodeFromMOE in this._DicCourseInfo.Keys)//將資料轉換加入中文欄位 組成XML 
+            //整理成各科課程規畫表
+            Dictionary<string, List<CourseInfo>> dicGraduationPlan = new Dictionary<string, List<CourseInfo>>();
+            foreach (string keyCodeFromMOE in this._DicCourseInfo.Keys)
             {
-                count++;
-                rows++;
-
-                string EnterYear = _DicCourseInfo[keyCodeFromMOE].EnterYear;                    // 入學學年度 
-
-                //取得課程規劃表名稱
-                _DicCourseInfo[keyCodeFromMOE].GetCurriiculumMapName();
-
-                if (_DicCourseInfo[keyCodeFromMOE].ErrorMessage.Count > 0)
+                var target = this._DicCourseInfo[keyCodeFromMOE];
+                var name = target.GetCurriiculumMapName();
+                if (!dicGraduationPlan.ContainsKey(name))
                 {
-                    _DicErrorCourse.Add(keyCodeFromMOE, _DicCourseInfo[keyCodeFromMOE]);
-
+                    dicGraduationPlan.Add(name, new List<CourseInfo>());
                 }
-
-                if (_DicCourseInfo[keyCodeFromMOE].IsZeroCreditEachSem == true)
+                dicGraduationPlan[name].Add(target);
+            }
+            //產生各科課程規畫表資料
+            XmlDocument xmlDoc = new XmlDocument();
+            foreach (string gplanName in dicGraduationPlan.Keys)
+            {
+                XmlElement eleGraduationPlan = xmlDoc.CreateElement("GraduationPlan");
+                //xmlDoc.AppendChild(eleGraduationPlan);
+                Dictionary<string, int> dicSubjectLevel = new Dictionary<string, int>();
+                int rows = 1;
+                foreach (var item in dicGraduationPlan[gplanName])
                 {
-                    this._DicZeroCreditEachSems.Add(_DicCourseInfo[keyCodeFromMOE].CourseCodeFromMOE, _DicCourseInfo[keyCodeFromMOE]);
-                }
+                    eleGraduationPlan.SetAttribute("SchoolYear", item.EnterYear);
+                    #region 填入XML
 
-                //如果是第一筆
-                if (count == 1)
-                {
-                    this.CurrentCurriculumMappingName = $"{_DicCourseInfo[keyCodeFromMOE].EnterYear}{_DicCourseInfo[keyCodeFromMOE].DeptCodeDetail}{_DicCourseInfo[keyCodeFromMOE].ClassGroupDetail}";//裝目前課程規劃表名稱
+                    int startLevel = dicSubjectLevel.ContainsKey(item.SubjectName) ? dicSubjectLevel[item.SubjectName] + 1 : 1;
 
-                    graduationPlan = xmlDoc.CreateElement("GraduationPlan");
+                    //放個學期的學分數
+                    Dictionary<int, string> dicCreditEachSemester = item.DicCreditEachSemester;
 
-                    graduationPlan.SetAttribute("SchoolYear", EnterYear);
-
-                    xmlDoc.AppendChild(graduationPlan);
-                }
-
-                if (this.CurrentCurriculumMappingName != $"{_DicCourseInfo[keyCodeFromMOE].EnterYear}{_DicCourseInfo[keyCodeFromMOE].DeptCodeDetail}{_DicCourseInfo[keyCodeFromMOE].ClassGroupDetail}")
-                {
-
-                    InsertGraduationPlan(CurrentCurriculumMappingName, xmlDoc.OuterXml);
-
-                    rows = 1;
-
-                    this.CurrentCurriculumMappingName = $"{_DicCourseInfo[keyCodeFromMOE].EnterYear}{_DicCourseInfo[keyCodeFromMOE].DeptCodeDetail}{_DicCourseInfo[keyCodeFromMOE].ClassGroupDetail}";//裝目前課程規劃表名稱
-
-
-                    this._DicLevel.Clear(); //清除級別字典 要開始裝新的
-
-                    xmlDoc = new XmlDocument();
-
-                    graduationPlan = xmlDoc.CreateElement("GraduationPlan");
-
-                    graduationPlan.SetAttribute("SchoolYear", EnterYear);
-
-                    xmlDoc.AppendChild(graduationPlan);
-
-                }
-
-                #region 填入XML
-
-                int startLevel = this._DicLevel.ContainsKey(_DicCourseInfo[keyCodeFromMOE].SubjectName) ? this._DicLevel[_DicCourseInfo[keyCodeFromMOE].SubjectName] + 1 : 1;
-
-                //放個學期的學分數
-                Dictionary<int, string> DicCreditEachSemester = this._DicCourseInfo[keyCodeFromMOE].DicCreditEachSemester;
-
-                int level = startLevel;
-                foreach (int semester in DicCreditEachSemester.Keys)
-                {
-                    XmlElement subject = xmlDoc.CreateElement("Subject");
-
-                    #region 生成XML
-
-                    subject.SetAttribute("Category", "");
-                    subject.SetAttribute("Credit", DicCreditEachSemester[semester]);
-                    subject.SetAttribute("Domain", (_DicCourseInfo[keyCodeFromMOE].FieldNameDetail));
-                    subject.SetAttribute("Entry", _DicCourseInfo[keyCodeFromMOE].Entry);
-                    subject.SetAttribute("GradeYear", this._DicMappingSemester[semester].GredeYear.ToString());
-
-                    if (!this._DicLevel.ContainsKey(_DicCourseInfo[keyCodeFromMOE].SubjectName))
+                    int level = startLevel;
+                    foreach (int semester in dicCreditEachSemester.Keys)
                     {
-                        this._DicLevel.Add(_DicCourseInfo[keyCodeFromMOE].SubjectName, level);
-                        subject.SetAttribute("Level", level.ToString());
-                        subject.SetAttribute("FullName", _DicCourseInfo[keyCodeFromMOE].SubjectName + " " + _DicForFullNameMap[level]);
-                        level++;
+                        XmlElement eleSubject = xmlDoc.CreateElement("Subject");
+
+                        #region 生成XML
+
+                        eleSubject.SetAttribute("Category", "");
+                        eleSubject.SetAttribute("Credit", dicCreditEachSemester[semester]);
+                        eleSubject.SetAttribute("Domain", (item.FieldNameDetail));
+                        eleSubject.SetAttribute("Entry", item.Entry);
+                        eleSubject.SetAttribute("GradeYear", this._DicMappingSemester[semester].GredeYear.ToString());
+
+                        if (!dicSubjectLevel.ContainsKey(item.SubjectName))
+                        {
+                            dicSubjectLevel.Add(item.SubjectName, level);
+                            eleSubject.SetAttribute("Level", level.ToString());
+                            eleSubject.SetAttribute("FullName", item.SubjectName + " " + _DicForFullNameMap[level]);
+                            level++;
+                        }
+                        else
+                        {
+                            dicSubjectLevel[item.SubjectName] = level;
+                            eleSubject.SetAttribute("Level", level.ToString());
+                            eleSubject.SetAttribute("FullName", item.SubjectName + " " + _DicForFullNameMap[level]);
+                            level++;
+                        }
+
+                        eleSubject.SetAttribute("NotIncludedInCalc", "False");
+                        eleSubject.SetAttribute("NotIncludedInCredit", "False");
+                        eleSubject.SetAttribute("Required", item.Required);
+                        eleSubject.SetAttribute("RequiredBy", item.RequiredBy);
+                        eleSubject.SetAttribute("Semester", this._DicMappingSemester[semester].semester.ToString());
+                        eleSubject.SetAttribute("SubjectName", item.SubjectName);
+
+                        eleSubject.SetAttribute("課程代碼", item.CourseCodeFromMOE);
+                        eleSubject.SetAttribute("課程類別", item.ClassClassifiedDetail);
+                        eleSubject.SetAttribute("開課方式", item.OpenWayDetail);
+                        eleSubject.SetAttribute("科目屬性", item.SubjectAttributeDetail);
+                        eleSubject.SetAttribute("領域名稱", item.FieldNameDetail);
+                        eleSubject.SetAttribute("課程名稱", item.SubjectName);
+                        eleSubject.SetAttribute("學分", dicCreditEachSemester[semester]);
+
+                        eleGraduationPlan.AppendChild(eleSubject);
+                        {
+                            XmlElement grouping = xmlDoc.CreateElement("Grouping");
+                            grouping.SetAttribute("RowIndex", (rows).ToString());
+                            grouping.SetAttribute("startLevel", startLevel.ToString());
+                            eleSubject.AppendChild(grouping);
+                        }
+                        #endregion
+
                     }
-                    else
-                    {
-                        this._DicLevel[_DicCourseInfo[keyCodeFromMOE].SubjectName] = level;
-                        subject.SetAttribute("Level", level.ToString());
-                        subject.SetAttribute("FullName", _DicCourseInfo[keyCodeFromMOE].SubjectName + " " + _DicForFullNameMap[level]);
-                        level++;
-                    }
-
-                    subject.SetAttribute("NotIncludedInCalc", "False");
-                    subject.SetAttribute("NotIncludedInCredit", "False");
-                    subject.SetAttribute("Required", _DicCourseInfo[keyCodeFromMOE].Required);
-                    subject.SetAttribute("RequiredBy", _DicCourseInfo[keyCodeFromMOE].RequiredBy);
-                    subject.SetAttribute("Semester", this._DicMappingSemester[semester].semester.ToString());
-                    subject.SetAttribute("SubjectName", _DicCourseInfo[keyCodeFromMOE].SubjectName);
-
-                    subject.SetAttribute("課程代碼", _DicCourseInfo[keyCodeFromMOE].CourseCodeFromMOE);
-                    subject.SetAttribute("課程類別", _DicCourseInfo[keyCodeFromMOE].ClassClassifiedDetail);
-                    subject.SetAttribute("開課方式", _DicCourseInfo[keyCodeFromMOE].OpenWayDetail);
-                    subject.SetAttribute("科目屬性", _DicCourseInfo[keyCodeFromMOE].SubjectAttributeDetail);
-                    subject.SetAttribute("領域名稱", _DicCourseInfo[keyCodeFromMOE].FieldNameDetail);
-                    subject.SetAttribute("課程名稱", _DicCourseInfo[keyCodeFromMOE].SubjectName);
-                    subject.SetAttribute("學分", DicCreditEachSemester[semester]);
-
-                    graduationPlan.AppendChild(subject);
-
-                    XmlElement grouping = xmlDoc.CreateElement("Grouping");
-
-                    grouping.SetAttribute("RowIndex", (rows).ToString());
-
-                    grouping.SetAttribute("startLevel", startLevel.ToString());
-
-                    subject.AppendChild(grouping);
                     #endregion
+                    rows++;
                 }
-                #endregion
-
-                //最後一筆 課程資料可以儲存
-                if (count == this._DicCourseInfo.Count)
-                {
-                    InsertGraduationPlan(CurrentCurriculumMappingName, xmlDoc.OuterXml);
-
-                }
+                InsertGraduationPlan(gplanName, eleGraduationPlan.OuterXml);
             }
 
             //如果有無錯誤訊息

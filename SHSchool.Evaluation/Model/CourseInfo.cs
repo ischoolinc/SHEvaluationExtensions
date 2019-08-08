@@ -83,7 +83,7 @@ namespace SHSchool.Evaluation.Model
         /// <summary>
         /// 存放個學期學分 
         /// </summary>
-        public Dictionary<int, string> DicCreditEachSemester { get; set; }   
+        public Dictionary<int, string> DicCreditEachSemester { get; set; }
 
 
         //-------對應之中文之 ---------------------------------------------------------------------
@@ -185,9 +185,9 @@ namespace SHSchool.Evaluation.Model
         /// <summary>
         /// 解析對應代碼
         /// </summary>
-        private void   SliceToEachColumn()
+        private void SliceToEachColumn()
         {
-            if (CourseCodeFromMOE.Length == 23 && Credit.Length ==6)
+            if (CourseCodeFromMOE.Length == 23 && Credit.Length == 6)
             {
                 this.EnterYear = CourseCodeFromMOE.Substring(0, 3);
                 this.SchoolCode = CourseCodeFromMOE.Substring(3, 6);
@@ -202,66 +202,67 @@ namespace SHSchool.Evaluation.Model
                 this.SubjectFixedCode = CourseCodeFromMOE.Substring(21, 2);
                 GetListCreditEachSemester();   //將學分代碼轉換 至各學期對應之dic
             }
-            else {
+            else
+            {
                 return;
             }
         }
-            /// <summary>
-            /// 將學分之代碼拆解至各學期
-            /// </summary>
-            private void GetListCreditEachSemester()
+        /// <summary>
+        /// 將學分之代碼拆解至各學期
+        /// </summary>
+        private void GetListCreditEachSemester()
+        {
+            this.DicCreditEachSemester = new Dictionary<int, string>();
+
+            Dictionary<char, string> creditConvert = new Dictionary<char, string>(); //針對對開課程 A-D(代碼)/1-4(學分) 放對照數
+            creditConvert.Add('A', "1");
+            creditConvert.Add('B', "2");
+            creditConvert.Add('C', "3");
+            creditConvert.Add('D', "4");
+
+            char[] CreditEach = this.Credit.ToCharArray();
+
+            //放進各學期學分數的Dic裡
+            int semester = 1;
+            int creditZeroCount = 0;
+            foreach (char creaditEach in CreditEach)
             {
-                this.DicCreditEachSemester = new Dictionary<int, string>();
-
-                Dictionary<char, string> creditConvert = new Dictionary<char, string>(); //針對對開課程 A-D(代碼)/1-4(學分) 放對照數
-                creditConvert.Add('A', "1");
-                creditConvert.Add('B', "2");
-                creditConvert.Add('C', "3");
-                creditConvert.Add('D', "4");
-
-                char[] CreditEach = this.Credit.ToCharArray();
-
-                //放進各學期學分數的Dic裡
-                int semester = 1;
-                int creditZeroCount = 0;
-                foreach (char creaditEach in CreditEach)
+                if (creaditEach == '0')
                 {
-                    if (creaditEach == '0')
+                    semester++;
+                    creditZeroCount++; //計算0學分之數目 若六學期皆為0可印出
+                    if (creditZeroCount == 6)
                     {
-                        semester++;
-                        creditZeroCount++; //計算0學分之數目 若六學期皆為0可印出
-                        if (creditZeroCount == 6)
-                        {
-                            this.IsZeroCreditEachSem = true;
-                        }
-                        continue;
-
+                        this.IsZeroCreditEachSem = true;
                     }
-                    else//不等於 0
+                    continue;
+
+                }
+                else//不等於 0
+                {
+                    //為ABCD
+                    if (creaditEach == 'A' || creaditEach == 'B' || creaditEach == 'C' || creaditEach == 'D')
                     {
-                        //為ABCD
-                        if (creaditEach == 'A' || creaditEach == 'B' || creaditEach == 'C' || creaditEach == 'D')
-                        {
-                            this.DicCreditEachSemester.Add(semester, creditConvert[creaditEach]);
-                            semester++;
-                        }
-                        else
-                        {
-                            this.DicCreditEachSemester.Add(semester, creaditEach.ToString());
-                            semester++;
-                        }
+                        this.DicCreditEachSemester.Add(semester, creditConvert[creaditEach]);
+                        semester++;
+                    }
+                    else
+                    {
+                        this.DicCreditEachSemester.Add(semester, creaditEach.ToString());
+                        semester++;
                     }
                 }
             }
+        }
 
-            /// <summary>
-            /// 取得課程規劃表名稱
-            /// </summary>
-            /// <returns></returns>
-            public string GetCurriiculumMapName()
-            {
-                CurrucyCurriculumMapName = $"{ this.EnterYear }{this.DeptCodeDetail}{this.ClassGroupDetail}";
-                return CurrucyCurriculumMapName;
-            }
+        /// <summary>
+        /// 取得課程規劃表名稱
+        /// </summary>
+        /// <returns></returns>
+        public string GetCurriiculumMapName()
+        {
+            CurrucyCurriculumMapName = $"{ this.EnterYear }{this.DeptCodeDetail}{this.ClassGroupDetail}";
+            return CurrucyCurriculumMapName;
         }
     }
+}
