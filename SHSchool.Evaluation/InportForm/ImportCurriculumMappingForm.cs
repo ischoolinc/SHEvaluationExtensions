@@ -441,17 +441,50 @@ namespace SHSchool.Evaluation.InportForm
         /// </summary>
         private void CreateXmlAndInsert()
         {
+            List<CourseInfo> m196CourseInfo = new List<CourseInfo>();
+            Dictionary<string, List<CourseInfo>> dicMTypeGraduationPlan = new Dictionary<string, List<CourseInfo>>();
             //整理成各科課程規畫表
             Dictionary<string, List<CourseInfo>> dicGraduationPlan = new Dictionary<string, List<CourseInfo>>();
             foreach (string keyCodeFromMOE in this._DicCourseInfo.Keys)
             {
                 var target = this._DicCourseInfo[keyCodeFromMOE];
                 var name = target.GetCurriiculumMapName();
-                if (!dicGraduationPlan.ContainsKey(name))
+                //綜合高中的要把1年級不分群和併入各學程的
+                if (target.CourseType == "M")
                 {
-                    dicGraduationPlan.Add(name, new List<CourseInfo>());
+                    if (target.DeptCode == "196")//是1年級不分群
+                    {
+                        //加入1年級不分群清單
+                        m196CourseInfo.Add(target);
+                        //加入已產生的學程課程規畫表
+                        foreach (var mTypeGPlanName in dicMTypeGraduationPlan.Keys)
+                        {
+                            dicMTypeGraduationPlan[mTypeGPlanName].Add(target);
+                        }
+                    }
+                    else
+                    {
+                        if (!dicGraduationPlan.ContainsKey(name))
+                        {
+                            //以1年級不分群的科目清單為基礎內容
+                            dicGraduationPlan.Add(name, new List<CourseInfo>(m196CourseInfo));
+                        }
+                        dicGraduationPlan[name].Add(target);
+                        //加入對照表
+                        if (!dicMTypeGraduationPlan.ContainsKey(name))
+                        {
+                            dicMTypeGraduationPlan.Add(name, dicGraduationPlan[name]);
+                        }
+                    }
                 }
-                dicGraduationPlan[name].Add(target);
+                else
+                {//職校或普通高中
+                    if (!dicGraduationPlan.ContainsKey(name))
+                    {
+                        dicGraduationPlan.Add(name, new List<CourseInfo>());
+                    }
+                    dicGraduationPlan[name].Add(target);
+                }
             }
             //產生各科課程規畫表資料
             XmlDocument xmlDoc = new XmlDocument();
