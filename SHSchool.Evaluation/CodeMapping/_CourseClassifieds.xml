@@ -1,7 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-
-<!--更新8/5-->
-
 <CourseClassifieds>
   <CourseClassified code="1" name= "部定必修" />
   <CourseClassified code="2" name= "校訂必修" />

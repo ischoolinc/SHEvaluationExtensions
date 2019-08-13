@@ -196,8 +196,8 @@ namespace SHSchool.Evaluation.InportForm
             else
             {
                 string fileNameCN = this.txtFileName.Text;
-                string[] fileNameSplit = fileNameCN.Substring(0, fileNameCN.Length - 3).Split('_');
-                if (fileNameSplit[1] != "課程代碼資料檔")
+              // string[] fileNameSplit = fileNameCN.Substring(0, fileNameCN.Length - 3).Split('_');
+                if (!fileNameCN.Contains("課程代碼資料檔"))
                 {
                     MsgBox.Show("課程代碼資料檔 檔名有誤 !");
                     UnlockUI();

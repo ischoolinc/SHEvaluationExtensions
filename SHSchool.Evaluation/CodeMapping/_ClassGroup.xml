@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--班群對照表-->
+<ClassGroups>
+<ClassGroup code= "0" name="不分班群"/>
+<ClassGroup code= "1" name="建教合作班群"/>
+</ClassGroups>

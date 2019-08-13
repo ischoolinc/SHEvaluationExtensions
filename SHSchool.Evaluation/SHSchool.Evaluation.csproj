@@ -138,14 +138,25 @@
     <Content Include="CodeMapping\ClassGroup.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="CodeMapping\_ClassGroup.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="CodeMapping\CourseClassifieds.xml" />
+    <Content Include="CodeMapping\_CourseClassifieds.xml" />
     <Content Include="CodeMapping\CourseTypes.xml" />
+    <Content Include="CodeMapping\_CourseTypes.xml" />
     <Content Include="CodeMapping\Depts.xml" />
+    <Content Include="CodeMapping\_Depts.xml" />
     <Content Include="CodeMapping\FieldNames.xml" />
+    <Content Include="CodeMapping\_FieldNames.xml" />
     <Content Include="CodeMapping\GroupTypes.xml" />
+    <Content Include="CodeMapping\_GroupTypes.xml" />
     <Content Include="CodeMapping\OpenWays.xml" />
+    <Content Include="CodeMapping\_OpenWays.xml" />
     <Content Include="CodeMapping\SubjectAttributes.xml" />
+    <Content Include="CodeMapping\_SubjectAttributes.xml" />
     <Content Include="CodeMapping\SubjectFixedCodes.xml" />
+    <Content Include="CodeMapping\_SubjectFixedCodes.xml" />
     <Content Include="CoreTable.xml" />
     <Content Include="Import.Image.png" />
     <Content Include="Library\Aspose.Cells_201402.dll" />

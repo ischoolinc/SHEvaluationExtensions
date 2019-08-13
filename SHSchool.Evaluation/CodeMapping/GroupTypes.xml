@@ -1,25 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <!--群別-->
+
+<!--8/5更新-->
+
 <GroupTypes>
-    <GroupType code="11" name="學術群" crstype="|H|V|C|" />
-    <GroupType code="11" name="學術學程" crstype="|M|" />
-    <GroupType code="21" name="機械群" crstype="|V|C|M|E|F|" />
-    <GroupType code="22" name="動力機械群" crstype="|V|C|M|E|F|" />
-    <GroupType code="23" name="電機與電子群" crstype="|V|C|M|E|F|" />
-    <GroupType code="24" name="化工群" crstype="|V|C|M|E|F|" />
-    <GroupType code="25" name="土木與建築群" crstype="|V|C|M|E|F|" />
-    <GroupType code="26" name="商業與管理群" crstype="|V|C|" />
-    <GroupType code="26" name="商業群" crstype="|M|E|F|" />
-    <GroupType code="27" name="外語群" crstype="|V|C|M|" />
-    <GroupType code="28" name="設計群" crstype="|V|C|M|E|F|" />
-    <GroupType code="29" name="農業群" crstype="|V|C|M|E|F|" />
-    <GroupType code="30" name="食品群" crstype="|V|C|M|E|F|" />
-    <GroupType code="31" name="家政群" crstype="|V|C|M|E|F|" />
-    <GroupType code="32" name="餐旅群" crstype="|V|C|M|E|F|" />
-    <GroupType code="33" name="水產群" crstype="|V|C|M|E|F|" />
-    <GroupType code="34" name="海事群" crstype="|V|C|M|E|F|" />
-    <GroupType code="35" name="藝術群" crstype="|V|C|M|E|F|" />
-    <GroupType code="36" name="美容造型群" crstype="|E|F|" />
-    <GroupType code="40" name="服務群" crstype="|V|C|" />
-    <GroupType code="41" name="其他(綜合)" crstype="|M|" />
+  <GroupType code="11" name="學術群" crstype="|H|V|C|S|" />
+  <GroupType code="11" name="學術學程" crstype="|M|" />
+  <GroupType code="21" name="機械群" crstype="|V|C|M|E|F|" />
+  <GroupType code="22" name="動力機械群" crstype="|V|C|M|E|F|" />
+  <GroupType code="23" name="電機與電子群" crstype="|V|C|M|E|F|" />
+  <GroupType code="24" name="化工群" crstype="|V|C|M|E|F|" />
+  <GroupType code="25" name="土木與建築群" crstype="|V|C|M|E|F|" />
+  <GroupType code="26" name="商業與管理群" crstype="|V|C|" />
+  <GroupType code="26" name="商業群" crstype="|M|E|F|" />
+  <GroupType code="27" name="外語群" crstype="|V|C|M|" />
+  <GroupType code="28" name="設計群" crstype="|V|C|M|E|F|" />
+  <GroupType code="29" name="農業群" crstype="|V|C|M|E|F|" />
+  <GroupType code="30" name="食品群" crstype="|V|C|M|E|F|" />
+  <GroupType code="31" name="家政群" crstype="|V|C|M|E|F|" />
+  <GroupType code="32" name="餐旅群" crstype="|V|C|M|E|F|" />
+  <GroupType code="33" name="水產群" crstype="|V|C|M|E|F|" />
+  <GroupType code="34" name="海事群" crstype="|V|C|M|E|F|" />
+  <GroupType code="35" name="藝術群" crstype="|V|C|M|E|F|" />
+  <GroupType code="36" name="美容造型群" crstype="|E|F|" />
+  <GroupType code="40" name="服務群" crstype="|V|C|" />
+  <GroupType code="41" name="其他(綜合)" crstype="|M|" />
 </GroupTypes>
