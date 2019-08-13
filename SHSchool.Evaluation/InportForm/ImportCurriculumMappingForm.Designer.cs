@@ -71,7 +71,7 @@
             this.btnImprt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnImprt.BackColor = System.Drawing.Color.Transparent;
             this.btnImprt.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnImprt.Location = new System.Drawing.Point(229, 212);
+            this.btnImprt.Location = new System.Drawing.Point(229, 191);
             this.btnImprt.Name = "btnImprt";
             this.btnImprt.Size = new System.Drawing.Size(75, 23);
             this.btnImprt.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -148,7 +148,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(316, 247);
+            this.ClientSize = new System.Drawing.Size(316, 226);
             this.Controls.Add(this.pbLoding);
             this.Controls.Add(this.labelX2);
             this.Controls.Add(this.lab1);
