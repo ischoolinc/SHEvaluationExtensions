@@ -181,7 +181,7 @@ namespace SHSchool.Evaluation.InportForm
             {
                 string fileNameCG = this.textFileCassGroup.Text;
                 string[] fileNameSplit = fileNameCG.Substring(0, fileNameCG.Length - 3).Split('_');
-                if (fileNameSplit[1] != "班群代碼檔")
+                if (!fileNameCG.Contains("班群代碼檔") )
                 {
                     MsgBox.Show("班群代碼檔 檔名有誤 !");
                     UnlockUI();

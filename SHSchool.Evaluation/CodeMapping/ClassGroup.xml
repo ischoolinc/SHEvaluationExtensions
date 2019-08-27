@@ -4,8 +4,8 @@
 <!--根據課程代碼平台 8/13更新 修正-->
 <ClassGroups>
   <ClassGroup code= "0" name="不分班群"/> 
-  <ClassGroup code= "1" name="建教合作班-輪調式"/>
-  <ClassGroup code= "2" name="建教合作班-階梯式"/>
-  <ClassGroup code= "3" name="建教合作班-實習式"/>
-  <ClassGroup code= "4" name="建教合作班-其他式"/>
+  <ClassGroup code= "1" name="建教合作班輪調式"/>
+  <ClassGroup code= "2" name="建教合作班階梯式"/>
+  <ClassGroup code= "3" name="建教合作班實習式"/>
+  <ClassGroup code= "4" name="建教合作班其他式"/>
 </ClassGroups>
