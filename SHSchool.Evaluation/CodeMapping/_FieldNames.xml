@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<!--根據資料平台8/5號更新版本-->
+
 <FieldNames>
   <FieldName code="00" name="不分領域" crstype ="|H|V|M|C|E|F|" />
   <FieldName code="01" name="語文領域" crstype ="|H|V|M|C|E|F|" />
@@ -24,18 +24,13 @@
   <FieldName code="0R" name="競技體育技能領域" crstype ="|H|V|M|C|E|F|" />
   <FieldName code="0S" name="體育專業學科" crstype ="|H|V|M|C|E|F|" />
   <FieldName code="0T" name="體育專項術科" crstype ="|H|V|M|C|E|F|" />
-  <FieldName code="10" name="特殊需求領域" crstype ="|V|M|C|" />
-  <FieldName code="11" name="特殊需求領域(身心障礙)" crstype ="|H|V|M|C|" />
-  <FieldName code="12" name="特殊需求領域(資賦優異)" crstype ="|H|V|M|C|" />
-  <FieldName code="13" name="特殊需求領域(音樂專長)" crstype ="|H|V|M|C|" />
-  <FieldName code="14" name="特殊需求領域(美術專長)" crstype ="|H|V|M|C|" />
-  <FieldName code="15" name="特殊需求領域(舞蹈專長)" crstype ="|H|V|M|C|" />
-  <FieldName code="16" name="特殊需求領域(戲劇專長)" crstype ="|H|V|M|C|" />
-  <FieldName code="17" name="特殊需求領域(體育專長)" crstype ="|H|V|M|C|" />
-  <FieldName code="91" name="藝術才能專長領域" crstype ="|H|" />
-  <FieldName code="92" name="生涯發展" crstype ="|H|" />
-  <FieldName code="93" name="職能探索" crstype ="|H|" />
-  <FieldName code="94" name="運動防護" crstype ="|H|" />
+  <FieldName code="11" name="特殊需求領域(身心障礙)" crstype ="|H|M|C|" />
+  <FieldName code="12" name="特殊需求領域(資賦優異)" crstype ="|H|M|C|" />
+  <FieldName code="13" name="特殊需求領域(音樂專長)" crstype ="|H|M|C|" />
+  <FieldName code="14" name="特殊需求領域(美術專長)" crstype ="|H|M|C|" />
+  <FieldName code="15" name="特殊需求領域(舞蹈專長)" crstype ="|H|M|C|" />
+  <FieldName code="16" name="特殊需求領域(戲劇專長)" crstype ="|H|M|C|" />
+  <FieldName code="17" name="特殊需求領域(體育專長)" crstype ="|H|M|C|" />
   <FieldName code="A1" name="數值控制技能領域" crstype ="|V|" />
   <FieldName code="A2" name="精密機械製造技能領域" crstype ="|V|" />
   <FieldName code="A3" name="模型設計與鑄造技能領域" crstype ="|V|" />
@@ -98,21 +93,21 @@
   <FieldName code="O4" name="音樂藝術技能領域" crstype ="|V|" />
   <FieldName code="O5" name="舞蹈藝術技能領域" crstype ="|V|" />
   <FieldName code="O6" name="表演藝術實務技能領域" crstype ="|V|" />
-  <FieldName code="U1" name="車輛整理技能領域" crstype ="|V|" />
-  <FieldName code="U2" name="門市技能領域" crstype ="|V|" />
-  <FieldName code="U3" name="物品整理技能領域" crstype ="|V|" />
-  <FieldName code="U4" name="農園藝技能領域" crstype ="|V|" />
-  <FieldName code="U5" name="產品加工技能領域" crstype ="|V|" />
-  <FieldName code="U6" name="裝配技能領域" crstype ="|V|" />
-  <FieldName code="U7" name="生活照護技能領域" crstype ="|V|" />
-  <FieldName code="U8" name="家務處理技能領域" crstype ="|V|" />
-  <FieldName code="U9" name="餐飲製作技能領域" crstype ="|V|" />
-  <FieldName code="UA" name="旅館房務技能領域" crstype ="|V|" />
-  <FieldName code="UB" name="按摩技能領域" crstype ="|V|" />
-  <FieldName code="UC" name="紓壓保健技能領域" crstype ="|V|" />
-  <FieldName code="UD" name="民俗技能領域" crstype ="|V|" />
-  <FieldName code="UE" name="寵物照顧技能領域" crstype ="|V|" />
-  <FieldName code="UF" name="美髮技能領域" crstype ="|V|" />
+  <FieldName code="U1" name="車輛整理技能領域技能領域" crstype ="|V|" />
+  <FieldName code="U2" name="門市技能領域技能領域" crstype ="|V|" />
+  <FieldName code="U3" name="物品整理技能領域技能領域" crstype ="|V|" />
+  <FieldName code="U4" name="農園藝技能領域技能領域" crstype ="|V|" />
+  <FieldName code="U5" name="產品加工技能領域技能領域" crstype ="|V|" />
+  <FieldName code="U6" name="裝配技能領域技能領域" crstype ="|V|" />
+  <FieldName code="U7" name="生活照護技能領域技能領域" crstype ="|V|" />
+  <FieldName code="U8" name="家務處理技能領域技能領域" crstype ="|V|" />
+  <FieldName code="U9" name="餐飲製作技能領域技能領域" crstype ="|V|" />
+  <FieldName code="UA" name="旅館房務技能領域技能領域" crstype ="|V|" />
+  <FieldName code="UB" name="按摩技能領域技能領域" crstype ="|V|" />
+  <FieldName code="UC" name="紓壓保健技能領域技能領域" crstype ="|V|" />
+  <FieldName code="UD" name="民俗技能領域技能領域" crstype ="|V|" />
+  <FieldName code="UE" name="寵物照顧技能領域技能領域" crstype ="|V|" />
+  <FieldName code="UF" name="美髮技能領域技能領域" crstype ="|V|" />
 </FieldNames>
 
 

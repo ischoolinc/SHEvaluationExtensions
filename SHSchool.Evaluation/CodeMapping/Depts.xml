@@ -1,335 +1,332 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?> 
-<!--科別 -->
+<!--科別 根據課程平台更新版本(8/5)-->
 <Depts>
-<Dept code='99' name='其他' crstype='|M|' />
-<Dept code='101' name='普通班' crstype='|H|V|C|' />
-<Dept code='102' name='音樂班' crstype='|H|V|C|' />
-<Dept code='103' name='美術班' crstype='|H|V|C|' />
-<Dept code='104' name='舞蹈班' crstype='|H|V|C|' />
-<Dept code='105' name='體育班' crstype='|H|V|C|M|' />
-<Dept code='106' name='數理資優班' crstype='|H|V|C|' />
-<Dept code='107' name='語文資優班' crstype='|H|V|C|' />
-<Dept code='108' name='科學班' crstype='|H|V|C|' />
-<Dept code='111' name='原住民藝能班' crstype='|H|V|C|' />
-<Dept code='121' name='雙語部' crstype='|H|V|C|' />
-<Dept code='122' name='戲劇班' crstype='|H|V|C|' />
-<Dept code='196' name='1年級不分群' crstype='|M|' />
-<Dept code='197' name='學術社會學程' crstype='|M|' />
-<Dept code='198' name='學術自然學程' crstype='|M|' />
-<Dept code='201' name='農場經營科' crstype='|H|V|C|' />
-<Dept code='202' name='園藝科' crstype='|H|V|C|' />
-<Dept code='204' name='森林科' crstype='|H|V|C|' />
-<Dept code='205' name='農業機械科' crstype='|H|V|C|' />
-<Dept code='206' name='食品加工科' crstype='|H|V|C|' />
-<Dept code='214' name='野生動物保育科' crstype='|H|V|C|' />
-<Dept code='215' name='農產行銷科' crstype='|H|V|C|' />
-<Dept code='216' name='造園科' crstype='|H|V|C|' />
-<Dept code='217' name='畜產保健科' crstype='|H|V|C|' />
-<Dept code='301' name='機械科' crstype='|H|V|C|' />
-<Dept code='302' name='鑄造科' crstype='|H|V|C|' />
-<Dept code='303' name='汽車科' crstype='|H|V|C|' />
-<Dept code='304' name='板金科' crstype='|H|V|C|' />
-<Dept code='305' name='資訊科' crstype='|H|V|C|' />
-<Dept code='306' name='電子科' crstype='|H|V|C|' />
-<Dept code='307' name='控制科' crstype='|H|V|C|' />
-<Dept code='308' name='電機科' crstype='|H|V|C|' />
-<Dept code='309' name='冷凍空調科' crstype='|H|V|C|' />
-<Dept code='311' name='建築科' crstype='|H|V|C|' />
-<Dept code='312' name='家具木工科' crstype='|H|V|C|' />
-<Dept code='315' name='化工科' crstype='|H|V|C|' />
-<Dept code='316' name='美工科' crstype='|H|V|C|' />
-<Dept code='318' name='美術工藝科' crstype='|H|V|C|' />
-<Dept code='319' name='紡織科' crstype='|H|V|C|' />
-<Dept code='321' name='電機空調科' crstype='|H|V|C|' />
-<Dept code='331' name='機工科' crstype='|H|V|C|' />
-<Dept code='332' name='機械木模科' crstype='|H|V|C|' />
-<Dept code='335' name='汽車修護科' crstype='|H|V|C|' />
-<Dept code='337' name='配管科' crstype='|H|V|C|' />
-<Dept code='338' name='模具科' crstype='|H|V|C|' />
-<Dept code='352' name='染整科' crstype='|H|V|C|' />
-<Dept code='360' name='機電科' crstype='|H|V|C|' />
-<Dept code='361' name='陶瓷工程科' crstype='|H|V|C|' />
-<Dept code='363' name='製圖科' crstype='|H|V|C|' />
-<Dept code='364' name='重機科' crstype='|H|V|C|' />
-<Dept code='365' name='土木科' crstype='|H|V|C|' />
-<Dept code='366' name='室內空間設計科' crstype='|H|V|C|' />
-<Dept code='367' name='環境檢驗科' crstype='|H|V|C|' />
-<Dept code='371' name='電腦繪圖科' crstype='|H|V|C|' />
-<Dept code='372' name='生物產業機電科' crstype='|H|V|C|' />
-<Dept code='373' name='圖文傳播科' crstype='|H|V|C|' />
-<Dept code='374' name='電腦機械製圖科' crstype='|H|V|C|' />
-<Dept code='380' name='軌道車輛科' crstype='|H|V|C|' />
-<Dept code='381' name='飛機修護科' crstype='|H|V|C|' />
-<Dept code='384' name='航空電子科' crstype='|H|V|C|' />
-<Dept code='392' name='動力機械科' crstype='|H|V|C|' />
-<Dept code='394' name='金屬工藝科' crstype='|H|V|C|' />
-<Dept code='397' name='消防工程科' crstype='|H|V|C|' />
-<Dept code='398' name='空間測繪科' crstype='|H|V|C|' />
-<Dept code='399' name='家具設計科' crstype='|H|V|C|' />
-<Dept code='401' name='商業經營科' crstype='|H|V|C|' />
-<Dept code='402' name='國際貿易科' crstype='|H|V|C|' />
-<Dept code='403' name='會計事務科' crstype='|H|V|C|' />
-<Dept code='404' name='資料處理科' crstype='|H|V|C|' />
-<Dept code='406' name='廣告設計科' crstype='|H|V|C|' />
-<Dept code='407' name='觀光事業科' crstype='|H|V|C|' />
-<Dept code='408' name='餐飲管理科' crstype='|H|V|C|' />
-<Dept code='418' name='不動產事務科' crstype='|H|V|C|' />
-<Dept code='424' name='餐飲服務科' crstype='|C|' />
-<Dept code='425' name='電子商務科' crstype='|H|V|C|' />
-<Dept code='426' name='流通管理科' crstype='|H|V|C|' />
-<Dept code='427' name='餐旅管理科' crstype='|V|C|' />
-<Dept code='429' name='休閒管理科' crstype='|H|V|C|' />
-<Dept code='430' name='多媒體設計科' crstype='|H|V|C|' />
-<Dept code='431' name='多媒體應用科' crstype='|H|V|C|' />
-<Dept code='432' name='電競經營科' crstype='|H|V|C|' />
-<Dept code='433' name='應用英語科' crstype='|H|V|C|' />
-<Dept code='434' name='應用日語科' crstype='|H|V|C|' />
-<Dept code='501' name='家政科' crstype='|H|V|C|' />
-<Dept code='502' name='服裝科' crstype='|H|V|C|' />
-<Dept code='503' name='幼兒保育科' crstype='|H|V|C|' />
-<Dept code='504' name='美容科' crstype='|H|V|C|' />
-<Dept code='505' name='食品科' crstype='|H|V|C|' />
-<Dept code='512' name='室內設計科' crstype='|H|V|C|' />
-<Dept code='513' name='時尚模特兒科' crstype='|H|V|C|' />
-<Dept code='514' name='照顧服務科' crstype='|H|V|C|' />
-<Dept code='515' name='流行服飾科' crstype='|H|V|C|' />
-<Dept code='516' name='時尚造型科' crstype='|H|V|C|' />
-<Dept code='517' name='烘焙科' crstype='|H|V|C|' />
-<Dept code='701' name='漁業科' crstype='|H|V|C|' />
-<Dept code='702' name='輪機科' crstype='|H|V|C|' />
-<Dept code='703' name='電子通信科' crstype='|H|V|C|' />
-<Dept code='705' name='水產養殖科' crstype='|H|V|C|' />
-<Dept code='706' name='水產經營科' crstype='|H|V|C|' />
-<Dept code='708' name='航海科' crstype='|H|V|C|' />
-<Dept code='717' name='航運管理科' crstype='|H|V|C|' />
-<Dept code='718' name='水產食品科' crstype='|H|V|C|' />
-<Dept code='801' name='戲劇科' crstype='|H|V|C|' />
-<Dept code='802' name='音樂科' crstype='|H|V|C|' />
-<Dept code='803' name='舞蹈科' crstype='|H|V|C|' />
-<Dept code='804' name='美術科' crstype='|H|V|C|' />
-<Dept code='806' name='影劇科' crstype='|H|V|C|' />
-<Dept code='807' name='西樂科' crstype='|H|V|C|' />
-<Dept code='808' name='國樂科' crstype='|H|V|C|' />
-<Dept code='809' name='歌仔戲科' crstype='|H|V|C|' />
-<Dept code='813' name='劇場藝術科' crstype='|H|V|C|' />
-<Dept code='816' name='電影電視科' crstype='|H|V|C|' />
-<Dept code='817' name='表演藝術科' crstype='|H|V|C|' />
-<Dept code='820' name='多媒體動畫科' crstype='|H|V|C|' />
-<Dept code='821' name='客家戲科' crstype='|H|V|C|' />
-<Dept code='822' name='時尚工藝科' crstype='|H|V|C|' />
-<Dept code='823' name='戲曲音樂科' crstype='|H|V|C|' />
-<Dept code='824' name='京劇科' crstype='|H|V|C|' />
-<Dept code='825' name='民俗技藝科' crstype='|H|V|C|' />
-<Dept code='826' name='原住民藝能科' crstype='|H|V|C|' />
-<Dept code='911' name='汽車美容科' crstype='|H|V|C|' />
-<Dept code='912' name='門市服務科' crstype='|H|V|C|' />
-<Dept code='913' name='農園藝整理科' crstype='|H|V|C|' />
-<Dept code='914' name='包裝服務科' crstype='|H|V|C|' />
-<Dept code='915' name='居家生活科' crstype='|H|V|C|' />
-<Dept code='916' name='餐飲服務科' crstype='|H|V|C|' />
-<Dept code='917' name='旅館服務科' crstype='|H|V|C|' />
-<Dept code='918' name='復健按摩科' crstype='|H|V|C|' />
-<Dept code='919' name='民俗禮儀科' crstype='|H|V|C|' />
-<Dept code='920' name='寵物照護科' crstype='|H|V|C|' />
-<Dept code='921' name='美髮技藝科' crstype='|H|V|C|' />
-<Dept code='929' name='綜合職能科' crstype='|H|V|C|' />
-<Dept code='A01' name='機械技術學程' crstype='|M|' />
-<Dept code='A02' name='製圖學程' crstype='|M|' />
-<Dept code='A03' name='製圖技術學程' crstype='|M|' />
-<Dept code='A04' name='機械製圖學程' crstype='|M|' />
-<Dept code='A05' name='電腦製圖學程' crstype='|M|' />
-<Dept code='A06' name='農業機械技術學程' crstype='|M|' />
-<Dept code='A07' name='電腦繪圖學程' crstype='|M|' />
-<Dept code='A08' name='電腦輔助機械學程' crstype='|M|' />
-<Dept code='A09' name='機械學程' crstype='|M|' />
-<Dept code='A10' name='機械工程學程' crstype='|M|' />
-<Dept code='A12' name='鑄造技術學程' crstype='|M|' />
-<Dept code='A13' name='生物產業機電學程' crstype='|M|' />
-<Dept code='A14' name='機械木模學程' crstype='|M|' />
-<Dept code='B01' name='汽車技術學程' crstype='|M|' />
-<Dept code='B02' name='汽車修護學程' crstype='|M|' />
-<Dept code='B03' name='航空技術學程' crstype='|M|' />
-<Dept code='B04' name='飛機修護學程' crstype='|M|' />
-<Dept code='B05' name='工程機械技術學程' crstype='|M|' />
-<Dept code='B06' name='汽機車技術學程' crstype='|M|' />
-<Dept code='B09' name='動力機械學程' crstype='|M|' />
-<Dept code='B10' name='動力機械技術學程' crstype='|M|' />
-<Dept code='B11' name='工程機械學程' crstype='|M|' />
-<Dept code='C01' name='電子技術學程' crstype='|M|' />
-<Dept code='C02' name='資訊技術學程' crstype='|M|' />
-<Dept code='C03' name='電機技術學程' crstype='|M|' />
-<Dept code='C04' name='機電技術學程' crstype='|M|' />
-<Dept code='C05' name='冷凍空調學程' crstype='|M|' />
-<Dept code='C06' name='電器冷凍學程' crstype='|M|' />
-<Dept code='C07' name='航空電子技術學程' crstype='|M|' />
-<Dept code='C08' name='電腦應用學程' crstype='|M|' />
-<Dept code='C09' name='電腦通訊學程' crstype='|M|' />
-<Dept code='C11' name='資訊電子學程' crstype='|M|' />
-<Dept code='C12' name='資訊科技學程' crstype='|M|' />
-<Dept code='C16' name='機電整合學程' crstype='|M|' />
-<Dept code='C18' name='電機電子技術學程' crstype='|M|' />
-<Dept code='C19' name='電機電子學程' crstype='|M|' />
-<Dept code='C20' name='控制學程' crstype='|M|' />
-<Dept code='D01' name='化工技術學程' crstype='|M|' />
-<Dept code='D02' name='環境檢驗技術學程' crstype='|M|' />
-<Dept code='D04' name='化工學程' crstype='|M|' />
-<Dept code='D05' name='衛生化工學程' crstype='|M|' />
-<Dept code='E01' name='建築技術學程' crstype='|M|' />
-<Dept code='E02' name='營建技術學程' crstype='|M|' />
-<Dept code='E03' name='土木測量學程' crstype='|M|' />
-<Dept code='E04' name='建築製圖學程' crstype='|M|' />
-<Dept code='E07' name='土木建築技術學程' crstype='|M|' />
-<Dept code='F01' name='資訊應用學程' crstype='|M|' />
-<Dept code='F02' name='會計事務學程' crstype='|M|' />
-<Dept code='F03' name='國際貿易學程' crstype='|M|' />
-<Dept code='F04' name='商業服務學程' crstype='|M|' />
-<Dept code='F05' name='商業經營學程' crstype='|M|' />
-<Dept code='F06' name='流通服務學程' crstype='|M|' />
-<Dept code='F07' name='物流服務學程' crstype='|M|' />
-<Dept code='F08' name='資料處理學程' crstype='|M|' />
-<Dept code='F09' name='電子商務學程' crstype='|M|' />
-<Dept code='F10' name='商業事務學程' crstype='|M|' />
-<Dept code='F11' name='文書事務學程' crstype='|M|' />
-<Dept code='F12' name='商業應用學程' crstype='|M|' />
-<Dept code='F13' name='商業學程' crstype='|M|' />
-<Dept code='F14' name='電腦平面動畫學程' crstype='|M|' />
-<Dept code='F15' name='流通管理學程' crstype='|M|' />
-<Dept code='F22' name='商經實務學程' crstype='|M|' />
-<Dept code='F23' name='資訊處理學程' crstype='|M|' />
-<Dept code='G01' name='造園技術學程' crstype='|M|' />
-<Dept code='G02' name='園藝技術學程' crstype='|M|' />
-<Dept code='G03' name='農園技術學程' crstype='|M|' />
-<Dept code='G04' name='畜產技術學程' crstype='|M|' />
-<Dept code='G06' name='精緻農業學程' crstype='|M|' />
-<Dept code='G08' name='畜產加工學程' crstype='|M|' />
-<Dept code='G09' name='園藝與休閒學程' crstype='|M|' />
-<Dept code='G10' name='綜合農業學程' crstype='|M|' />
-<Dept code='G11' name='休閒農業管理學程' crstype='|M|' />
-<Dept code='G12' name='畜產保健學程' crstype='|M|' />
-<Dept code='H01' name='美容學程' crstype='|M|' />
-<Dept code='H02' name='美容美髮學程' crstype='|M|' />
-<Dept code='H03' name='服裝製作學程' crstype='|M|' />
-<Dept code='H04' name='服裝設計學程' crstype='|M|' />
-<Dept code='H05' name='服裝學程' crstype='|M|' />
-<Dept code='H06' name='美容技術學程' crstype='|M|' />
-<Dept code='H07' name='家政學程' crstype='|M|' />
-<Dept code='H08' name='幼兒保育學程' crstype='|M|' />
-<Dept code='H09' name='時尚設計學程' crstype='|M|' />
-<Dept code='H10' name='幼老福利學程' crstype='|M|' />
-<Dept code='H11' name='時尚造型學程' crstype='|M|' />
-<Dept code='I01' name='影劇技術科' crstype='|E|F|' />
-<Dept code='I02' name='表演技術科' crstype='|E|F|' />
-<Dept code='J01' name='餐飲服務學程' crstype='|M|' />
-<Dept code='J02' name='餐飲技術學程' crstype='|M|' />
-<Dept code='J03' name='餐飲製作學程' crstype='|M|' />
-<Dept code='J04' name='餐飲管理學程' crstype='|M|' />
-<Dept code='J05' name='運動與休閒學程' crstype='|M|' />
-<Dept code='J06' name='休閒事務學程' crstype='|M|' />
-<Dept code='J07' name='觀光事務學程' crstype='|M|' />
-<Dept code='J08' name='觀光事業學程' crstype='|M|' />
-<Dept code='J09' name='觀光餐飲學程' crstype='|M|' />
-<Dept code='J11' name='觀光學程' crstype='|M|' />
-<Dept code='J13' name='運動休閒學程' crstype='|M|' />
-<Dept code='J14' name='運動與休閒管理學程' crstype='|M|' />
-<Dept code='J17' name='觀光服務學程' crstype='|M|' />
-<Dept code='J18' name='餐飲經營學程' crstype='|M|' />
-<Dept code='J19' name='食品烘焙學程' crstype='|M|' />
-<Dept code='K01' name='農業技術科' crstype='|E|F|' />
-<Dept code='K03' name='園藝技術科' crstype='|E|F|' />
-<Dept code='K09' name='花藝技術科' crstype='|E|F|' />
-<Dept code='K11' name='寵物經營科' crstype='|E|F|' />
-<Dept code='K13' name='畜產加工科' crstype='|E|F|' />
-<Dept code='K15' name='食品經營科' crstype='|E|F|' />
-<Dept code='K17' name='茶葉技術科' crstype='|E|F|' />
-<Dept code='K19' name='造園技術科' crstype='|E|F|' />
-<Dept code='K21' name='烘焙食品科' crstype='|E|F|' />
-<Dept code='K25' name='肉品加工科' crstype='|E|F|' />
-<Dept code='K27' name='休閒農業科' crstype='|E|F|' />
-<Dept code='L01' name='汽車修護科' crstype='|E|F|' />
-<Dept code='L03' name='水電技術科' crstype='|E|F|' />
-<Dept code='L05' name='裝潢技術科' crstype='|E|F|' />
-<Dept code='L15' name='機械修護科' crstype='|E|F|' />
-<Dept code='L20' name='機械板金科' crstype='|E|F|' />
-<Dept code='L21' name='汽車電機科' crstype='|E|F|' />
-<Dept code='L23' name='視聽電子修護科' crstype='|E|F|' />
-<Dept code='L25' name='塗裝技術科' crstype='|E|F|' />
-<Dept code='L29' name='電機修護科' crstype='|E|F|' />
-<Dept code='L31' name='家電技術科' crstype='|E|F|' />
-<Dept code='L35' name='營造技術科' crstype='|E|F|' />
-<Dept code='L37' name='微電腦修護科' crstype='|E|F|' />
-<Dept code='L39' name='金屬工藝科' crstype='|E|F|' />
-<Dept code='L41' name='竹木工藝科' crstype='|E|F|' />
-<Dept code='L49' name='冷凍空調修護科' crstype='|E|F|' />
-<Dept code='L50' name='冷凍空調技術科' crstype='|E|F|' />
-<Dept code='L51' name='模具基礎技術科' crstype='|E|F|' />
-<Dept code='L52' name='模具技術科' crstype='|E|F|' />
-<Dept code='L55' name='電腦繪圖科' crstype='|E|F|' />
-<Dept code='L58' name='金銀珠寶加工科' crstype='|E|F|' />
-<Dept code='L59' name='機械加工科' crstype='|E|F|' />
-<Dept code='L62' name='鑄造技術科' crstype='|E|F|' />
-<Dept code='L63' name='機車修護科' crstype='|E|F|' />
-<Dept code='L69' name='化工技術科' crstype='|E|F|' />
-<Dept code='L71' name='染整技術科' crstype='|E|F|' />
-<Dept code='L79' name='流行飾品製作科' crstype='|E|F|' />
-<Dept code='L81' name='服裝製作科' crstype='|E|F|' />
-<Dept code='M03' name='廣告技術科' crstype='|E|F|' />
-<Dept code='M05' name='商業事務科' crstype='|E|F|' />
-<Dept code='M09' name='商用資訊科' crstype='|E|F|' />
-<Dept code='M11' name='會計實務科' crstype='|E|F|' />
-<Dept code='M14' name='觀光事務科' crstype='|E|F|' />
-<Dept code='M15' name='文書處理科' crstype='|E|F|' />
-<Dept code='M17' name='餐飲技術科' crstype='|E|F|' />
-<Dept code='M19' name='銷售事務科' crstype='|E|F|' />
-<Dept code='M21' name='中餐廚師科' crstype='|E|F|' />
-<Dept code='M27' name='旅遊事務科' crstype='|E|F|' />
-<Dept code='M29' name='多媒體技術科' crstype='|E|F|' />
-<Dept code='N01' name='西服科' crstype='|E|F|' />
-<Dept code='N03' name='女裝科' crstype='|E|F|' />
-<Dept code='N05' name='美髮技術科' crstype='|E|F|' />
-<Dept code='N06' name='美髮造型科' crstype='|E|F|' />
-<Dept code='N11' name='美顏技術科' crstype='|E|F|' />
-<Dept code='N12' name='美容造型科' crstype='|E|F|' />
-<Dept code='N23' name='飾品製作科' crstype='|E|F|' />
-<Dept code='N25' name='烹調技術科' crstype='|E|F|' />
-<Dept code='P01' name='水產養殖技術科' crstype='|E|F|' />
-<Dept code='P09' name='海事資訊處理科' crstype='|E|F|' />
-<Dept code='P12' name='船舶機電科' crstype='|E|F|' />
-<Dept code='P13' name='漁具製作科' crstype='|E|F|' />
-<Dept code='P17' name='水產食品加工科' crstype='|E|F|' />
-<Dept code='P23' name='休閒漁業科' crstype='|E|F|' />
-<Dept code='Q01' name='水產養殖技術學程' crstype='|M|' />
-<Dept code='Q02' name='水產養殖學程' crstype='|M|' />
-<Dept code='R01' name='漁業學程' crstype='|M|' />
-<Dept code='U01' name='原住民藝能學程' crstype='|M|' />
-<Dept code='U02' name='電視廣播學程' crstype='|M|' />
-<Dept code='U03' name='電影電視學程' crstype='|M|' />
-<Dept code='U04' name='影視戲劇學程' crstype='|M|' />
-<Dept code='U05' name='表演藝術學程' crstype='|M|' />
-<Dept code='V01' name='廣告設計學程' crstype='|M|' />
-<Dept code='V02' name='室內設計學程' crstype='|M|' />
-<Dept code='V03' name='美工學程' crstype='|M|' />
-<Dept code='V04' name='多媒體製作學程' crstype='|M|' />
-<Dept code='V05' name='美工電腦設計學程' crstype='|M|' />
-<Dept code='V06' name='美工技術學程' crstype='|M|' />
-<Dept code='V07' name='商業設計學程' crstype='|M|' />
-<Dept code='V08' name='室內裝潢學程' crstype='|M|' />
-<Dept code='V09' name='家具技術學程' crstype='|M|' />
-<Dept code='V10' name='設計科技學程' crstype='|M|' />
-<Dept code='V11' name='美術設計學程' crstype='|M|' />
-<Dept code='V12' name='多媒體設計學程' crstype='|M|' />
-<Dept code='V14' name='圖文傳播學程' crstype='|M|' />
-<Dept code='V16' name='流行造型設計學程' crstype='|M|' />
-<Dept code='V17' name='空間設計學程' crstype='|M|' />
-<Dept code='V18' name='室內空間設計學程' crstype='|M|' />
-<Dept code='V19' name='造型設計學程' crstype='|M|' />
-<Dept code='V20' name='工藝設計學程' crstype='|M|' />
-<Dept code='V22' name='視覺傳達設計學程' crstype='|M|' />
-<Dept code='W01' name='食品加工學程' crstype='|M|' />
-<Dept code='W03' name='食品技術學程' crstype='|M|' />
-<Dept code='X02' name='應用日語學程' crstype='|M|' />
-<Dept code='X03' name='應用德語學程' crstype='|M|' />
-<Dept code='X04' name='應用法語學程' crstype='|M|' />
-<Dept code='X11' name='應用英語學程' crstype='|M|' />
-<Dept code='Y01' name='銀髮族活動管理學程' crstype='|M|' />
-<Dept code='Y02' name='綜合職能學程' crstype='|M|' />
+  <Dept code='99' name='其他' crstype='|M|' />
+  <Dept code='101' name='普通班' crstype='|H|V|C|S|' />
+  <Dept code='102' name='音樂班' crstype='|H|V|C|S|' />
+  <Dept code='103' name='美術班' crstype='|H|V|C|S|' />
+  <Dept code='104' name='舞蹈班' crstype='|H|V|C|S|' />
+  <Dept code='105' name='體育班' crstype='|H|V|C|M|S|' />
+  <Dept code='106' name='數理資優班' crstype='|H|V|C|S|' />
+  <Dept code='107' name='語文資優班' crstype='|H|V|C|S|' />
+  <Dept code='108' name='科學班' crstype='|H|V|C|S|' />
+  <Dept code='111' name='原住民藝能班' crstype='|H|V|C|S|' />
+  <Dept code='121' name='雙語部' crstype='|H|V|C|S|' />
+  <Dept code='122' name='戲劇班' crstype='|H|V|C|S|' />
+  <Dept code='196' name='1年級不分群' crstype='|M|' />
+  <Dept code='197' name='學術社會學程' crstype='|M|' />
+  <Dept code='198' name='學術自然學程' crstype='|M|' />
+  <Dept code='201' name='農場經營科' crstype='|H|V|C|' />
+  <Dept code='202' name='園藝科' crstype='|H|V|C|' />
+  <Dept code='204' name='森林科' crstype='|H|V|C|' />
+  <Dept code='205' name='農業機械科' crstype='|H|V|C|' />
+  <Dept code='206' name='食品加工科' crstype='|H|V|C|' />
+  <Dept code='214' name='野生動物保育科' crstype='|H|V|C|' />
+  <Dept code='215' name='農產行銷科' crstype='|H|V|C|' />
+  <Dept code='216' name='造園科' crstype='|H|V|C|' />
+  <Dept code='217' name='畜產保健科' crstype='|H|V|C|' />
+  <Dept code='301' name='機械科' crstype='|H|V|C|' />
+  <Dept code='302' name='鑄造科' crstype='|H|V|C|' />
+  <Dept code='303' name='汽車科' crstype='|H|V|C|' />
+  <Dept code='304' name='板金科' crstype='|H|V|C|' />
+  <Dept code='305' name='資訊科' crstype='|H|V|C|' />
+  <Dept code='306' name='電子科' crstype='|H|V|C|' />
+  <Dept code='307' name='控制科' crstype='|H|V|C|' />
+  <Dept code='308' name='電機科' crstype='|H|V|C|' />
+  <Dept code='309' name='冷凍空調科' crstype='|H|V|C|' />
+  <Dept code='311' name='建築科' crstype='|H|V|C|' />
+  <Dept code='312' name='家具木工科' crstype='|H|V|C|' />
+  <Dept code='315' name='化工科' crstype='|H|V|C|' />
+  <Dept code='316' name='美工科' crstype='|H|V|C|' />
+  <Dept code='318' name='美術工藝科' crstype='|H|V|C|' />
+  <Dept code='319' name='紡織科' crstype='|H|V|C|' />
+  <Dept code='321' name='電機空調科' crstype='|H|V|C|' />
+  <Dept code='331' name='機工科' crstype='|H|V|C|' />
+  <Dept code='332' name='機械木模科' crstype='|H|V|C|' />
+  <Dept code='335' name='汽車修護科' crstype='|H|V|C|' />
+  <Dept code='337' name='配管科' crstype='|H|V|C|' />
+  <Dept code='338' name='模具科' crstype='|H|V|C|' />
+  <Dept code='352' name='染整科' crstype='|H|V|C|' />
+  <Dept code='360' name='機電科' crstype='|H|V|C|' />
+  <Dept code='361' name='陶瓷工程科' crstype='|H|V|C|' />
+  <Dept code='363' name='製圖科' crstype='|H|V|C|' />
+  <Dept code='364' name='重機科' crstype='|H|V|C|' />
+  <Dept code='365' name='土木科' crstype='|H|V|C|' />
+  <Dept code='366' name='室內空間設計科' crstype='|H|V|C|' />
+  <Dept code='367' name='環境檢驗科' crstype='|H|V|C|' />
+  <Dept code='371' name='電腦繪圖科' crstype='|H|V|C|' />
+  <Dept code='372' name='生物產業機電科' crstype='|H|V|C|' />
+  <Dept code='373' name='圖文傳播科' crstype='|H|V|C|' />
+  <Dept code='374' name='電腦機械製圖科' crstype='|H|V|C|' />
+  <Dept code='380' name='軌道車輛科' crstype='|H|V|C|' />
+  <Dept code='381' name='飛機修護科' crstype='|H|V|C|' />
+  <Dept code='384' name='航空電子科' crstype='|H|V|C|' />
+  <Dept code='392' name='動力機械科' crstype='|H|V|C|' />
+  <Dept code='394' name='金屬工藝科' crstype='|H|V|C|' />
+  <Dept code='397' name='消防工程科' crstype='|H|V|C|' />
+  <Dept code='398' name='空間測繪科' crstype='|H|V|C|' />
+  <Dept code='399' name='家具設計科' crstype='|H|V|C|' />
+  <Dept code='401' name='商業經營科' crstype='|H|V|C|' />
+  <Dept code='402' name='國際貿易科' crstype='|H|V|C|' />
+  <Dept code='403' name='會計事務科' crstype='|H|V|C|' />
+  <Dept code='404' name='資料處理科' crstype='|H|V|C|' />
+  <Dept code='406' name='廣告設計科' crstype='|H|V|C|' />
+  <Dept code='407' name='觀光事業科' crstype='|H|V|C|' />
+  <Dept code='408' name='餐飲管理科' crstype='|H|V|C|' />
+  <Dept code='418' name='不動產事務科' crstype='|H|V|C|' />
+  <Dept code='424' name='餐飲服務科' crstype='|C|' />
+  <Dept code='425' name='電子商務科' crstype='|H|V|C|' />
+  <Dept code='426' name='流通管理科' crstype='|H|V|C|' />
+  <Dept code='427' name='餐旅管理科' crstype='|V|C|' />
+  <Dept code='429' name='休閒管理科' crstype='|H|V|C|' />
+  <Dept code='430' name='多媒體設計科' crstype='|H|V|C|' />
+  <Dept code='431' name='多媒體應用科' crstype='|H|V|C|' />
+  <Dept code='432' name='電競經營科' crstype='|H|V|C|' />
+  <Dept code='433' name='應用英語科' crstype='|H|V|C|' />
+  <Dept code='434' name='應用日語科' crstype='|H|V|C|' />
+  <Dept code='501' name='家政科' crstype='|H|V|C|' />
+  <Dept code='502' name='服裝科' crstype='|H|V|C|' />
+  <Dept code='503' name='幼兒保育科' crstype='|H|V|C|' />
+  <Dept code='504' name='美容科' crstype='|H|V|C|' />
+  <Dept code='505' name='食品科' crstype='|H|V|C|' />
+  <Dept code='512' name='室內設計科' crstype='|H|V|C|' />
+  <Dept code='513' name='時尚模特兒科' crstype='|H|V|C|' />
+  <Dept code='514' name='照顧服務科' crstype='|H|V|C|' />
+  <Dept code='515' name='流行服飾科' crstype='|H|V|C|' />
+  <Dept code='516' name='時尚造型科' crstype='|H|V|C|' />
+  <Dept code='517' name='烘焙科' crstype='|H|V|C|' />
+  <Dept code='701' name='漁業科' crstype='|H|V|C|' />
+  <Dept code='702' name='輪機科' crstype='|H|V|C|' />
+  <Dept code='703' name='電子通信科' crstype='|H|V|C|' />
+  <Dept code='705' name='水產養殖科' crstype='|H|V|C|' />
+  <Dept code='706' name='水產經營科' crstype='|H|V|C|' />
+  <Dept code='708' name='航海科' crstype='|H|V|C|' />
+  <Dept code='717' name='航運管理科' crstype='|H|V|C|' />
+  <Dept code='718' name='水產食品科' crstype='|H|V|C|' />
+  <Dept code='801' name='戲劇科' crstype='|H|V|C|' />
+  <Dept code='802' name='音樂科' crstype='|H|V|C|' />
+  <Dept code='803' name='舞蹈科' crstype='|H|V|C|' />
+  <Dept code='804' name='美術科' crstype='|H|V|C|' />
+  <Dept code='806' name='影劇科' crstype='|H|V|C|' />
+  <Dept code='807' name='西樂科' crstype='|H|V|C|' />
+  <Dept code='808' name='國樂科' crstype='|H|V|C|' />
+  <Dept code='809' name='歌仔戲科' crstype='|H|V|C|' />
+  <Dept code='813' name='劇場藝術科' crstype='|H|V|C|' />
+  <Dept code='816' name='電影電視科' crstype='|H|V|C|' />
+  <Dept code='817' name='表演藝術科' crstype='|H|V|C|' />
+  <Dept code='820' name='多媒體動畫科' crstype='|H|V|C|' />
+  <Dept code='821' name='客家戲科' crstype='|H|V|C|' />
+  <Dept code='822' name='時尚工藝科' crstype='|H|V|C|' />
+  <Dept code='823' name='戲曲音樂科' crstype='|H|V|C|' />
+  <Dept code='824' name='京劇科' crstype='|H|V|C|' />
+  <Dept code='825' name='民俗技藝科' crstype='|H|V|C|' />
+  <Dept code='826' name='原住民藝能科' crstype='|H|V|C|' />
+  <Dept code='911' name='汽車美容服務科' crstype='|H|V|C|' />
+  <Dept code='912' name='門市服務科' crstype='|H|V|C|' />
+  <Dept code='913' name='農園藝整理服務科' crstype='|H|V|C|' />
+  <Dept code='914' name='包裝服務科' crstype='|H|V|C|' />
+  <Dept code='915' name='居家生活服務科' crstype='|H|V|C|' />
+  <Dept code='916' name='餐飲服務科' crstype='|H|V|C|' />
+  <Dept code='917' name='旅館服務科' crstype='|H|V|C|' />
+  <Dept code='918' name='保健按摩服務科' crstype='|H|V|C|' />
+  <Dept code='929' name='綜合職能科' crstype='|H|V|C|' />
+  <Dept code='A01' name='機械技術學程' crstype='|M|' />
+  <Dept code='A02' name='製圖學程' crstype='|M|' />
+  <Dept code='A03' name='製圖技術學程' crstype='|M|' />
+  <Dept code='A04' name='機械製圖學程' crstype='|M|' />
+  <Dept code='A05' name='電腦製圖學程' crstype='|M|' />
+  <Dept code='A06' name='農業機械技術學程' crstype='|M|' />
+  <Dept code='A07' name='電腦繪圖學程' crstype='|M|' />
+  <Dept code='A08' name='電腦輔助機械學程' crstype='|M|' />
+  <Dept code='A09' name='機械學程' crstype='|M|' />
+  <Dept code='A10' name='機械工程學程' crstype='|M|' />
+  <Dept code='A12' name='鑄造技術學程' crstype='|M|' />
+  <Dept code='A13' name='生物產業機電學程' crstype='|M|' />
+  <Dept code='A14' name='機械木模學程' crstype='|M|' />
+  <Dept code='B01' name='汽車技術學程' crstype='|M|' />
+  <Dept code='B02' name='汽車修護學程' crstype='|M|' />
+  <Dept code='B03' name='航空技術學程' crstype='|M|' />
+  <Dept code='B04' name='飛機修護學程' crstype='|M|' />
+  <Dept code='B05' name='工程機械技術學程' crstype='|M|' />
+  <Dept code='B06' name='汽機車技術學程' crstype='|M|' />
+  <Dept code='B09' name='動力機械學程' crstype='|M|' />
+  <Dept code='B10' name='動力機械技術學程' crstype='|M|' />
+  <Dept code='B11' name='工程機械學程' crstype='|M|' />
+  <Dept code='C01' name='電子技術學程' crstype='|M|' />
+  <Dept code='C02' name='資訊技術學程' crstype='|M|' />
+  <Dept code='C03' name='電機技術學程' crstype='|M|' />
+  <Dept code='C04' name='機電技術學程' crstype='|M|' />
+  <Dept code='C05' name='冷凍空調學程' crstype='|M|' />
+  <Dept code='C06' name='電器冷凍學程' crstype='|M|' />
+  <Dept code='C07' name='航空電子技術學程' crstype='|M|' />
+  <Dept code='C08' name='電腦應用學程' crstype='|M|' />
+  <Dept code='C09' name='電腦通訊學程' crstype='|M|' />
+  <Dept code='C11' name='資訊電子學程' crstype='|M|' />
+  <Dept code='C12' name='資訊科技學程' crstype='|M|' />
+  <Dept code='C16' name='機電整合學程' crstype='|M|' />
+  <Dept code='C18' name='電機電子技術學程' crstype='|M|' />
+  <Dept code='C19' name='電機電子學程' crstype='|M|' />
+  <Dept code='C20' name='控制學程' crstype='|M|' />
+  <Dept code='D01' name='化工技術學程' crstype='|M|' />
+  <Dept code='D02' name='環境檢驗技術學程' crstype='|M|' />
+  <Dept code='D04' name='化工學程' crstype='|M|' />
+  <Dept code='D05' name='衛生化工學程' crstype='|M|' />
+  <Dept code='E01' name='建築技術學程' crstype='|M|' />
+  <Dept code='E02' name='營建技術學程' crstype='|M|' />
+  <Dept code='E03' name='土木測量學程' crstype='|M|' />
+  <Dept code='E04' name='建築製圖學程' crstype='|M|' />
+  <Dept code='E07' name='土木建築技術學程' crstype='|M|' />
+  <Dept code='F01' name='資訊應用學程' crstype='|M|' />
+  <Dept code='F02' name='會計事務學程' crstype='|M|' />
+  <Dept code='F03' name='國際貿易學程' crstype='|M|' />
+  <Dept code='F04' name='商業服務學程' crstype='|M|' />
+  <Dept code='F05' name='商業經營學程' crstype='|M|' />
+  <Dept code='F06' name='流通服務學程' crstype='|M|' />
+  <Dept code='F07' name='物流服務學程' crstype='|M|' />
+  <Dept code='F08' name='資料處理學程' crstype='|M|' />
+  <Dept code='F09' name='電子商務學程' crstype='|M|' />
+  <Dept code='F10' name='商業事務學程' crstype='|M|' />
+  <Dept code='F11' name='文書事務學程' crstype='|M|' />
+  <Dept code='F12' name='商業應用學程' crstype='|M|' />
+  <Dept code='F13' name='商業學程' crstype='|M|' />
+  <Dept code='F14' name='電腦平面動畫學程' crstype='|M|' />
+  <Dept code='F15' name='流通管理學程' crstype='|M|' />
+  <Dept code='F22' name='商經實務學程' crstype='|M|' />
+  <Dept code='F23' name='資訊處理學程' crstype='|M|' />
+  <Dept code='G01' name='造園技術學程' crstype='|M|' />
+  <Dept code='G02' name='園藝技術學程' crstype='|M|' />
+  <Dept code='G03' name='農園技術學程' crstype='|M|' />
+  <Dept code='G04' name='畜產技術學程' crstype='|M|' />
+  <Dept code='G06' name='精緻農業學程' crstype='|M|' />
+  <Dept code='G08' name='畜產加工學程' crstype='|M|' />
+  <Dept code='G09' name='園藝與休閒學程' crstype='|M|' />
+  <Dept code='G10' name='綜合農業學程' crstype='|M|' />
+  <Dept code='G11' name='休閒農業管理學程' crstype='|M|' />
+  <Dept code='G12' name='畜產保健學程' crstype='|M|' />
+  <Dept code='H01' name='美容學程' crstype='|M|' />
+  <Dept code='H02' name='美容美髮學程' crstype='|M|' />
+  <Dept code='H03' name='服裝製作學程' crstype='|M|' />
+  <Dept code='H04' name='服裝設計學程' crstype='|M|' />
+  <Dept code='H05' name='服裝學程' crstype='|M|' />
+  <Dept code='H06' name='美容技術學程' crstype='|M|' />
+  <Dept code='H07' name='家政學程' crstype='|M|' />
+  <Dept code='H08' name='幼兒保育學程' crstype='|M|' />
+  <Dept code='H09' name='時尚設計學程' crstype='|M|' />
+  <Dept code='H10' name='幼老福利學程' crstype='|M|' />
+  <Dept code='H11' name='時尚造型學程' crstype='|M|' />
+  <Dept code='I01' name='影劇技術科' crstype='|E|F|' />
+  <Dept code='I02' name='表演技術科' crstype='|E|F|' />
+  <Dept code='J01' name='餐飲服務學程' crstype='|M|' />
+  <Dept code='J02' name='餐飲技術學程' crstype='|M|' />
+  <Dept code='J03' name='餐飲製作學程' crstype='|M|' />
+  <Dept code='J04' name='餐飲管理學程' crstype='|M|' />
+  <Dept code='J05' name='運動與休閒學程' crstype='|M|' />
+  <Dept code='J06' name='休閒事務學程' crstype='|M|' />
+  <Dept code='J07' name='觀光事務學程' crstype='|M|' />
+  <Dept code='J08' name='觀光事業學程' crstype='|M|' />
+  <Dept code='J09' name='觀光餐飲學程' crstype='|M|' />
+  <Dept code='J11' name='觀光學程' crstype='|M|' />
+  <Dept code='J13' name='運動休閒學程' crstype='|M|' />
+  <Dept code='J14' name='運動與休閒管理學程' crstype='|M|' />
+  <Dept code='J17' name='觀光服務學程' crstype='|M|' />
+  <Dept code='J18' name='餐飲經營學程' crstype='|M|' />
+  <Dept code='J19' name='食品烘焙學程' crstype='|M|' />
+  <Dept code='K01' name='農業技術科' crstype='|E|F|' />
+  <Dept code='K03' name='園藝技術科' crstype='|E|F|' />
+  <Dept code='K09' name='花藝技術科' crstype='|E|F|' />
+  <Dept code='K11' name='寵物經營科' crstype='|E|F|' />
+  <Dept code='K13' name='畜產加工科' crstype='|E|F|' />
+  <Dept code='K15' name='食品經營科' crstype='|E|F|' />
+  <Dept code='K17' name='茶葉技術科' crstype='|E|F|' />
+  <Dept code='K19' name='造園技術科' crstype='|E|F|' />
+  <Dept code='K21' name='烘焙食品科' crstype='|E|F|' />
+  <Dept code='K25' name='肉品加工科' crstype='|E|F|' />
+  <Dept code='K27' name='休閒農業科' crstype='|E|F|' />
+  <Dept code='L01' name='汽車修護科' crstype='|E|F|' />
+  <Dept code='L03' name='水電技術科' crstype='|E|F|' />
+  <Dept code='L05' name='裝潢技術科' crstype='|E|F|' />
+  <Dept code='L15' name='機械修護科' crstype='|E|F|' />
+  <Dept code='L20' name='機械板金科' crstype='|E|F|' />
+  <Dept code='L21' name='汽車電機科' crstype='|E|F|' />
+  <Dept code='L23' name='視聽電子修護科' crstype='|E|F|' />
+  <Dept code='L25' name='塗裝技術科' crstype='|E|F|' />
+  <Dept code='L29' name='電機修護科' crstype='|E|F|' />
+  <Dept code='L31' name='家電技術科' crstype='|E|F|' />
+  <Dept code='L35' name='營造技術科' crstype='|E|F|' />
+  <Dept code='L37' name='微電腦修護科' crstype='|E|F|' />
+  <Dept code='L39' name='金屬工藝科' crstype='|E|F|' />
+  <Dept code='L41' name='竹木工藝科' crstype='|E|F|' />
+  <Dept code='L49' name='冷凍空調修護科' crstype='|E|F|' />
+  <Dept code='L50' name='冷凍空調技術科' crstype='|E|F|' />
+  <Dept code='L51' name='模具基礎技術科' crstype='|E|F|' />
+  <Dept code='L52' name='模具技術科' crstype='|E|F|' />
+  <Dept code='L55' name='電腦繪圖科' crstype='|E|F|' />
+  <Dept code='L58' name='金銀珠寶加工科' crstype='|E|F|' />
+  <Dept code='L59' name='機械加工科' crstype='|E|F|' />
+  <Dept code='L62' name='鑄造技術科' crstype='|E|F|' />
+  <Dept code='L63' name='機車修護科' crstype='|E|F|' />
+  <Dept code='L69' name='化工技術科' crstype='|E|F|' />
+  <Dept code='L71' name='染整技術科' crstype='|E|F|' />
+  <Dept code='L79' name='流行飾品製作科' crstype='|E|F|' />
+  <Dept code='L81' name='服裝製作科' crstype='|E|F|' />
+  <Dept code='M03' name='廣告技術科' crstype='|E|F|' />
+  <Dept code='M05' name='商業事務科' crstype='|E|F|' />
+  <Dept code='M09' name='商用資訊科' crstype='|E|F|' />
+  <Dept code='M11' name='會計實務科' crstype='|E|F|' />
+  <Dept code='M14' name='觀光事務科' crstype='|E|F|' />
+  <Dept code='M15' name='文書處理科' crstype='|E|F|' />
+  <Dept code='M17' name='餐飲技術科' crstype='|E|F|' />
+  <Dept code='M19' name='銷售事務科' crstype='|E|F|' />
+  <Dept code='M21' name='中餐廚師科' crstype='|E|F|' />
+  <Dept code='M27' name='旅遊事務科' crstype='|E|F|' />
+  <Dept code='M29' name='多媒體技術科' crstype='|E|F|' />
+  <Dept code='N01' name='西服科' crstype='|E|F|' />
+  <Dept code='N03' name='女裝科' crstype='|E|F|' />
+  <Dept code='N05' name='美髮技術科' crstype='|E|F|' />
+  <Dept code='N06' name='美髮造型科' crstype='|E|F|' />
+  <Dept code='N11' name='美顏技術科' crstype='|E|F|' />
+  <Dept code='N12' name='美容造型科' crstype='|E|F|' />
+  <Dept code='N23' name='飾品製作科' crstype='|E|F|' />
+  <Dept code='N25' name='烹調技術科' crstype='|E|F|' />
+  <Dept code='P01' name='水產養殖技術科' crstype='|E|F|' />
+  <Dept code='P09' name='海事資訊處理科' crstype='|E|F|' />
+  <Dept code='P12' name='船舶機電科' crstype='|E|F|' />
+  <Dept code='P13' name='漁具製作科' crstype='|E|F|' />
+  <Dept code='P17' name='水產食品加工科' crstype='|E|F|' />
+  <Dept code='P23' name='休閒漁業科' crstype='|E|F|' />
+  <Dept code='Q01' name='水產養殖技術學程' crstype='|M|' />
+  <Dept code='Q02' name='水產養殖學程' crstype='|M|' />
+  <Dept code='R01' name='漁業學程' crstype='|M|' />
+  <Dept code='U01' name='原住民藝能學程' crstype='|M|' />
+  <Dept code='U02' name='電視廣播學程' crstype='|M|' />
+  <Dept code='U03' name='電影電視學程' crstype='|M|' />
+  <Dept code='U04' name='影視戲劇學程' crstype='|M|' />
+  <Dept code='U05' name='表演藝術學程' crstype='|M|' />
+  <Dept code='V01' name='廣告設計學程' crstype='|M|' />
+  <Dept code='V02' name='室內設計學程' crstype='|M|' />
+  <Dept code='V03' name='美工學程' crstype='|M|' />
+  <Dept code='V04' name='多媒體製作學程' crstype='|M|' />
+  <Dept code='V05' name='美工電腦設計學程' crstype='|M|' />
+  <Dept code='V06' name='美工技術學程' crstype='|M|' />
+  <Dept code='V07' name='商業設計學程' crstype='|M|' />
+  <Dept code='V08' name='室內裝潢學程' crstype='|M|' />
+  <Dept code='V09' name='家具技術學程' crstype='|M|' />
+  <Dept code='V10' name='設計科技學程' crstype='|M|' />
+  <Dept code='V11' name='美術設計學程' crstype='|M|' />
+  <Dept code='V12' name='多媒體設計學程' crstype='|M|' />
+  <Dept code='V14' name='圖文傳播學程' crstype='|M|' />
+  <Dept code='V16' name='流行造型設計學程' crstype='|M|' />
+  <Dept code='V17' name='空間設計學程' crstype='|M|' />
+  <Dept code='V18' name='室內空間設計學程' crstype='|M|' />
+  <Dept code='V19' name='造型設計學程' crstype='|M|' />
+  <Dept code='V20' name='工藝設計學程' crstype='|M|' />
+  <Dept code='V22' name='視覺傳達設計學程' crstype='|M|' />
+  <Dept code='W01' name='食品加工學程' crstype='|M|' />
+  <Dept code='W03' name='食品技術學程' crstype='|M|' />
+  <Dept code='X02' name='應用日語學程' crstype='|M|' />
+  <Dept code='X03' name='應用德語學程' crstype='|M|' />
+  <Dept code='X04' name='應用法語學程' crstype='|M|' />
+  <Dept code='X11' name='應用英語學程' crstype='|M|' />
+  <Dept code='Y01' name='銀髮族活動管理學程' crstype='|M|' />
+  <Dept code='Y02' name='綜合職能學程' crstype='|M|' />
 </Depts>

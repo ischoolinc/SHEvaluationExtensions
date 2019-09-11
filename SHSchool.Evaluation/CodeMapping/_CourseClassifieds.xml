@@ -1,7 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-
-<!--更新8/5-->
-
 <CourseClassifieds>
   <CourseClassified code="1" name= "部定必修" />
   <CourseClassified code="2" name= "校訂必修" />
@@ -13,9 +10,4 @@
   <CourseClassified code="8" name= "團體活動時間" />
   <CourseClassified code="9" name= "彈性學習時間" />
   <CourseClassified code="A" name= "大學預修課程" />
-  <CourseClassified code="B" name= "基礎訓練" />
-  <CourseClassified code="C" name= "職前訓練" />
-  <CourseClassified code="D" name= "寒暑假課程" />
-  <CourseClassified code="E" name= "返校課程" />
-  <CourseClassified code="F" name= "職業技能訓練" />
 </CourseClassifieds>

@@ -1,6 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<!--8/5號更新(無不同)-->
-
 <OpenWays>
   <OpenWay  code="0" name="原班級" />
   <OpenWay  code="1" name="跨班選修(班群開課)" />

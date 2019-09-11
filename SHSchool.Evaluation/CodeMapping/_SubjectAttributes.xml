@@ -9,7 +9,6 @@
   <SubjectAttribute code="6" name="特殊需求領域" />
   <SubjectAttribute code="A" name="自主學習" />
   <SubjectAttribute code="B" name="選手培訓" />
-  <SubjectAttribute code="C" name="充實(增廣)、補強性教學 [全學期、不授予學分]" />
-  <SubjectAttribute code="D" name="充實(增廣)、補強性教學 [全學期、授予學分]" />
-  <SubjectAttribute code="E" name="學校特色活動" />
+  <SubjectAttribute code="C" name="充實(增廣)、補強性教學" />
+  <SubjectAttribute code="D" name="學校特色活動" />
 </SubjectAttributes>

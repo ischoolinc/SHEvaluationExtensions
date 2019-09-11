@@ -47,7 +47,7 @@
             this.txtFileName.Border.Class = "TextBoxBorder";
             this.txtFileName.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.txtFileName.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txtFileName.Location = new System.Drawing.Point(72, 156);
+            this.txtFileName.Location = new System.Drawing.Point(59, 51);
             this.txtFileName.Name = "txtFileName";
             this.txtFileName.Size = new System.Drawing.Size(161, 25);
             this.txtFileName.TabIndex = 0;
@@ -57,7 +57,7 @@
             this.btnSelectFile.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnSelectFile.BackColor = System.Drawing.Color.Transparent;
             this.btnSelectFile.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnSelectFile.Location = new System.Drawing.Point(250, 156);
+            this.btnSelectFile.Location = new System.Drawing.Point(229, 53);
             this.btnSelectFile.Name = "btnSelectFile";
             this.btnSelectFile.Size = new System.Drawing.Size(75, 23);
             this.btnSelectFile.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -71,7 +71,7 @@
             this.btnImprt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnImprt.BackColor = System.Drawing.Color.Transparent;
             this.btnImprt.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnImprt.Location = new System.Drawing.Point(250, 235);
+            this.btnImprt.Location = new System.Drawing.Point(229, 191);
             this.btnImprt.Name = "btnImprt";
             this.btnImprt.Size = new System.Drawing.Size(75, 23);
             this.btnImprt.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -87,7 +87,7 @@
             this.textFileCassGroup.Border.Class = "TextBoxBorder";
             this.textFileCassGroup.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.textFileCassGroup.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.textFileCassGroup.Location = new System.Drawing.Point(72, 69);
+            this.textFileCassGroup.Location = new System.Drawing.Point(59, 129);
             this.textFileCassGroup.Name = "textFileCassGroup";
             this.textFileCassGroup.Size = new System.Drawing.Size(161, 25);
             this.textFileCassGroup.TabIndex = 4;
@@ -97,7 +97,7 @@
             this.btnSelectedClassGroup.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
             this.btnSelectedClassGroup.BackColor = System.Drawing.Color.Transparent;
             this.btnSelectedClassGroup.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnSelectedClassGroup.Location = new System.Drawing.Point(250, 71);
+            this.btnSelectedClassGroup.Location = new System.Drawing.Point(229, 129);
             this.btnSelectedClassGroup.Name = "btnSelectedClassGroup";
             this.btnSelectedClassGroup.Size = new System.Drawing.Size(75, 23);
             this.btnSelectedClassGroup.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -113,11 +113,11 @@
             // 
             this.lab1.BackgroundStyle.Class = "";
             this.lab1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.lab1.Location = new System.Drawing.Point(12, 28);
+            this.lab1.Location = new System.Drawing.Point(12, 100);
             this.lab1.Name = "lab1";
             this.lab1.Size = new System.Drawing.Size(189, 23);
             this.lab1.TabIndex = 6;
-            this.lab1.Text = "步驟一：選擇【班群代碼檔】";
+            this.lab1.Text = "步驟二：選擇【班群代碼檔】";
             // 
             // labelX2
             // 
@@ -127,17 +127,17 @@
             // 
             this.labelX2.BackgroundStyle.Class = "";
             this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX2.Location = new System.Drawing.Point(12, 111);
+            this.labelX2.Location = new System.Drawing.Point(12, 22);
             this.labelX2.Name = "labelX2";
             this.labelX2.Size = new System.Drawing.Size(208, 23);
             this.labelX2.TabIndex = 7;
-            this.labelX2.Text = "步驟二：選擇【課程代碼資料檔】";
+            this.labelX2.Text = "步驟一：選擇【課程代碼資料檔】";
             // 
             // pbLoding
             // 
             this.pbLoding.BackColor = System.Drawing.Color.Transparent;
             this.pbLoding.Image = global::SHSchool.Evaluation.Properties.Resources.loding;
-            this.pbLoding.Location = new System.Drawing.Point(136, 208);
+            this.pbLoding.Location = new System.Drawing.Point(130, 177);
             this.pbLoding.Name = "pbLoding";
             this.pbLoding.Size = new System.Drawing.Size(33, 33);
             this.pbLoding.TabIndex = 8;
@@ -148,7 +148,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(337, 270);
+            this.ClientSize = new System.Drawing.Size(316, 226);
             this.Controls.Add(this.pbLoding);
             this.Controls.Add(this.labelX2);
             this.Controls.Add(this.lab1);
