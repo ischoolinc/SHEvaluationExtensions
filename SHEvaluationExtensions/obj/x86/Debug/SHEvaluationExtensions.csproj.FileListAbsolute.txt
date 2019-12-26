@@ -15,3 +15,10 @@ D:\GitHub2\SHEvaluationExtensions\SHEvaluationExtensions\SHEvaluationExtensions\
 D:\GitHub2\SHEvaluationExtensions\SHEvaluationExtensions\SHEvaluationExtensions\obj\x86\Debug\SHEvaluationExtensions.csproj.GenerateResource.Cache
 D:\GitHub2\SHEvaluationExtensions\SHEvaluationExtensions\SHEvaluationExtensions\obj\x86\Debug\SHEvaluationExtensions.dll
 D:\GitHub2\SHEvaluationExtensions\SHEvaluationExtensions\SHEvaluationExtensions\obj\x86\Debug\SHEvaluationExtensions.pdb
+C:\ischoolProjectGit\SHEvaluationExtensions\SHEvaluationExtensions\bin\Debug\SHEvaluationExtensions.dll
+C:\ischoolProjectGit\SHEvaluationExtensions\SHEvaluationExtensions\bin\Debug\SHEvaluationExtensions.pdb
+C:\ischoolProjectGit\SHEvaluationExtensions\SHEvaluationExtensions\obj\x86\Debug\SHEvaluationExtensions.Course.ExportStudentV2.resources
+C:\ischoolProjectGit\SHEvaluationExtensions\SHEvaluationExtensions\obj\x86\Debug\SHEvaluationExtensions.Course.ImportStudentV2.resources
+C:\ischoolProjectGit\SHEvaluationExtensions\SHEvaluationExtensions\obj\x86\Debug\SHEvaluationExtensions.csproj.GenerateResource.Cache
+C:\ischoolProjectGit\SHEvaluationExtensions\SHEvaluationExtensions\obj\x86\Debug\SHEvaluationExtensions.dll
+C:\ischoolProjectGit\SHEvaluationExtensions\SHEvaluationExtensions\obj\x86\Debug\SHEvaluationExtensions.pdb

@@ -132,6 +132,10 @@
     <Compile Include="Course\ImportStudentV2.designer.cs">
       <DependentUpon>ImportStudentV2.cs</DependentUpon>
     </Compile>
+    <Compile Include="DAO\CourseInfo.cs" />
+    <Compile Include="DAO\DataAccess.cs" />
+    <Compile Include="DAO\SCAttendInfo.cs" />
+    <Compile Include="DAO\StudentInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

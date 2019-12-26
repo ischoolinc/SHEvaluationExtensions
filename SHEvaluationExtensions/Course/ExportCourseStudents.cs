@@ -23,7 +23,7 @@ namespace SHEvaluationExtensions.Course
 
         public override void InitializeExport(SmartSchool.API.PlugIn.Export.ExportWizard wizard)
         {
-            wizard.ExportableFields.AddRange("姓名", "學號", "班級", "座號","必選修","校部訂", "及格標準", "補考標準", "科目代碼", "學生狀態");
+            wizard.ExportableFields.AddRange("姓名", "學號", "班級", "座號","必選修","校部訂", "及格標準", "補考標準", "直接指定總成績", "備註", "科目代碼", "學生狀態");
             wizard.ExportPackage += delegate(object sender, SmartSchool.API.PlugIn.Export.ExportPackageEventArgs e)
             {
                 // 課程 ID
@@ -78,6 +78,8 @@ namespace SHEvaluationExtensions.Course
                                     case "校部訂":row.Add(field, GetFieldString(dr, "required_by"));break;
                                     case "及格標準": row.Add(field, GetFieldString(dr, "passing_standard")); break;
                                     case "補考標準": row.Add(field, GetFieldString(dr, "makeup_standard")); break;
+                                    case "直接指定總成績": row.Add(field, GetFieldString(dr, "designate_final_score")); break;
+                                    case "備註": row.Add(field, GetFieldString(dr, "remark")); break;
                                     case "科目代碼": row.Add(field, GetFieldString(dr, "subject_code")); break;
                                     case "學生狀態": row.Add(field, GetFieldString(dr, "status")); break;
                                 }
