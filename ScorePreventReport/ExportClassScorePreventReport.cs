@@ -59,6 +59,7 @@ WITH target_student AS (
 		student
 	WHERE
 		ref_class_id IN( {0} ) 
+        AND status IN(1, 2)
 ) ,target_score AS(
     SELECT
 	    target_student.id AS student_id
@@ -71,8 +72,9 @@ WITH target_student AS (
 	    , array_to_string(xpath('/Subject/@科目', subj_score_ele), '')::text AS 科目
 	    , array_to_string(xpath('/Subject/@科目級別', subj_score_ele), '')::text AS 科目級別
 	    , array_to_string(xpath('/Subject/@開課學分數', subj_score_ele), '')::text AS 學分數
-	    , array_to_string(xpath('/Subject/@是否取得學分', subj_score_ele), '')::text AS 取得學分
+	    , array_to_string(xpath('/Subject/@是否取得學分', subj_score_ele), '')::text AS 是否取得學分
 	    , array_to_string(xpath('/Subject/@修課必選修', subj_score_ele), '')::text AS 必選修
+	    , array_to_string(xpath('/Subject/@不計學分', subj_score_ele), '')::text AS 不計學分
     FROM 
         target_student
         LEFT OUTER JOIN (
@@ -92,7 +94,7 @@ SELECT
 FROM 
     target_score
 WHERE
-    取得學分 = '是'
+    不計學分 = '否'
             ", string.Join(",", listClassID));
             #endregion
 
@@ -111,6 +113,7 @@ WHERE
                 string level = "" + row["科目級別"];
                 float credit = float.Parse("" + row["學分數"] == "" ? "0" : "" + row["學分數"]);
                 string mode = "" + row["必選修"];
+                bool isGetCredit = "" + row["是否取得學分"] == "是" ? true : false;
 
                 #region 學生學分數整理
                 if (!dicCreditRecByClassStuKey.ContainsKey(classID))
@@ -131,21 +134,24 @@ WHERE
                 }
                 CreditRec creditRec = dicCreditRecByKey[key];
                 creditRec.TotalCredit += credit;
-                if (dicCoreSubjectByKey.ContainsKey($"{subjectName}_{level}"))
+                if (isGetCredit)
                 {
-                    // 核心
-                    creditRec.CoredCredit += credit;
-                }
-                switch (mode)
-                {
-                    case "必修":
-                        creditRec.HaveToCredit += credit;
-                        break;
-                    case "選修":
-                        creditRec.SelectedCredit += credit;
-                        break;
-                    default:
-                        break;
+                    if (dicCoreSubjectByKey.ContainsKey($"{subjectName}_{level}"))
+                    {
+                        // 核心
+                        creditRec.CoredCredit += credit;
+                    }
+                    switch (mode)
+                    {
+                        case "必修":
+                            creditRec.HaveToCredit += credit;
+                            break;
+                        case "選修":
+                            creditRec.SelectedCredit += credit;
+                            break;
+                        default:
+                            break;
+                    }
                 }
                 #endregion
 
@@ -227,7 +233,7 @@ FROM
             string schoolYear = School.DefaultSchoolYear;
 
             int sheetIndex = 0;
-            foreach (string classID in dicCreditRecByClassStuKey.Keys)
+            foreach (string classID in listClassID)
             {
                 if (sheetIndex > 0)
                 {
@@ -245,64 +251,75 @@ FROM
                 sheet.Cells[rowIndex++, 0].PutValue($"{schoolName} {schoolYear}學年度 {classRec.Name} 修讀學分統計表");
 
                 rowIndex = 4;
+
                 Range range = sheet.Cells.CreateRange(1, 1, 1, 30);
                 Style style = sheet.Cells.GetCellStyle(4, 0);
                 StyleFlag styleFlag = new StyleFlag() { All = true };
 
-                foreach (string stuID in dicCreditRecByClassStuKey[classID].Keys)
+                // 有班級學生資料
+                if (dicCreditRecByClassStuKey.ContainsKey(classID))
                 {
-                    int colIndex = 0;
-                    float totalCredit = 0;
-                    float totalCoreCredit = 0;
-                    float totalHaveToCredit = 0;
-                    float totalSelectedCredit = 0;
-                    Dictionary<string, CreditRec> dicCreditRecByKey = dicCreditRecByClassStuKey[classID][stuID];
-
-                    // 座號 姓名
-                    if (dicStudentRecByID.ContainsKey(stuID))
+                    foreach (string stuID in dicCreditRecByClassStuKey[classID].Keys)
                     {
-                        StudentRec stuRec = dicStudentRecByID[stuID];
-                        sheet.Cells[rowIndex, colIndex++].PutValue(stuRec.SeatNo);
-                        sheet.Cells[rowIndex, colIndex++].PutValue(stuRec.Name);
-                    }
+                        int colIndex = 0;
+                        float totalCredit = 0;
+                        float totalCoreCredit = 0;
+                        float totalHaveToCredit = 0;
+                        float totalSelectedCredit = 0;
+                        Dictionary<string, CreditRec> dicCreditRecByKey = dicCreditRecByClassStuKey[classID][stuID];
 
-                    // 成績年級學期學分數
-                    for (int gradeYear = 1; gradeYear <= 3; gradeYear++)
-                    {
-                        for (int semester = 1; semester <= 2; semester++)
+                        // 座號 姓名
+                        if (dicStudentRecByID.ContainsKey(stuID))
                         {
-                            string key = $"{gradeYear}_{semester}";
+                            StudentRec stuRec = dicStudentRecByID[stuID];
+                            sheet.Cells[rowIndex, colIndex++].PutValue(stuRec.SeatNo);
+                            sheet.Cells[rowIndex, colIndex++].PutValue(stuRec.Name);
+                        }
 
-                            if (dicCreditRecByKey.ContainsKey(key))
+                        // 成績年級學期學分數
+                        for (int gradeYear = 1; gradeYear <= 3; gradeYear++)
+                        {
+                            for (int semester = 1; semester <= 2; semester++)
                             {
-                                CreditRec creditRec = dicCreditRecByKey[key];
-                                sheet.Cells[rowIndex, colIndex++].PutValue(creditRec.TotalCredit);
-                                sheet.Cells[rowIndex, colIndex++].PutValue(creditRec.CoredCredit);
-                                sheet.Cells[rowIndex, colIndex++].PutValue(creditRec.HaveToCredit);
-                                sheet.Cells[rowIndex, colIndex++].PutValue(creditRec.SelectedCredit);
+                                string key = $"{gradeYear}_{semester}";
 
-                                totalCredit += creditRec.TotalCredit;
-                                totalCoreCredit += creditRec.CoredCredit;
-                                totalHaveToCredit += creditRec.HaveToCredit;
-                                totalSelectedCredit += creditRec.SelectedCredit;
-                            }
-                            else
-                            {
-                                colIndex += 4;
+                                if (dicCreditRecByKey.ContainsKey(key))
+                                {
+                                    CreditRec creditRec = dicCreditRecByKey[key];
+                                    sheet.Cells[rowIndex, colIndex++].PutValue(creditRec.TotalCredit);
+                                    sheet.Cells[rowIndex, colIndex++].PutValue(creditRec.CoredCredit);
+                                    sheet.Cells[rowIndex, colIndex++].PutValue(creditRec.HaveToCredit);
+                                    sheet.Cells[rowIndex, colIndex++].PutValue(creditRec.SelectedCredit);
+
+                                    totalCredit += creditRec.TotalCredit;
+                                    totalCoreCredit += creditRec.CoredCredit;
+                                    totalHaveToCredit += creditRec.HaveToCredit;
+                                    totalSelectedCredit += creditRec.SelectedCredit;
+                                }
+                                else
+                                {
+                                    colIndex += 4;
+                                }
                             }
                         }
+
+                        // 累計實得學分
+                        sheet.Cells[rowIndex, colIndex++].PutValue(totalCoreCredit);
+                        sheet.Cells[rowIndex, colIndex++].PutValue(totalHaveToCredit);
+                        sheet.Cells[rowIndex, colIndex++].PutValue(totalSelectedCredit);
+                        sheet.Cells[rowIndex, colIndex++].PutValue(totalCredit);
+
+                        Range currentRow = sheet.Cells.CreateRange(rowIndex, 0, 1, 30);
+                        currentRow.ApplyStyle(style, styleFlag);
+
+                        rowIndex++;
                     }
-
-                    // 累計實得學分
-                    sheet.Cells[rowIndex, colIndex++].PutValue(totalCoreCredit);
-                    sheet.Cells[rowIndex, colIndex++].PutValue(totalHaveToCredit);
-                    sheet.Cells[rowIndex, colIndex++].PutValue(totalSelectedCredit);
-                    sheet.Cells[rowIndex, colIndex++].PutValue(totalCredit);
-                    
-                    Range currentRow = sheet.Cells.CreateRange(rowIndex, 0, 1, 30);
-                    currentRow.ApplyStyle(style, styleFlag);
-
-                    rowIndex++;
+                }
+                // 沒有班級學生資料
+                else
+                {
+                    sheet.Cells.Merge(4, 0, 3, 30);
+                    sheet.Cells[4, 0].PutValue("無資料");
                 }
                 sheetIndex++;
             }
