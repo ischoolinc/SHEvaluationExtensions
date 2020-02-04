@@ -17,6 +17,7 @@ namespace TechnologyStar2020.UI
     {
         AccessHelper accessHelper = new AccessHelper();
         Dictionary<string, string> defaultGroupDict = new Dictionary<string, string>();
+        Dictionary<string, udtRegistrationGroup> sourceDict = new Dictionary<string, udtRegistrationGroup>();
         public GroupForm()
         {
             InitializeComponent();
@@ -34,6 +35,7 @@ namespace TechnologyStar2020.UI
             if (MsgBox.Show("當按「是」將清空群資料恢復成系統預設值，請問是否繼續?", "恢復系統預設值", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 this.LoadDefaultData();
+                this.LoadData();
             }
 
             btnReset.Enabled = true;
@@ -41,63 +43,72 @@ namespace TechnologyStar2020.UI
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            btnSave.Enabled = false;
             if (CheckData())
                 SaveData();
+
+            btnSave.Enabled = true;
         }
 
         private bool CheckData()
         {
             bool value = true;
+            List<string> idNameList = new List<string>();
+            List<string> idList = new List<string>();
+            List<string> NameList = new List<string>();
             // 檢查不能空白與不能重複
             foreach (DataGridViewRow dr in dgData.Rows)
             {
                 if (dr.IsNewRow)
                     continue;
-
-                List<string> idList = new List<string>();
-
-                List<string> nameList = new List<string>();
-
-                List<string> idNameList = new List<string>();
-
-                if (dr.Cells[colID.Index].Value == null)
+               
+                string id = "";
+                string name = "";
+                if (dr.Cells[colID.Index].Value != null && dr.Cells[colID.Index].Value.ToString() != "")
                 {
+                    id = dr.Cells[colID.Index].Value.ToString();
+                }
+
+                if (dr.Cells[colName.Index].Value != null && dr.Cells[colName.Index].Value.ToString() != "")
+                {
+                    name = dr.Cells[colName.Index].Value.ToString();
+                }
+
+                if (id == "" || name == "")
+                {
+                    MsgBox.Show("第" + dr.Index + 1 + "列 有空白資料無法儲存。");
+
                     return false;
                 }
-                else if (dr.Cells[colID.Index].Value.ToString() == "")
-                {
-                    return false;
-                }
+
+
+                if (!idList.Contains(id))
+                    idList.Add(id);
                 else
                 {
-                    if (!idList.Contains(dr.Cells[colID.Index].Value.ToString()))
-                    {
-                        idList.Add(dr.Cells[colID.Index].Value.ToString());
-                    }else
-                    {
-                        return false;
-                    }
+                    MsgBox.Show("第" + dr.Index + 1 + "列 " + id + name + "群代碼重複無法儲存。");
+
+                    return false;
                 }
 
-                if (dr.Cells[colName.Index].Value == null)
-                {
-                    return false;
-                }
-                else if (dr.Cells[colName.Index].Value.ToString() == "")
-                {
-                    return false;
-                }
+                if (!NameList.Contains(name))
+                    NameList.Add(name);
                 else
                 {
-                    if (!nameList.Contains(dr.Cells[colName.Index].Value.ToString()))
-                    {
-                        nameList.Add(dr.Cells[colName.Index].Value.ToString());
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    MsgBox.Show("第" + dr.Index + 1 + "列 " + id + name + "群名稱重複無法儲存。");
+
+                    return false;
                 }
+
+                if (!idNameList.Contains(id + name))
+                    idNameList.Add(id + name);
+                else
+                {
+                    MsgBox.Show("第" + dr.Index + 1 + "列 " + id + name + "資料重複無法儲存。");
+
+                    return false;
+                }
+
             }
             return value;
         }
@@ -109,6 +120,7 @@ namespace TechnologyStar2020.UI
         {
             try
             {
+                dgData.Rows.Clear();
                 defaultGroupDict.Clear();
                 defaultGroupDict.Add("01", "機械群");
                 defaultGroupDict.Add("02", "動力機械群");
@@ -167,7 +179,15 @@ namespace TechnologyStar2020.UI
             else
             {
                 dgData.Rows.Clear();
-
+                sourceDict.Clear();
+                foreach(udtRegistrationGroup data in groupList)
+                {
+                    int rowIdx = dgData.Rows.Add();
+                    dgData.Rows[rowIdx].Tag = data;
+                    dgData.Rows[rowIdx].Cells[colID.Index].Value = data.GroupID;
+                    dgData.Rows[rowIdx].Cells[colName.Index].Value = data.GroupName;
+                    sourceDict.Add(data.UID,data);
+                }
             }
         }
 
@@ -177,9 +197,14 @@ namespace TechnologyStar2020.UI
             // 讀取資料並儲存
             try
             {
+                List<udtRegistrationGroup> delList = new List<udtRegistrationGroup>();
+                List<string> uidList = new List<string>();
                 List<udtRegistrationGroup> dataList = new List<udtRegistrationGroup>();
                 foreach (DataGridViewRow drv in dgData.Rows)
                 {
+                    if (drv.IsNewRow)
+                        continue;
+
                     udtRegistrationGroup data = drv.Tag as udtRegistrationGroup;
                     if (data == null)
                     {
@@ -188,10 +213,32 @@ namespace TechnologyStar2020.UI
                     data.GroupID = drv.Cells[colID.Index].Value.ToString();
                     data.GroupName = drv.Cells[colName.Index].Value.ToString();
 
+                    if (!string.IsNullOrEmpty(data.UID))
+                        uidList.Add(data.UID);
+
                     dataList.Add(data);
                 }
 
                 dataList.SaveAll();
+
+                foreach(string key in sourceDict.Keys)
+                {
+                    if (!uidList.Contains(key))
+                    {
+                        sourceDict[key].Deleted = true;
+                        delList.Add(sourceDict[key]);
+                    }                       
+                }
+
+                // 清除
+                if (delList.Count > 0)
+                    delList.SaveAll();
+
+                
+
+
+                MsgBox.Show("儲存完成。");
+                this.Close();
             }
             catch (Exception ex)
             {
@@ -204,5 +251,7 @@ namespace TechnologyStar2020.UI
             // 載入資料
             this.LoadData();
         }
+
+    
     }
 }

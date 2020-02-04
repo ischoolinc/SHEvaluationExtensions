@@ -112,6 +112,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAO\DeptInfo.cs" />
+    <Compile Include="DAO\QueryData.cs" />
     <Compile Include="DAO\udtRegistrationDept.cs" />
     <Compile Include="DAO\udtRegistrationGroup.cs" />
     <Compile Include="Program.cs" />
