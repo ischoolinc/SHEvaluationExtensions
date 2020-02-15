@@ -112,23 +112,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DAO\DeptInfo.cs" />
     <Compile Include="DAO\QueryData.cs" />
+    <Compile Include="DAO\StudentInfo.cs" />
+    <Compile Include="DAO\StudentScoreInfo.cs" />
     <Compile Include="DAO\udtRegistrationDept.cs" />
-    <Compile Include="DAO\udtRegistrationGroup.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\DeptGroupForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\DeptGroupForm.Designer.cs">
-      <DependentUpon>DeptGroupForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\GroupForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\GroupForm.Designer.cs">
-      <DependentUpon>GroupForm.cs</DependentUpon>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="UI\PrintForm.cs">
       <SubType>Form</SubType>
@@ -137,9 +130,7 @@
       <DependentUpon>PrintForm.cs</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Template\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Library\Aspose.Cells_201402.dll" />
     <Content Include="Library\Aspose.Cells_201402.xml" />
@@ -173,15 +164,16 @@
     <Content Include="Library\SmartSchool.Evaluation.HS.dll" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="UI\DeptGroupForm.resx">
-      <DependentUpon>DeptGroupForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\GroupForm.resx">
-      <DependentUpon>GroupForm.cs</DependentUpon>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\PrintForm.resx">
       <DependentUpon>PrintForm.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Template\Template.xls" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
