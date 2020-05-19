@@ -13,6 +13,7 @@ using K12.Data;
 using FISCA.Data;
 using Aspose.Cells;
 using System.IO;
+using System.Xml.Linq;
 
 namespace ScorePreventReport
 {
@@ -22,9 +23,16 @@ namespace ScorePreventReport
         private Workbook wbTemplate;
         private BackgroundWorker bgWorker = new BackgroundWorker();
         private QueryHelper qh = new QueryHelper();
-        private Dictionary<string, CoreSubjectRec> dicCoreSubjectByKey = new Dictionary<string, CoreSubjectRec>();
+        //private Dictionary<string, CoreSubjectRec> dicCoreSubjectByKey = new Dictionary<string, CoreSubjectRec>();
         private Dictionary<string, StudentRec> dicStudentRecByID = new Dictionary<string, StudentRec>();
         private Dictionary<string, Dictionary<string, Dictionary<string, CreditRec>>> dicCreditRecByClassStuKey = new Dictionary<string, Dictionary<string, Dictionary<string, CreditRec>>>();
+
+        Dictionary<string, List<string>> ruleCoreSubjectNameDict = new Dictionary<string, List<string>>();
+        Dictionary<string, List<string>> ruleCoreSubjectTableDict = new Dictionary<string, List<string>>();
+
+        // 班級學生成績計算規則ID
+        Dictionary<string, string> studentScoreRuleDict = new Dictionary<string, string>();
+
 
         public ExportClassScorePreventReport(List<string> _listClassID)
         {
@@ -136,11 +144,24 @@ WHERE
                 creditRec.TotalCredit += credit;
                 if (isGetCredit)
                 {
-                    if (dicCoreSubjectByKey.ContainsKey($"{subjectName}_{level}"))
+                    if (studentScoreRuleDict.ContainsKey(studentID))
                     {
-                        // 核心
-                        creditRec.CoredCredit += credit;
+                        if (ruleCoreSubjectNameDict.ContainsKey(studentScoreRuleDict[studentID]))
+                        {
+                            if (ruleCoreSubjectNameDict[studentScoreRuleDict[studentID]].Contains($"{subjectName}_{level}"))
+                            {
+                                // 核心
+                                creditRec.CoredCredit += credit;
+                            }
+                        }
                     }
+
+
+                    //if (dicCoreSubjectByKey.ContainsKey($"{subjectName}_{level}"))
+                    //{
+                    //    // 核心
+                    //    creditRec.CoredCredit += credit;
+                    //}
                     switch (mode)
                     {
                         case "必修":
@@ -170,12 +191,13 @@ WHERE
             }
         }
 
-        private void GetCoreSubjects()
-        {
-            dicCoreSubjectByKey = new Dictionary<string, CoreSubjectRec>();
 
-            #region SQL
-            string sql = string.Format(@"
+        private List<string> GetCoreSubjectNameList(List<string> nameList)
+        {
+            List<string> value = new List<string>();
+            if (nameList.Count > 0)
+            {
+                string sql = string.Format(@"
 WITH subject_list AS(
 	SELECT
 		array_to_string(xpath('/Subject/@Name', subject_xml), '')::TEXT AS subject_name
@@ -186,7 +208,7 @@ WITH subject_list AS(
 			FROM 
 				subj_table 
 			WHERE 
-				name = '後期中等教育核心課程'
+				name in ('" + string.Join("','", nameList.ToArray()) + @"')
 		) AS subject	
 )
 SELECT
@@ -203,26 +225,123 @@ FROM
 	) subject
 		ON subject.subject_name = subject_list.subject_name
             ");
-            #endregion
 
-            DataTable dt = qh.Select(sql);
 
-            foreach (DataRow row in dt.Rows)
-            {
-                string subjectName = "" + row["subject_name"];
-                string level = "" + row["level"];
-                string key = $"{subjectName}_{level}";
+                DataTable dt = qh.Select(sql);
 
-                if (!dicCoreSubjectByKey.ContainsKey(key))
+                foreach (DataRow row in dt.Rows)
                 {
-                    CoreSubjectRec sub = new CoreSubjectRec();
-                    sub.SubjectName = subjectName;
-                    sub.Level = level;
+                    string subjectName = "" + row["subject_name"];
+                    string level = "" + row["level"];
+                    string key = $"{subjectName}_{level}";
 
-                    dicCoreSubjectByKey.Add(key, sub);
+                    if (!value.Contains(key))
+                        value.Add(key);
                 }
             }
+
+            return value;
         }
+
+
+        //        private void GetCoreSubjects()
+        //        {
+        //            dicCoreSubjectByKey = new Dictionary<string, CoreSubjectRec>();
+
+        //            #region SQL
+        //            string sql = string.Format(@"
+        //WITH subject_list AS(
+        //	SELECT
+        //		array_to_string(xpath('/Subject/@Name', subject_xml), '')::TEXT AS subject_name
+        //		,  xpath('/Subject/Level/text()', subject_xml)  AS arr_level
+        //	FROM (
+        //			SELECT 
+        //				unnest(xpath('/root/SubjectTableContent/Subject', xmlparse(content '<root>' || content || '</root>'))) AS subject_xml
+        //			FROM 
+        //				subj_table 
+        //			WHERE 
+        //				name = '後期中等教育核心課程'
+        //		) AS subject	
+        //)
+        //SELECT
+        //	subject_list.subject_name
+        //	, subject.level
+        //FROM
+        //	subject_list
+        //	LEFT OUTER JOIN (
+        //		SELECT
+        //			subject_name
+        //			, unnest(arr_level) AS level
+        //		FROM
+        //			subject_list
+        //	) subject
+        //		ON subject.subject_name = subject_list.subject_name
+        //            ");
+        //            #endregion
+
+        //            DataTable dt = qh.Select(sql);
+
+        //            foreach (DataRow row in dt.Rows)
+        //            {
+        //                string subjectName = "" + row["subject_name"];
+        //                string level = "" + row["level"];
+        //                string key = $"{subjectName}_{level}";
+
+        //                if (!dicCoreSubjectByKey.ContainsKey(key))
+        //                {
+        //                    CoreSubjectRec sub = new CoreSubjectRec();
+        //                    sub.SubjectName = subjectName;
+        //                    sub.Level = level;
+
+        //                    dicCoreSubjectByKey.Add(key, sub);
+        //                }
+        //            }
+        //        }
+
+        /// <summary>
+        /// 取得班級學生成績計算規則ID
+        /// </summary>
+        /// <param name="classIDs"></param>
+        /// <returns></returns>
+        private Dictionary<string, string> GetStudentScoreRuleByClassID(List<string> classIDs)
+        {
+            Dictionary<string, string> value = new Dictionary<string, string>();
+            if (classIDs.Count > 0)
+            {
+                QueryHelper qh = new QueryHelper();
+
+                string strSQL = @"
+SELECT 
+student.id AS student_id
+,COALESCE(student.ref_score_calc_rule_id,class.ref_score_calc_rule_id) as score_rule_id
+,class.id AS class_id
+ FROM student INNER JOIN class on student.ref_class_id = class.id 
+ WHERE class.id in (" + string.Join(",", classIDs.ToArray()) + @");
+";
+
+                DataTable dt = qh.Select(strSQL);
+
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        string sid = dr["student_id"].ToString();
+                        string r_id = "";
+
+                        if (dr["score_rule_id"] != null)
+                        {
+                            r_id = dr["score_rule_id"].ToString();
+                        }
+
+                        if (!value.ContainsKey(sid))
+                            value.Add(sid, r_id);
+                    }
+                }
+
+            }
+            return value;
+        }
+
 
         private Workbook FillWorkBookData()
         {
@@ -263,6 +382,8 @@ FROM
                     {
                         int colIndex = 0;
                         float totalCredit = 0;
+                        // 累計實得
+                        float totalHaveCredit = 0;
                         float totalCoreCredit = 0;
                         float totalHaveToCredit = 0;
                         float totalSelectedCredit = 0;
@@ -295,6 +416,7 @@ FROM
                                     totalCoreCredit += creditRec.CoredCredit;
                                     totalHaveToCredit += creditRec.HaveToCredit;
                                     totalSelectedCredit += creditRec.SelectedCredit;
+                                    totalHaveCredit += (creditRec.HaveToCredit + creditRec.SelectedCredit);
                                 }
                                 else
                                 {
@@ -303,11 +425,32 @@ FROM
                             }
                         }
 
+                        bool nototalCoreCredit = true;
                         // 累計實得學分
-                        sheet.Cells[rowIndex, colIndex++].PutValue(totalCoreCredit);
+                        // 核心必修
+                        if (studentScoreRuleDict.ContainsKey(stuID))
+                        {
+                            if (ruleCoreSubjectNameDict.ContainsKey(studentScoreRuleDict[stuID]))
+                            {
+                                if (ruleCoreSubjectNameDict[studentScoreRuleDict[stuID]].Count > 0)
+                                {
+                                    sheet.Cells[rowIndex, colIndex++].PutValue(totalCoreCredit);
+                                    nototalCoreCredit = false;
+                                }
+                            }
+                        }
+                       
+                        if(nototalCoreCredit)
+                        {
+                            sheet.Cells[rowIndex, colIndex++].PutValue("");
+                        }
+
+                        // 必修
                         sheet.Cells[rowIndex, colIndex++].PutValue(totalHaveToCredit);
+                        // 選修
                         sheet.Cells[rowIndex, colIndex++].PutValue(totalSelectedCredit);
-                        sheet.Cells[rowIndex, colIndex++].PutValue(totalCredit);
+                        // 合計
+                        sheet.Cells[rowIndex, colIndex++].PutValue(totalHaveCredit);
 
                         Range currentRow = sheet.Cells.CreateRange(rowIndex, 0, 1, 30);
                         currentRow.ApplyStyle(style, styleFlag);
@@ -327,11 +470,96 @@ FROM
             return wb;
         }
 
+
+        /// <summary>
+        ///  取得成績計算規則有勾選核心科目表
+        /// </summary>
+        /// <returns></returns>
+        private Dictionary<string, List<string>> GetRuleCoreSubjectTableByRuleID(List<string> ruleIDList)
+        {
+            Dictionary<string, List<string>> value = new Dictionary<string, List<string>>();
+
+            if (ruleIDList.Count > 0)
+            {
+                QueryHelper qh = new QueryHelper();
+                string strSQL = @"
+SELECT id,name,content FROM score_calc_rule WHERE id in(" + string.Join(",", ruleIDList.ToArray()) + ");";
+
+                DataTable dt = qh.Select(strSQL);
+
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        string id = dr["id"].ToString();
+
+                        if (!value.ContainsKey(id))
+                            value.Add(id, new List<string>());
+                        try
+                        {
+                            XElement elmRoot = XElement.Parse(dr["content"].ToString());
+
+                            if (elmRoot.Element("核心科目表") != null && elmRoot.Element("核心科目表").HasElements)
+                            {
+                                foreach (XElement elm in elmRoot.Element("核心科目表").Elements("科目表"))
+                                {
+                                    if (!value[id].Contains(elm.Value))
+                                        value[id].Add(elm.Value);
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                    }
+                }
+            }
+
+            return value;
+        }
+
+
+
+
         private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
+            // 1. 取得班級學生成績計算規則
+            studentScoreRuleDict = GetStudentScoreRuleByClassID(listClassID);
+
+            // 整理有使用的成績計算規則
+            List<string> ruleList = new List<string>();
+            foreach (string str in studentScoreRuleDict.Values)
+            {
+                if (string.IsNullOrWhiteSpace(str))
+                    continue;
+
+                if (!ruleList.Contains(str))
+                    ruleList.Add(str);
+            }
+
+            // 取得成績計算規則有勾選核心科目表
+            ruleCoreSubjectTableDict = GetRuleCoreSubjectTableByRuleID(ruleList);
+
+            // 成績計算規則內核心科目表內的科目名稱
+            ruleCoreSubjectNameDict.Clear();
+
+            foreach (string id in ruleCoreSubjectTableDict.Keys)
+            {
+                List<string> subjNameList = new List<string>();
+                if (ruleCoreSubjectTableDict[id].Count > 0)
+                {
+                    subjNameList = GetCoreSubjectNameList(ruleCoreSubjectTableDict[id]);
+                }
+                ruleCoreSubjectNameDict.Add(id, subjNameList);
+            }
+
+
+
+
             // 1. 取得後期中等教育核心課程 科目表
-            GetCoreSubjects();
-            bgWorker.ReportProgress(20);
+            //     GetCoreSubjects();
+            bgWorker.ReportProgress(30);
 
             // 2. 取得班級學生學期科目成績
             GetClassStudentSemsScore();
