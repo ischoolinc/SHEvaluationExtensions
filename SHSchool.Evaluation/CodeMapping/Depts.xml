@@ -13,6 +13,9 @@
   <Dept code='111' name='原住民藝能班' crstype='|H|V|C|S|' />
   <Dept code='121' name='雙語部' crstype='|H|V|C|S|' />
   <Dept code='122' name='戲劇班' crstype='|H|V|C|S|' />
+  <Dept code='122' name='戲劇班' crstype='|H|V|C|S|' />
+  <Dept code='123' name='人文與社會科學資優班' crstype='|H|' />
+  <Dept code='124' name='創造能力資優班' crstype='|H|' />
   <Dept code='196' name='1年級不分群' crstype='|M|' />
   <Dept code='197' name='學術社會學程' crstype='|M|' />
   <Dept code='198' name='學術自然學程' crstype='|M|' />
