@@ -380,6 +380,20 @@ student.id AS student_id
                 {
                     foreach (string stuID in dicCreditRecByClassStuKey[classID].Keys)
                     {
+                        // 沒有任何核心必修科目
+                        bool nototalCoreCredit = true;
+                        if (studentScoreRuleDict.ContainsKey(stuID))
+                        {
+                            if (ruleCoreSubjectNameDict.ContainsKey(studentScoreRuleDict[stuID]))
+                            {
+                                if (ruleCoreSubjectNameDict[studentScoreRuleDict[stuID]].Count > 0)
+                                {
+
+                                    nototalCoreCredit = false;
+                                }
+                            }
+                        }
+
                         int colIndex = 0;
                         float totalCredit = 0;
                         // 累計實得
@@ -408,7 +422,16 @@ student.id AS student_id
                                 {
                                     CreditRec creditRec = dicCreditRecByKey[key];
                                     sheet.Cells[rowIndex, colIndex++].PutValue(creditRec.TotalCredit);
-                                    sheet.Cells[rowIndex, colIndex++].PutValue(creditRec.CoredCredit);
+
+                                    if (nototalCoreCredit)
+                                    {
+                                        sheet.Cells[rowIndex, colIndex++].PutValue("");
+                                    }
+                                    else
+                                    {
+                                        sheet.Cells[rowIndex, colIndex++].PutValue(creditRec.CoredCredit);
+                                    }
+
                                     sheet.Cells[rowIndex, colIndex++].PutValue(creditRec.HaveToCredit);
                                     sheet.Cells[rowIndex, colIndex++].PutValue(creditRec.SelectedCredit);
 
@@ -425,24 +448,18 @@ student.id AS student_id
                             }
                         }
 
-                        bool nototalCoreCredit = true;
+
+
                         // 累計實得學分
-                        // 核心必修
-                        if (studentScoreRuleDict.ContainsKey(stuID))
-                        {
-                            if (ruleCoreSubjectNameDict.ContainsKey(studentScoreRuleDict[stuID]))
-                            {
-                                if (ruleCoreSubjectNameDict[studentScoreRuleDict[stuID]].Count > 0)
-                                {
-                                    sheet.Cells[rowIndex, colIndex++].PutValue(totalCoreCredit);
-                                    nototalCoreCredit = false;
-                                }
-                            }
-                        }
-                       
-                        if(nototalCoreCredit)
+                        // 核心必修                       
+
+                        if (nototalCoreCredit)
                         {
                             sheet.Cells[rowIndex, colIndex++].PutValue("");
+                        }
+                        else
+                        {
+                            sheet.Cells[rowIndex, colIndex++].PutValue(totalCoreCredit);
                         }
 
                         // 必修
