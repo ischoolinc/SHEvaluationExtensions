@@ -117,59 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="SubjectTable" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\subjecttable.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="FieldNames" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\codemapping\fieldnames.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="OpenWays" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\codemapping\openways.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="高中課程規劃表匯入_錯誤清單" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\templete\高中課程規劃表匯入_錯誤清單.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="CourseTypes" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\codemapping\coursetypes.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="ProgramPlan" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\programplan.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="SubjectAttributes" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\codemapping\subjectattributes.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="ClassGroup" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\codemapping\classgroup.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="課程規劃表匯入_0學分清單" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\templete\課程規劃表匯入_0學分清單.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="GroupTypes" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\codemapping\grouptypes.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="Import_Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\import.image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="SubjectFixedCodes" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\codemapping\subjectfixedcodes.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="CoreTable" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\coretable.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="高中課程名稱_轉換匯出" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\templete\高中課程名稱_轉換匯出.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="CourseClassifieds" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\codemapping\courseclassifieds.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="Depts" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\codemapping\depts.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
-  <data name="loding" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\loding.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="匯出課程規劃表樣版" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Source\匯出課程規劃表樣版.xlsx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
+  <metadata name="EntrySchoolYear.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="CourseType.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="GraduationPlanName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="GraduatePlanCode.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="OldGraduPlanName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="已存在課程規劃表數量.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="動作.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="CheakDetail.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
 </root>

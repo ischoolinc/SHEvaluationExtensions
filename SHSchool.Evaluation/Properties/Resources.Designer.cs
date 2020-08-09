@@ -19,7 +19,7 @@ namespace SHSchool.Evaluation.Properties {
     // 類別透過 ResGen 或 Visual Studio 這類工具。
     // 若要加入或移除成員，請編輯您的 .ResX 檔，然後重新執行 ResGen
     // (利用 /str 選項)，或重建您的 VS 專案。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -63,9 +63,14 @@ namespace SHSchool.Evaluation.Properties {
         /// <summary>
         ///   查詢類似 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
         ///&lt;!--班群對照表--&gt;
+        ///
+        ///&lt;!--根據課程代碼平台 8/13更新 修正--&gt;
         ///&lt;ClassGroups&gt;
-        ///&lt;ClassGroup code= &quot;0&quot; name=&quot;不分班群&quot;/&gt;
-        ///&lt;ClassGroup code= &quot;1&quot; name=&quot;建教合作班群&quot;/&gt;
+        ///  &lt;ClassGroup code= &quot;0&quot; name=&quot;不分班群&quot;/&gt; 
+        ///  &lt;ClassGroup code= &quot;1&quot; name=&quot;建教合作班輪調式&quot;/&gt;
+        ///  &lt;ClassGroup code= &quot;2&quot; name=&quot;建教合作班階梯式&quot;/&gt;
+        ///  &lt;ClassGroup code= &quot;3&quot; name=&quot;建教合作班實習式&quot;/&gt;
+        ///  &lt;ClassGroup code= &quot;4&quot; name=&quot;建教合作班其他式&quot;/&gt;
         ///&lt;/ClassGroups&gt; 的當地語系化字串。
         /// </summary>
         internal static string ClassGroup {
@@ -100,6 +105,9 @@ namespace SHSchool.Evaluation.Properties {
         
         /// <summary>
         ///   查詢類似 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+        ///
+        ///&lt;!--更新8/5--&gt;
+        ///
         ///&lt;CourseClassifieds&gt;
         ///  &lt;CourseClassified code=&quot;1&quot; name= &quot;部定必修&quot; /&gt;
         ///  &lt;CourseClassified code=&quot;2&quot; name= &quot;校訂必修&quot; /&gt;
@@ -110,7 +118,7 @@ namespace SHSchool.Evaluation.Properties {
         ///  &lt;CourseClassified code=&quot;7&quot; name= &quot;校訂選修&quot; /&gt;
         ///  &lt;CourseClassified code=&quot;8&quot; name= &quot;團體活動時間&quot; /&gt;
         ///  &lt;CourseClassified code=&quot;9&quot; name= &quot;彈性學習時間&quot; /&gt;
-        ///  &lt;CourseClassified [字串的其餘部分已遭截斷]&quot;; 的當地語系化字串。
+        ///  [字串的其餘部分已遭截斷]&quot;; 的當地語系化字串。
         /// </summary>
         internal static string CourseClassifieds {
             get {
@@ -121,11 +129,12 @@ namespace SHSchool.Evaluation.Properties {
         /// <summary>
         ///   查詢類似 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
         ///&lt;!--課程類型--&gt;
+        ///&lt;!--課程計畫平台，更新對照表(8/5)--&gt;
         ///&lt;CourseTypes&gt;
-        ///  &lt;CourseType code=&quot;H&quot;  name=&quot;普通型&quot;  /&gt;
-        ///  &lt;CourseType code=&quot;V&quot;  name=&quot;技術型&quot;  /&gt;
-        ///  &lt;CourseType code=&quot;M&quot;  name=&quot;綜合型&quot;  /&gt;
-        ///  &lt;CourseType code=&quot;S&quot;  name=&quot;單科型&quot;  /&gt;
+        ///  &lt;CourseType code=&quot;H&quot;  name=&quot;普通型高中&quot;  /&gt;
+        ///  &lt;CourseType code=&quot;V&quot;  name=&quot;技術型高中&quot;  /&gt;
+        ///  &lt;CourseType code=&quot;M&quot;  name=&quot;綜合型高中&quot;  /&gt;
+        ///  &lt;CourseType code=&quot;S&quot;  name=&quot;單科型高中&quot;  /&gt;
         ///  &lt;CourseType code=&quot;C&quot;  name=&quot;進修部&quot;  /&gt;
         ///  &lt;CourseType code=&quot;E&quot;  name=&quot;實用技能學程(日)&quot;  /&gt;
         ///  &lt;CourseType code=&quot;F&quot;  name=&quot;實用技能學程(夜)&quot;  /&gt;
@@ -139,17 +148,17 @@ namespace SHSchool.Evaluation.Properties {
         
         /// <summary>
         ///   查詢類似 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt; 
-        ///&lt;!--科別 --&gt;
+        ///&lt;!--科別 根據課程平台更新版本(8/5)--&gt;
         ///&lt;Depts&gt;
-        ///&lt;Dept code=&apos;99&apos; name=&apos;其他&apos; crstype=&apos;|M|&apos; /&gt;
-        ///&lt;Dept code=&apos;101&apos; name=&apos;普通班&apos; crstype=&apos;|H|V|C|&apos; /&gt;
-        ///&lt;Dept code=&apos;102&apos; name=&apos;音樂班&apos; crstype=&apos;|H|V|C|&apos; /&gt;
-        ///&lt;Dept code=&apos;103&apos; name=&apos;美術班&apos; crstype=&apos;|H|V|C|&apos; /&gt;
-        ///&lt;Dept code=&apos;104&apos; name=&apos;舞蹈班&apos; crstype=&apos;|H|V|C|&apos; /&gt;
-        ///&lt;Dept code=&apos;105&apos; name=&apos;體育班&apos; crstype=&apos;|H|V|C|M|&apos; /&gt;
-        ///&lt;Dept code=&apos;106&apos; name=&apos;數理資優班&apos; crstype=&apos;|H|V|C|&apos; /&gt;
-        ///&lt;Dept code=&apos;107&apos; name=&apos;語文資優班&apos; crstype=&apos;|H|V|C|&apos; /&gt;
-        ///&lt;Dept code=&apos;108&apos; name=&apos;科學班&apos; crstype=&apos;|H|V|C|&apos; /&gt;        /// [字串的其餘部分已遭截斷]&quot;; 的當地語系化字串。
+        ///  &lt;Dept code=&apos;99&apos; name=&apos;其他&apos; crstype=&apos;|M|&apos; /&gt;
+        ///  &lt;Dept code=&apos;101&apos; name=&apos;普通班&apos; crstype=&apos;|H|V|C|S|&apos; /&gt;
+        ///  &lt;Dept code=&apos;102&apos; name=&apos;音樂班&apos; crstype=&apos;|H|V|C|S|&apos; /&gt;
+        ///  &lt;Dept code=&apos;103&apos; name=&apos;美術班&apos; crstype=&apos;|H|V|C|S|&apos; /&gt;
+        ///  &lt;Dept code=&apos;104&apos; name=&apos;舞蹈班&apos; crstype=&apos;|H|V|C|S|&apos; /&gt;
+        ///  &lt;Dept code=&apos;105&apos; name=&apos;體育班&apos; crstype=&apos;|H|V|C|M|S|&apos; /&gt;
+        ///  &lt;Dept code=&apos;106&apos; name=&apos;數理資優班&apos; crstype=&apos;|H|V|C|S|&apos; /&gt;
+        ///  &lt;Dept code=&apos;107&apos; name=&apos;語文資優班&apos; crstype=&apos;|H|V|C|S|&apos; /&gt;
+        ///  &lt;D [字串的其餘部分已遭截斷]&quot;; 的當地語系化字串。
         /// </summary>
         internal static string Depts {
             get {
@@ -159,7 +168,7 @@ namespace SHSchool.Evaluation.Properties {
         
         /// <summary>
         ///   查詢類似 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
-        ///
+        ///&lt;!--根據資料平台8/5號更新版本--&gt;
         ///&lt;FieldNames&gt;
         ///  &lt;FieldName code=&quot;00&quot; name=&quot;不分領域&quot; crstype =&quot;|H|V|M|C|E|F|&quot; /&gt;
         ///  &lt;FieldName code=&quot;01&quot; name=&quot;語文領域&quot; crstype =&quot;|H|V|M|C|E|F|&quot; /&gt;
@@ -167,8 +176,7 @@ namespace SHSchool.Evaluation.Properties {
         ///  &lt;FieldName code=&quot;03&quot; name=&quot;社會領域&quot; crstype =&quot;|H|V|M|C|E|F|&quot; /&gt;
         ///  &lt;FieldName code=&quot;04&quot; name=&quot;自然科學領域&quot; crstype =&quot;|H|V|M|C|E|F|&quot; /&gt;
         ///  &lt;FieldName code=&quot;05&quot; name=&quot;藝術領域&quot; crstype =&quot;|H|V|M|C|E|F|&quot; /&gt;
-        ///  &lt;FieldName code=&quot;06&quot; name=&quot;綜合活動領域&quot; crstype =&quot;|H|V|M|C|E|F|&quot; /&gt;
-        ///  &lt; [字串的其餘部分已遭截斷]&quot;; 的當地語系化字串。
+        ///  &lt;FieldName code=&quot;06&quot; name=&quot;綜合活動領域&quot; crstype =&quot;| [字串的其餘部分已遭截斷]&quot;; 的當地語系化字串。
         /// </summary>
         internal static string FieldNames {
             get {
@@ -179,15 +187,18 @@ namespace SHSchool.Evaluation.Properties {
         /// <summary>
         ///   查詢類似 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
         ///&lt;!--群別--&gt;
+        ///
+        ///&lt;!--8/5更新--&gt;
+        ///
         ///&lt;GroupTypes&gt;
-        ///    &lt;GroupType code=&quot;11&quot; name=&quot;學術群&quot; crstype=&quot;|H|V|C|&quot; /&gt;
-        ///    &lt;GroupType code=&quot;11&quot; name=&quot;學術學程&quot; crstype=&quot;|M|&quot; /&gt;
-        ///    &lt;GroupType code=&quot;21&quot; name=&quot;機械群&quot; crstype=&quot;|V|C|M|E|F|&quot; /&gt;
-        ///    &lt;GroupType code=&quot;22&quot; name=&quot;動力機械群&quot; crstype=&quot;|V|C|M|E|F|&quot; /&gt;
-        ///    &lt;GroupType code=&quot;23&quot; name=&quot;電機與電子群&quot; crstype=&quot;|V|C|M|E|F|&quot; /&gt;
-        ///    &lt;GroupType code=&quot;24&quot; name=&quot;化工群&quot; crstype=&quot;|V|C|M|E|F|&quot; /&gt;
-        ///    &lt;GroupType code=&quot;25&quot; name=&quot;土木與建築群&quot; crstype=&quot;|V|C|M|E|F|&quot; /&gt;
-        ///    &lt;GroupType  [字串的其餘部分已遭截斷]&quot;; 的當地語系化字串。
+        ///  &lt;GroupType code=&quot;11&quot; name=&quot;學術群&quot; crstype=&quot;|H|V|C|S|&quot; /&gt;
+        ///  &lt;GroupType code=&quot;11&quot; name=&quot;學術學程&quot; crstype=&quot;|M|&quot; /&gt;
+        ///  &lt;GroupType code=&quot;21&quot; name=&quot;機械群&quot; crstype=&quot;|V|C|M|E|F|&quot; /&gt;
+        ///  &lt;GroupType code=&quot;22&quot; name=&quot;動力機械群&quot; crstype=&quot;|V|C|M|E|F|&quot; /&gt;
+        ///  &lt;GroupType code=&quot;23&quot; name=&quot;電機與電子群&quot; crstype=&quot;|V|C|M|E|F|&quot; /&gt;
+        ///  &lt;GroupType code=&quot;24&quot; name=&quot;化工群&quot; crstype=&quot;|V|C|M|E|F|&quot; /&gt;
+        ///  &lt;GroupType code=&quot;25&quot; name=&quot;土木與建築群&quot; crstype=&quot;|V|C|M|E|F|&quot; /&gt;
+        ///  &lt;GroupT [字串的其餘部分已遭截斷]&quot;; 的當地語系化字串。
         /// </summary>
         internal static string GroupTypes {
             get {
@@ -217,6 +228,8 @@ namespace SHSchool.Evaluation.Properties {
         
         /// <summary>
         ///   查詢類似 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+        ///&lt;!--8/5號更新(無不同)--&gt;
+        ///
         ///&lt;OpenWays&gt;
         ///  &lt;OpenWay  code=&quot;0&quot; name=&quot;原班級&quot; /&gt;
         ///  &lt;OpenWay  code=&quot;1&quot; name=&quot;跨班選修(班群開課)&quot; /&gt;
@@ -281,14 +294,13 @@ namespace SHSchool.Evaluation.Properties {
         
         /// <summary>
         ///   查詢類似 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+        ///&lt;!--此檔沒有使用到--&gt;
+        ///
         ///&lt;SubjectFixedCodes&gt;
-        ///  &lt;SubjectFixedCode code =&quot;01&quot; name=&quot;國語文&quot; crstype =&quot;|H|V|M|C|E|F|&quot; /&gt;
-        ///  &lt;SubjectFixedCode code =&quot;02&quot; name=&quot;英語文&quot; crstype =&quot;|H|V|M|C|E|F|&quot; /&gt;
-        ///  &lt;SubjectFixedCode code =&quot;03&quot; name=&quot;數學&quot; crstype =&quot;|H|V|M|C|E|F|&quot; /&gt;
-        ///  &lt;SubjectFixedCode code =&quot;04&quot; name=&quot;數學A類&quot; crstype =&quot;|H|&quot; /&gt;
-        ///  &lt;SubjectFixedCode code =&quot;05&quot; name=&quot;數學B類&quot; crstype =&quot;|H|&quot; /&gt;
-        ///  &lt;SubjectFixedCode code =&quot;06&quot; name=&quot;數學A版&quot; crstype =&quot;|V|C|&quot; /&gt;
-        ///  &lt;SubjectFixedCode code =&quot;07&quot; name=&quot;數學B版&quot; crstype [字串的其餘部分已遭截斷]&quot;; 的當地語系化字串。
+        ///  &lt;SubjectFixedCode courseClassfied = &quot;部定必修&quot; subjectAttribute=&quot;一般科目&quot; field=&quot;01&quot; code =&quot;01&quot; name=&quot;國語文&quot; crstype =&quot;|H|V|M|C|E|F|&quot; /&gt;
+        ///  &lt;SubjectFixedCode courseClassfied = &quot;部定必修&quot; subjectAttribute=&quot;一般科目&quot; field=&quot;01&quot; code =&quot;02&quot; name=&quot;英語文&quot; crstype =&quot;|H|V|M|C|E|F|&quot; /&gt;
+        ///  &lt;SubjectFixedCode courseClassfied = &quot;部定必修&quot; subjectAttribute=&quot;一般科目&quot; field=&quot;02&quot; code =&quot;03&quot; name=&quot;數學&quot; crstype =&quot;|H|V|M|C|E|F|&quot; /&gt;
+        ///  &lt;SubjectFixedCode courseClassfied = &quot;部 [字串的其餘部分已遭截斷]&quot;; 的當地語系化字串。
         /// </summary>
         internal static string SubjectFixedCodes {
             get {
@@ -318,6 +330,16 @@ namespace SHSchool.Evaluation.Properties {
         internal static string SubjectTable {
             get {
                 return ResourceManager.GetString("SubjectTable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類型 System.Byte[] 的當地語系化資源。
+        /// </summary>
+        internal static byte[] 匯出課程規劃表樣版 {
+            get {
+                object obj = ResourceManager.GetObject("匯出課程規劃表樣版", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
