@@ -124,8 +124,8 @@ namespace SHSchool.Evaluation
 
 
 
-                                if (CurrentGraduationPlan.UpdateCourseInfos.Find(x => x.OldSubjectCode == OldSubjectCode).UpdateTargets.Contains("授課學期學分"))
-                                if (CurrentGraduationPlan.UpdateCourseInfos.Find(x => x.OldSubjectCode == OldSubjectCode).UpdateTargets.Contains("授課學期學分"))
+                              //  if (CurrentGraduationPlan.UpdateCourseInfos.Find(x => x.OldSubjectCode == OldSubjectCode).UpdateTargets.Contains("授課學期學分"))
+                                if (CurrentGraduationPlan.UpdateCourseInfos.Find(x => x.OldSubjectCode == OldSubjectCode).UpdateTargets.Contains("授課學期學分代碼"))
                                 {
                                     row.Cells[備註.Index].Value = "此動作只更新代碼(紀錄用)，實際授課學期/學分數之異動 請人員手動調整。";
                                     row.Cells[備註.Index].Style.ForeColor = Color.Red;

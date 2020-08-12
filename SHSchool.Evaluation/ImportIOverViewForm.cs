@@ -116,6 +116,7 @@ FROM
         , content 
 		, name
 	    , graduation_plan_key
+	    ,  count(graduation_plan_key) over (partition by name  ) as count 
 	FROM   
 		all_subject
   GROUP BY 
@@ -136,10 +137,11 @@ HAVING
                 string content = "" + dr["content"];
                 string deptCode = graduationPlanCode.Substring(12, 3);
                 string CourseType = graduationPlanCode.Substring(9, 1);
+                string count = "" + dr["count"];
 
                 if (this.NewGraduationInfos.ContainsKey(graduationPlanCode)) //如果已經有存在之課程規劃表
                 {
-                    if (deptCode != "196") // 如果是一年級不分群 ==> 排除(不加到主key)
+                    if (deptCode != "196" ||(deptCode == "196"&& count =="1")) // 如果是一年級不分群 ==> 排除(不加到主key) 或是 雖藍是196但數字只有一份
                     {
                         if (!this.NewGraduationInfos[graduationPlanCode].DicOldGPlansContain(graduationplanID)) // 如果裝舊課程規劃表沒有這個id
                         {

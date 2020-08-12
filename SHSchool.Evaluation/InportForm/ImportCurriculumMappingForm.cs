@@ -1302,7 +1302,7 @@ SELECT 0
                     //    }
                     //}
                     //else // 如果不是一年級不分班群
-                    {
+                   
                         if (target.DeptCode == "196")//是1年級不分群
                         {
                             //加入1年級不分群清單
@@ -1323,24 +1323,19 @@ SELECT 0
                         if (!DicGraduationPlan.ContainsKey(graduatrionPlanKey))
                         {
                             //以1年級不分群的科目清單為基礎內容
-                            if (m196CourseInfos.ContainsKey(target.EnterYear))  // 如果有包含該課程規劃表196不分班群是該學年度
-                            {
+                           
                                 DicGraduationPlan.Add(graduatrionPlanKey, new GraduationPlanInfo(target));
-                            }
-                            else
-                            {
-                                DicGraduationPlan.Add(graduatrionPlanKey, new GraduationPlanInfo(target));
-                            }
+                         
+                         
                         }
                         // 加入入學 學年度
-
                         DicGraduationPlan[graduatrionPlanKey].AddCourseInfo(target);
                         //加入對照表
                         if (!DicMTypeGraduationPlan.ContainsKey(graduatrionPlanKey))
                         {
                             DicMTypeGraduationPlan.Add(graduatrionPlanKey, DicGraduationPlan[graduatrionPlanKey]);
                         }
-                    }
+                    
 
 
                 }
@@ -1359,20 +1354,7 @@ SELECT 0
             if (isMType)
             {
                 //看看有沒有196
-                foreach (string gPlanKey in DicGraduationPlan.Keys)
-                {
-                    if (gPlanKey.Substring(12, 3) == "196")
-                    {
-                        if (m196CourseInfos.ContainsKey(DicGraduationPlan[gPlanKey].EntryYear))
-                        {
-                            if (!m196CourseInfos.ContainsKey(DicGraduationPlan[gPlanKey].EntryYear)) 
-                            {
-                            m196CourseInfos.Add(DicGraduationPlan[gPlanKey].EntryYear, DicGraduationPlan[gPlanKey].ListCourseInfos.ConvertAll(courseInfo => courseInfo.Clone())); // 如果是有跟其他的一起複製一份到
-                            
-                            }
-                        }
-                    }
-                }
+          
                 foreach (string gPlanKey in DicGraduationPlan.Keys)
                 {
                     if (m196CourseInfos.ContainsKey(DicGraduationPlan[gPlanKey].EntryYear))
@@ -1380,9 +1362,6 @@ SELECT 0
                         DicGraduationPlan[gPlanKey].AddMtypeCourses(m196CourseInfos[DicGraduationPlan[gPlanKey].EntryYear]);
                     }
                 }
-
-
-
 
             }
         }
