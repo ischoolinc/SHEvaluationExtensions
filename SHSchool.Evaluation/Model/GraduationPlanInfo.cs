@@ -15,8 +15,8 @@ namespace SHSchool.Evaluation.Model
       /// 
       /// </summary>
       /// <param name="courseInfo">課程資訊</param>
-      /// <param name="courseInfos"></param>
-        public GraduationPlanInfo(CourseInfo courseInfo ,List<CourseInfo> courseInfos)
+      /// <param name="mTypecourseInfos"></param>
+        public GraduationPlanInfo(CourseInfo courseInfo )
         {
             this.GraduationName = courseInfo.GetCurriiculumMapName();
             this.EntryYear = courseInfo.EnterYear;
@@ -24,11 +24,15 @@ namespace SHSchool.Evaluation.Model
             this.GraduationPlanKey = courseInfo.GraduationPlanCode;
             this.CourseInfos = new Dictionary<string, CourseInfo>();
             this.GraduationPlanKeys = new List<string>();
-            this.ListCourseInfos = courseInfos;
+            this.ListCourseInfos = new List<CourseInfo>();
+        
+           // this.MTypeGrade1CourseInfo = mTypecourseInfos;
+            // this.ListCourseInfos.AddRange( courseInfos);
             this.GetGraduationPlanCode(); // 取的PlanCode
             this.DicOldGraduationPlanInfos = new Dictionary<string, OldGraduationPlanInfo>();
         }
 
+        public bool Has196CourseInfo { get; set; } //檔案讀進來原始版
 
         public string GraduationName { get; set; }
 
@@ -51,6 +55,10 @@ namespace SHSchool.Evaluation.Model
         /// </summary>
         public string GraduationPlanKey { get; set; }
 
+        /// <summary>
+        ///  一年級不分班群之課程(檔案讀進來原始版)
+        /// </summary>
+        public List<CourseInfo> MTypeGrade1CourseInfo { get; set; }
         /// <summary>
         /// M 綜合型高中 可能包含1年級  所以會有兩組key值
         /// </summary>
@@ -76,7 +84,16 @@ namespace SHSchool.Evaluation.Model
         /// 對應舊資料 OldGraduationInfo key =id 
         /// </summary>
         public  Dictionary<string , OldGraduationPlanInfo> DicOldGraduationPlanInfos { get; set; }
-  
+
+        /// <summary>
+        /// 把 同學年度學期的加進來
+        /// </summary>
+        public  void AddMtypeCourses(List<CourseInfo> MtypcourseInfos) 
+        {
+            this.MTypeGrade1CourseInfo = MtypcourseInfos;
+            this.ListCourseInfos.InsertRange(0,MtypcourseInfos.ConvertAll(courseInfo => courseInfo.Clone()));// 複製到課程規劃表裡
+        }
+
 
         /// <summary>
         ///  加入課程
@@ -170,5 +187,11 @@ namespace SHSchool.Evaluation.Model
         {
             return this.DicOldGraduationPlanInfos.ContainsKey(systemID);
         }
+
+
+
+       
+
+
     }
 }

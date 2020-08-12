@@ -20,7 +20,7 @@ namespace SHSchool.Evaluation.Model
         /// <summary>
         /// 教育部課程代碼
         /// </summary>
-        public string New課程代碼 { get; set; }   //Source from 教育部課代碼
+        public string 新課程代碼 { get; set; }   //Source from 教育部課代碼
         /// <summary>
         /// 課程名稱
         /// </summary>
@@ -212,7 +212,7 @@ namespace SHSchool.Evaluation.Model
         /// <param name="orginSubjectName"></param>
         public CourseInfo(string courseCodeFromMOE, string subjectName, string credit, string orginCourseCodeFromMOE, string orginSubjectName)
         {
-            this.New課程代碼 = courseCodeFromMOE;
+            this.新課程代碼 = courseCodeFromMOE;
             this.NewSubjectName = subjectName;
             this.授課學期學分 = credit;
             this.GraduationPlanCode = courseCodeFromMOE.Substring(0, 16);
@@ -229,19 +229,19 @@ namespace SHSchool.Evaluation.Model
         /// </summary>
         private void SliceToEachColumn()
         {
-            if (New課程代碼.Length == 23 && 授課學期學分.Length == 6)
+            if (新課程代碼.Length == 23 && 授課學期學分.Length == 6)
             {
-                this.EnterYear = New課程代碼.Substring(0, 3);
-                this.SchoolCode = New課程代碼.Substring(3, 6);
-                this.CourseType = New課程代碼.Substring(9, 1);
-                this.GroupCode = New課程代碼.Substring(10, 2);
-                this.DeptCode = New課程代碼.Substring(12, 3);
-                this.ClassGroup = New課程代碼.Substring(15, 1);
-                this.ClassClassified = New課程代碼.Substring(16, 1);
-                this.OpenWay = New課程代碼.Substring(17, 1);
-                this.SubjectAttribute = New課程代碼.Substring(18, 1);
-                this.FieldName = New課程代碼.Substring(19, 2);
-                this.SubjectFixedCode = New課程代碼.Substring(21, 2);
+                this.EnterYear = 新課程代碼.Substring(0, 3);
+                this.SchoolCode = 新課程代碼.Substring(3, 6);
+                this.CourseType = 新課程代碼.Substring(9, 1);
+                this.GroupCode = 新課程代碼.Substring(10, 2);
+                this.DeptCode = 新課程代碼.Substring(12, 3);
+                this.ClassGroup = 新課程代碼.Substring(15, 1);
+                this.ClassClassified = 新課程代碼.Substring(16, 1);
+                this.OpenWay = 新課程代碼.Substring(17, 1);
+                this.SubjectAttribute = 新課程代碼.Substring(18, 1);
+                this.FieldName = 新課程代碼.Substring(19, 2);
+                this.SubjectFixedCode = 新課程代碼.Substring(21, 2);
                 GetListCreditEachSemester();   //將學分代碼轉換 至各學期對應之dic
             }
             else
@@ -348,7 +348,7 @@ namespace SHSchool.Evaluation.Model
         /// <param name="xmlElement"></param>
         internal void SetActionByCompareToData(OldGraduationPlanInfo oldGPlanInfo)
         {
-            bool ContainNewCourseMOECode = oldGPlanInfo.IsContainSubjectCode(this.New課程代碼);
+            bool ContainNewCourseMOECode = oldGPlanInfo.IsContainSubjectCode(this.新課程代碼);
 
             if (ContainNewCourseMOECode)  //此科目已經存 如果此科目已經存在
             {

@@ -75,7 +75,7 @@
             this.dataGridViewX1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dataGridViewX1.Location = new System.Drawing.Point(12, 57);
             this.dataGridViewX1.Name = "dataGridViewX1";
-            this.dataGridViewX1.Size = new System.Drawing.Size(1229, 451);
+            this.dataGridViewX1.Size = new System.Drawing.Size(1424, 451);
             this.dataGridViewX1.TabIndex = 0;
             this.dataGridViewX1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewX1_CellContentClick);
             // 
@@ -85,7 +85,7 @@
             this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExit.BackColor = System.Drawing.Color.Transparent;
             this.btnExit.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnExit.Location = new System.Drawing.Point(1166, 521);
+            this.btnExit.Location = new System.Drawing.Point(1361, 521);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(75, 23);
             this.btnExit.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -142,7 +142,7 @@
             this._DomainIndex.HeaderText = "領域(原)";
             this._DomainIndex.Name = "_DomainIndex";
             this._DomainIndex.ReadOnly = true;
-            this._DomainIndex.Width = 80;
+            this._DomainIndex.Width = 59;
             // 
             // 科目代碼_原
             // 
@@ -150,7 +150,7 @@
             this.科目代碼_原.HeaderText = "科目代碼(原)";
             this.科目代碼_原.Name = "科目代碼_原";
             this.科目代碼_原.ReadOnly = true;
-            this.科目代碼_原.Width = 106;
+            this.科目代碼_原.Width = 82;
             // 
             // 科目_原
             // 
@@ -158,7 +158,7 @@
             this.科目_原.HeaderText = "科目(原)";
             this.科目_原.Name = "科目_原";
             this.科目_原.ReadOnly = true;
-            this.科目_原.Width = 80;
+            this.科目_原.Width = 59;
             // 
             // 授課學期學分
             // 
@@ -166,8 +166,7 @@
             this.授課學期學分.HeaderText = "授課學期學分(原)";
             this.授課學期學分.Name = "授課學期學分";
             this.授課學期學分.ReadOnly = true;
-            this.授課學期學分.Visible = false;
-            this.授課學期學分.Width = 132;
+            this.授課學期學分.Width = 90;
             // 
             // 科目代碼_新
             // 
@@ -175,7 +174,7 @@
             this.科目代碼_新.HeaderText = "科目代碼(新)";
             this.科目代碼_新.Name = "科目代碼_新";
             this.科目代碼_新.ReadOnly = true;
-            this.科目代碼_新.Width = 106;
+            this.科目代碼_新.Width = 82;
             // 
             // 科目_新
             // 
@@ -183,7 +182,7 @@
             this.科目_新.HeaderText = "科目(新)";
             this.科目_新.Name = "科目_新";
             this.科目_新.ReadOnly = true;
-            this.科目_新.Width = 80;
+            this.科目_新.Width = 59;
             // 
             // 授課學期學分_新
             // 
@@ -191,22 +190,21 @@
             this.授課學期學分_新.HeaderText = "授課學期學分(新)";
             this.授課學期學分_新.Name = "授課學期學分_新";
             this.授課學期學分_新.ReadOnly = true;
-            this.授課學期學分_新.Visible = false;
-            this.授課學期學分_新.Width = 132;
+            this.授課學期學分_新.Width = 90;
             // 
             // Action
             // 
             this.Action.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Action.HeaderText = "動作";
             this.Action.Name = "Action";
-            this.Action.Width = 59;
+            this.Action.Width = 55;
             // 
             // 修改欄位
             // 
             this.修改欄位.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.修改欄位.HeaderText = "修改欄位";
             this.修改欄位.Name = "修改欄位";
-            this.修改欄位.Width = 85;
+            this.修改欄位.Width = 67;
             // 
             // 備註
             // 
@@ -214,13 +212,13 @@
             this.備註.HeaderText = "備註";
             this.備註.Name = "備註";
             this.備註.ReadOnly = true;
-            this.備註.Width = 59;
+            this.備註.Width = 55;
             // 
             // GraduationPlanUpdateDetailForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1253, 546);
+            this.ClientSize = new System.Drawing.Size(1448, 546);
             this.Controls.Add(this.checkBoxShowOnly);
             this.Controls.Add(this.labelX1);
             this.Controls.Add(this.cboGraduationName);
@@ -229,6 +227,7 @@
             this.DoubleBuffered = true;
             this.Name = "GraduationPlanUpdateDetailForm";
             this.Text = "檢視更新細節";
+            this.Load += new System.EventHandler(this.GraduationPlanUpdateDetailForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewX1)).EndInit();
             this.ResumeLayout(false);
 

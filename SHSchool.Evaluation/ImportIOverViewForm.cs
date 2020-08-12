@@ -18,18 +18,13 @@ namespace SHSchool.Evaluation
 {
     public partial class ImportGraduationPlanInfoForm : BaseForm
     {
-
         /// <summary>
         /// CSV 讀取進來之課程規劃表
         /// </summary>
         Dictionary<string, GraduationPlanInfo> NewGraduationInfos;
         QueryHelper QHelper = new QueryHelper();
-        DataService DataService = new DataService(); // 新增 更新 用
+        DataService DataService = new DataService(); 
         List<string> EntryYears;
-
-
-        // DataService DataService  = new DataService();
-
         /// <summary>
         /// 建構子
         /// </summary>
@@ -45,7 +40,6 @@ namespace SHSchool.Evaluation
 
         private void ImportInfoForm_Load(object sender, EventArgs e)
         {
-
             this.LoadExistGraduationPlan(this.EntryYears); // 載入現有資料庫同入學年度資料
             this.LoadingDataGrivew(); // 載入DataGrivew  
         }
@@ -88,12 +82,12 @@ namespace SHSchool.Evaluation
         /// 依據學年度學期 取得系統內是否有 相同code 課程代碼
         /// </summary>
         /// <param name="schoolYear"></param>
-        private void LoadExistGraduationPlan(List<string> schoolYear)
+        private void LoadExistGraduationPlan(List<string> schoolYear) 
         {
 
             string sql = @" 
-  WITH    all_subject     AS( 
-  SELECT
+  WITH   all_subject    AS( 
+ SELECT
 		id
 		,entry_year
 		, name
@@ -130,7 +124,8 @@ FROM
         , content
 		, name
 	    , graduation_plan_key
-  
+HAVING 
+	char_length( graduation_plan_key) = 16
 ";
             DataTable dt = QHelper.Select(sql);
             foreach (DataRow dr in dt.Rows)
@@ -142,7 +137,7 @@ FROM
                 string deptCode = graduationPlanCode.Substring(12, 3);
                 string CourseType = graduationPlanCode.Substring(9, 1);
 
-                if (this.NewGraduationInfos.ContainsKey(graduationPlanCode))
+                if (this.NewGraduationInfos.ContainsKey(graduationPlanCode)) //如果已經有存在之課程規劃表
                 {
                     if (deptCode != "196") // 如果是一年級不分群 ==> 排除(不加到主key)
                     {
@@ -153,22 +148,12 @@ FROM
                         else
                         {
                             // 同一課程規劃表中有兩種以上 課程規劃表Key
-
                         }
                     }
                     else // 196 為不分班群 
                     {
-                        // 排除不管
-
-
 
                     }
-
-                }
-                else // 如果是不分群 ==>不會加到 主key
-                {
-
-
                 }
             }
         }
@@ -195,35 +180,33 @@ FROM
         private void buttonX1_Click(object sender, EventArgs e)
         {
             // 組sql 跟 新增
-            InsertAndUpdate();
-            MsgBox.Show("更新完成!");
-            this.Close();
+           List<string > finishGplan= InsertAndUpdate();
+           MsgBox.Show($"{string.Join(" ,\n",finishGplan)}\n更新完成!");
+           this.Close();
         }
 
         /// <summary>
-        /// 
+        /// 開始新增及更新
         /// </summary>
-        public void InsertAndUpdate()
+        public List<string> InsertAndUpdate()
         {
+            List<string> FinishUpdateList = new List<string>(); //儲存更新增用
             foreach (string gPlanCode in NewGraduationInfos.Keys) // 每個資料讀進來整理過後的檔案
             {
                 if (NewGraduationInfos[gPlanCode].DicOldGraduationPlanInfos.Count != 0) // 如果系統已經有相同課程規劃表
                 {
                     foreach (string oldGPlanCode in NewGraduationInfos[gPlanCode].DicOldGraduationPlanInfos.Keys) // 每個Old gPlan
                     {
-
                         OldGraduationPlanInfo OldGraduationPlanInfo = NewGraduationInfos[gPlanCode].DicOldGraduationPlanInfos[oldGPlanCode];
                         OldGraduationPlanInfo.MakeUpdateXml();  //  產生update XML 
                         try
                         {
                             DataService.UpdateGraduationPlan(OldGraduationPlanInfo.SysID, OldGraduationPlanInfo.GraduationName, OldGraduationPlanInfo.UpdateContentXml.OuterXml);
-
-                            MsgBox.Show($"更新 課程規劃表 : { OldGraduationPlanInfo.GraduationName} 完成");
+                            FinishUpdateList.Add(OldGraduationPlanInfo.GraduationName);
                         }
                         catch (Exception ex)
                         {
-                            MsgBox.Show($"更新 課程規劃表 : { OldGraduationPlanInfo.GraduationName} 時 發生錯誤。 \n{ex.Message}");
-
+                            MsgBox.Show($"更新 課程規劃表 : 【{ OldGraduationPlanInfo.GraduationName}】 時 發生錯誤。 \n{ex.Message}");
                         }
                     }
                 }
@@ -233,7 +216,7 @@ FROM
                     {
                         string NewXmlContent = DataService.GetNewGraduationContent(NewGraduationInfos[gPlanCode]);
                         DataService.InsertGraduationPlan(NewGraduationInfos[gPlanCode].GraduationName, NewXmlContent);
-                        MsgBox.Show($"新增 課程規劃表 : { NewGraduationInfos[gPlanCode].GraduationName} 完成");
+                        FinishUpdateList.Add(NewGraduationInfos[gPlanCode].GraduationName);
                     }
                     catch (Exception ex)
                     {
@@ -241,17 +224,15 @@ FROM
                     }
                 }
             }
+            return FinishUpdateList;
         }
 
         private void btnExport_Click(object sender, EventArgs e)
         {
             Dictionary<string, List<CourseInfoExport>> courseInfoModels = new Dictionary<string, List<CourseInfoExport>>();
-
             List<string> selectedGraduationID = new List<string>();
             List<string> noDatas = new List<string>();
             #region 取得ID
-
-
             if (this.dataGridViewX1.SelectedRows.Count > 0) //檢查筆數
             {
                 foreach (DataGridViewRow row in this.dataGridViewX1.SelectedRows)
@@ -293,25 +274,19 @@ FROM
             if (noDatas.Count > 0)
             {
                 MsgBox.Show($"{string.Join("\n", noDatas)} \n沒有對應舊課程規表");
+                return;
             }
             #endregion
 
-
-
             #region 取得資料
-
-            DataTable dt = DataService.GetOldGraduationInfosByID(selectedGraduationID);
-
+            DataTable dt = DataService.GetOldGraduationInfosByID(selectedGraduationID); // 資料庫撈資料
             foreach (DataRow dr in dt.Rows)
             {
-
-
- 
-
                 CourseInfoExport courseInfoExport = new CourseInfoExport();
                 courseInfoExport.ID = "" + dr["ID"];
                 courseInfoExport.課程規劃表名稱 = "" + dr["name"];
                 courseInfoExport.領域名稱 = "" + dr["領域"];
+                courseInfoExport.學期 = "" + dr["學期"];
                 courseInfoExport.分項名稱 = "" + dr["分項"];
                 courseInfoExport.年級 = "" + dr["年級"];
                 courseInfoExport.科目名稱 = "" + dr["科目"];
@@ -319,11 +294,11 @@ FROM
                 courseInfoExport.校訂部訂 = "" + dr["校部訂"];
                 courseInfoExport.必選修 = "" + dr["必選修"];
                 courseInfoExport.學分數 = "" + dr["學分數"];
-                courseInfoExport.不計學分 = "" + dr["不計學分"];
-                courseInfoExport.不需評分 = "" + dr["不需評分"];
+                courseInfoExport.不計學分 = "" + dr["不計學分"] == "True" ? "是" : "";
+                courseInfoExport.不需評分 = "" + dr["不需評分"] == "True" ? "是" : "";
                 courseInfoExport.科目代碼 = "" + dr["課程代碼"];
 
-                if (!courseInfoModels.ContainsKey(courseInfoExport.課程規劃表名稱)) 
+                if (!courseInfoModels.ContainsKey(courseInfoExport.課程規劃表名稱))
                 {
                     courseInfoModels.Add(courseInfoExport.課程規劃表名稱, new List<CourseInfoExport>());
                 }
@@ -331,16 +306,12 @@ FROM
             }
             #endregion
 
-
-
-            // 裝入export
-
-            Workbook template = new Workbook(new MemoryStream(Properties.Resources.匯出課程規劃表樣版));
-
-            int rowNum = 1;
-            foreach (string graduationKey in courseInfoModels.Keys)
-            { 
-                foreach (CourseInfoExport courseInfo in courseInfoModels[graduationKey])
+            // 裝進Excel
+            foreach (string graduationName in courseInfoModels.Keys)
+            {
+                int rowNum = 1;
+                Workbook template = new Workbook(new MemoryStream(Properties.Resources.匯出課程規劃表樣版));
+                foreach (CourseInfoExport courseInfo in courseInfoModels[graduationName])
                 {
                     int cols = 0;
                     template.Worksheets[0].Cells[rowNum, cols++].PutValue(courseInfo.課程規劃表名稱);
@@ -358,25 +329,22 @@ FROM
                     template.Worksheets[0].Cells[rowNum, cols++].PutValue(courseInfo.科目代碼);
                     rowNum++;
                 }
-
-                Report(template, graduationKey);
+                Report(template, graduationName); //產出 excel
             }
-
-          
-            // 匯出
         }
 
 
-
-        private void Report(Workbook template , string Name)
+        /// <summary>
+        /// 產出Excel檔
+        /// </summary>
+        /// <param name="template"></param>
+        /// <param name="Name"></param>
+        private void Report(Workbook template, string graduationPName)
         {
             string path = Path.Combine(Application.StartupPath, "Reports");
-
             //如果目錄不存在則建立。
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-
-            path = Path.Combine(path,  $"{Name}.xlsx");
-
+            path = Path.Combine(path, $"匯出課程規劃表_{graduationPName}_{DateTime.Now.ToString("yyyyMMddhhmmss")}.xlsx");
             try
             {
                 template.Save(path);
@@ -406,7 +374,6 @@ FROM
                 MsgBox.Show("檔案儲存失敗:" + ex.Message, "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
             try
             {
                 Process.Start(path);

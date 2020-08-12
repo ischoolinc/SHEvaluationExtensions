@@ -38,9 +38,9 @@ namespace SHSchool.Evaluation.Service
         /// </summary>
         /// <param name="graduationPlanName"></param>
         /// <param name="content"></param>
-        public void UpdateGraduationPlan( string id  ,string graduationPlanName, string content)
+        public void UpdateGraduationPlan(string id, string graduationPlanName, string content)
         {
-            string updateSQL= $"UPDATE  graduation_plan   SET   content = '{content}'  WHERE id = {id}   RETURNING  id  ";
+            string updateSQL = $"UPDATE  graduation_plan   SET   content = '{content}'  WHERE id = {id}   RETURNING  id  ";
 
             _Qh.Select(updateSQL);
         }
@@ -55,90 +55,90 @@ namespace SHSchool.Evaluation.Service
             // 2.產生各科課程規畫表資料
             {
                 XmlDocument xmlDoc = new XmlDocument();
-         
-                    XmlElement eleGraduationPlan = xmlDoc.CreateElement("GraduationPlan");
-                  
-                    Dictionary<string, int> dicSubjectLevel = new Dictionary<string, int>();
-                    int rows = 1;
 
-                    foreach (CourseInfo courseInfo in graduationInfo.GetAllCourseInfoList())
+                XmlElement eleGraduationPlan = xmlDoc.CreateElement("GraduationPlan");
+
+                Dictionary<string, int> dicSubjectLevel = new Dictionary<string, int>();
+                int rows = 1;
+
+                foreach (CourseInfo courseInfo in graduationInfo.GetAllCourseInfoList())
+                {
+                    eleGraduationPlan.SetAttribute("SchoolYear", courseInfo.EnterYear);
+                    #region 填入XML
+
+                    int startLevel = dicSubjectLevel.ContainsKey(courseInfo.NewSubjectName) ? dicSubjectLevel[courseInfo.NewSubjectName] + 1 : 1;
+
+                    //放個學期的學分數
+                    Dictionary<int, string> dicCreditEachSemester = courseInfo.DicCreditEachSemester;
+
+                    int level = startLevel;
+                    foreach (int semester in dicCreditEachSemester.Keys)
                     {
-                        eleGraduationPlan.SetAttribute("SchoolYear", courseInfo.EnterYear);
-                        #region 填入XML
+                        XmlElement eleSubject = xmlDoc.CreateElement("Subject");
 
-                        int startLevel = dicSubjectLevel.ContainsKey(courseInfo.NewSubjectName) ? dicSubjectLevel[courseInfo.NewSubjectName] + 1 : 1;
+                        #region 生成XML
 
-                        //放個學期的學分數
-                        Dictionary<int, string> dicCreditEachSemester = courseInfo.DicCreditEachSemester;
+                        eleSubject.SetAttribute("Category", "");
+                        eleSubject.SetAttribute("Credit", dicCreditEachSemester[semester]);
+                        eleSubject.SetAttribute("Domain", (courseInfo.領域名稱));
+                        eleSubject.SetAttribute("Entry", courseInfo.Entry);
+                        eleSubject.SetAttribute("GradeYear", Helper.GetGradeYear(semester).GradeYear.ToString());
 
-                        int level = startLevel;
-                        foreach (int semester in dicCreditEachSemester.Keys)
+                        if (!dicSubjectLevel.ContainsKey(courseInfo.NewSubjectName))
                         {
-                            XmlElement eleSubject = xmlDoc.CreateElement("Subject");
+                            dicSubjectLevel.Add(courseInfo.NewSubjectName, level);
+                            eleSubject.SetAttribute("Level", level.ToString());
+                            eleSubject.SetAttribute("FullName", courseInfo.NewSubjectName + " " + Helper.GetRomaNumber(level));
+                            level++;
+                        }
+                        else
+                        {
+                            dicSubjectLevel[courseInfo.NewSubjectName] = level;
+                            eleSubject.SetAttribute("Level", level.ToString());
 
-                            #region 生成XML
-
-                            eleSubject.SetAttribute("Category", "");
-                            eleSubject.SetAttribute("Credit", dicCreditEachSemester[semester]);
-                            eleSubject.SetAttribute("Domain", (courseInfo.領域名稱));
-                            eleSubject.SetAttribute("Entry", courseInfo.Entry);
-                            eleSubject.SetAttribute("GradeYear", Helper.GetGradeYear(semester).GradeYear.ToString());
-
-                            if (!dicSubjectLevel.ContainsKey(courseInfo.NewSubjectName))
+                            // todo  LEVEL 問題
+                            // if (_DicForFullNameMap.ContainsKey(level))
                             {
-                                dicSubjectLevel.Add(courseInfo.NewSubjectName, level);
-                                eleSubject.SetAttribute("Level", level.ToString());
-                                eleSubject.SetAttribute("FullName", courseInfo.NewSubjectName + " " + Helper.GetRomaNumber(level));
+                                courseInfo.NewSubjectNameWithLevel = courseInfo.NewSubjectName + " " + Helper.GetRomaNumber(level);
+                                eleSubject.SetAttribute("FullName", courseInfo.NewSubjectNameWithLevel);
                                 level++;
                             }
-                            else
-                            {
-                                dicSubjectLevel[courseInfo.NewSubjectName] = level;
-                                eleSubject.SetAttribute("Level", level.ToString());
+                        }
+                        eleSubject.SetAttribute("NotIncludedInCalc", "False");
+                        eleSubject.SetAttribute("NotIncludedInCredit", "False");
+                        eleSubject.SetAttribute("Required", courseInfo.Required);
+                        eleSubject.SetAttribute("RequiredBy", courseInfo.RequiredBy);
+                        eleSubject.SetAttribute("Semester", Helper.GetGradeYear(semester).Semester.ToString());
+                        eleSubject.SetAttribute("SubjectName", courseInfo.NewSubjectName);
 
-                                // todo  LEVEL 問題
-                                // if (_DicForFullNameMap.ContainsKey(level))
-                                {
-                                    courseInfo.NewSubjectNameWithLevel = courseInfo.NewSubjectName + " " + Helper.GetRomaNumber(level);
-                                    eleSubject.SetAttribute("FullName", courseInfo.NewSubjectNameWithLevel);
-                                    level++;
-                                }
-                            }
-                            eleSubject.SetAttribute("NotIncludedInCalc", "False");
-                            eleSubject.SetAttribute("NotIncludedInCredit", "False");
-                            eleSubject.SetAttribute("Required", courseInfo.Required);
-                            eleSubject.SetAttribute("RequiredBy", courseInfo.RequiredBy);
-                            eleSubject.SetAttribute("Semester", Helper.GetGradeYear(semester).Semester.ToString());
-                            eleSubject.SetAttribute("SubjectName", courseInfo.NewSubjectName);
-
-                            eleSubject.SetAttribute("課程代碼", courseInfo.New課程代碼);
-                            eleSubject.SetAttribute("課程類別", courseInfo.課程類別說明);
-                            eleSubject.SetAttribute("開課方式", courseInfo.開課方式);
-                            eleSubject.SetAttribute("科目屬性", courseInfo.科目屬性說明);
-                            eleSubject.SetAttribute("領域名稱", courseInfo.領域名稱);
-                            eleSubject.SetAttribute("課程名稱", courseInfo.NewSubjectName);
-                            eleSubject.SetAttribute("學分", dicCreditEachSemester[semester]);
-
-                            eleGraduationPlan.AppendChild(eleSubject);
-                            {
-                                XmlElement grouping = xmlDoc.CreateElement("Grouping");
-                                grouping.SetAttribute("RowIndex", (rows).ToString());
-                                grouping.SetAttribute("startLevel", startLevel.ToString());
-                                eleSubject.AppendChild(grouping);
-                            }
-                            #endregion
+                        eleSubject.SetAttribute("課程代碼", courseInfo.新課程代碼);
+                        eleSubject.SetAttribute("課程類別", courseInfo.課程類別說明);
+                        eleSubject.SetAttribute("開課方式", courseInfo.開課方式);
+                        eleSubject.SetAttribute("科目屬性", courseInfo.科目屬性說明);
+                        eleSubject.SetAttribute("領域名稱", courseInfo.領域名稱);
+                        eleSubject.SetAttribute("課程名稱", courseInfo.NewSubjectName);
+                        eleSubject.SetAttribute("學分", dicCreditEachSemester[semester]);
+                        eleSubject.SetAttribute("授課學期學分", courseInfo.授課學期學分);
+                        eleGraduationPlan.AppendChild(eleSubject);
+                        {
+                            XmlElement grouping = xmlDoc.CreateElement("Grouping");
+                            grouping.SetAttribute("RowIndex", (rows).ToString());
+                            grouping.SetAttribute("startLevel", startLevel.ToString());
+                            eleSubject.AppendChild(grouping);
                         }
                         #endregion
-                        rows++;
                     }
-                    return eleGraduationPlan.OuterXml;
+                    #endregion
+                    rows++;
+                }
+                return eleGraduationPlan.OuterXml;
             }
         }
 
         /// <summary>
         /// 匯出課程規劃表用
         /// </summary>
-        public  DataTable  GetOldGraduationInfosByID(List<string> GraduationIDs) 
+        public DataTable GetOldGraduationInfosByID(List<string> GraduationIDs)
         {
             string sql = @"
 SELECT
@@ -169,7 +169,56 @@ FROM
 
 ";
             sql = string.Format(sql, string.Join(",", GraduationIDs));
-            DataTable dt  =this._Qh.Select(sql);
+            DataTable dt = this._Qh.Select(sql);
+            return dt;
+        }
+
+        /// <summary>
+        /// 取得須更新之xml
+        /// </summary>
+        /// <returns></returns>
+        public DataTable GetScAttendUpdateTarget(List<string> subjectCodes)
+        {
+            #region SQL
+            string sql = @"
+WITH target AS 
+(
+	SELECT
+		* 
+	FROM 
+		sc_attend 
+	WHERE
+	subject_code  IN  ('{0}')
+)SELECT 
+		target.id AS sc_attend_id 
+		,ref_course_id 
+		, course_name
+		, subject
+		, school_year
+		, semester 
+		, ref_student_id
+		, student.student_number
+		, class.class_name AS student_class
+		, student.seat_no
+		, student.name 
+		, target.subject_code
+	FROM 
+		target
+	LEFT JOIN 	course 
+		ON course.id  =target.ref_course_id 
+	LEFT JOIN student 
+		ON  student.id =target.ref_student_id 
+	LEFT JOIN  class
+		ON class.id =student.ref_class_id
+ORDER BY
+	class.display_order
+	,seat_no 
+
+            ";
+            #endregion
+
+            sql = string.Format(sql, string.Join("','", subjectCodes));
+            DataTable dt = this._Qh.Select(sql);
             return dt;
         }
     }

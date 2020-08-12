@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridViewX1 = new DevComponents.DotNetBar.Controls.DataGridViewX();
             this.btnCondouct = new DevComponents.DotNetBar.ButtonX();
             this.lab1 = new DevComponents.DotNetBar.LabelX();
@@ -60,19 +60,19 @@
             this.已存在課程規劃表數量,
             this.動作,
             this.CheakDetail});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewX1.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewX1.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewX1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dataGridViewX1.Location = new System.Drawing.Point(12, 42);
             this.dataGridViewX1.Name = "dataGridViewX1";
             this.dataGridViewX1.RowTemplate.Height = 24;
-            this.dataGridViewX1.Size = new System.Drawing.Size(798, 525);
+            this.dataGridViewX1.Size = new System.Drawing.Size(1054, 525);
             this.dataGridViewX1.TabIndex = 1;
             this.dataGridViewX1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewX1_CellContentClick);
             // 
@@ -82,7 +82,7 @@
             this.btnCondouct.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCondouct.BackColor = System.Drawing.Color.Transparent;
             this.btnCondouct.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
-            this.btnCondouct.Location = new System.Drawing.Point(735, 586);
+            this.btnCondouct.Location = new System.Drawing.Point(991, 586);
             this.btnCondouct.Name = "btnCondouct";
             this.btnCondouct.Size = new System.Drawing.Size(75, 23);
             this.btnCondouct.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
@@ -123,6 +123,7 @@
             this.EntrySchoolYear.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.EntrySchoolYear.HeaderText = "入學年度";
             this.EntrySchoolYear.Name = "EntrySchoolYear";
+            this.EntrySchoolYear.ReadOnly = true;
             this.EntrySchoolYear.Width = 67;
             // 
             // CourseType
@@ -130,6 +131,7 @@
             this.CourseType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.CourseType.HeaderText = "課程類型";
             this.CourseType.Name = "CourseType";
+            this.CourseType.ReadOnly = true;
             this.CourseType.Width = 67;
             // 
             // GraduationPlanName
@@ -137,6 +139,7 @@
             this.GraduationPlanName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.GraduationPlanName.HeaderText = "課程規劃表名稱";
             this.GraduationPlanName.Name = "GraduationPlanName";
+            this.GraduationPlanName.ReadOnly = true;
             this.GraduationPlanName.Width = 90;
             // 
             // GraduatePlanCode
@@ -144,6 +147,7 @@
             this.GraduatePlanCode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.GraduatePlanCode.HeaderText = "課程規劃表識別代碼";
             this.GraduatePlanCode.Name = "GraduatePlanCode";
+            this.GraduatePlanCode.ReadOnly = true;
             this.GraduatePlanCode.Width = 102;
             // 
             // OldGraduPlanName
@@ -151,6 +155,7 @@
             this.OldGraduPlanName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.OldGraduPlanName.HeaderText = "系統已存在之課程對照表名稱";
             this.OldGraduPlanName.Name = "OldGraduPlanName";
+            this.OldGraduPlanName.ReadOnly = true;
             this.OldGraduPlanName.Width = 125;
             // 
             // 已存在課程規劃表數量
@@ -158,18 +163,21 @@
             this.已存在課程規劃表數量.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.已存在課程規劃表數量.HeaderText = "已存在課程規劃表數量";
             this.已存在課程規劃表數量.Name = "已存在課程規劃表數量";
+            this.已存在課程規劃表數量.ReadOnly = true;
             this.已存在課程規劃表數量.Width = 102;
             // 
             // 動作
             // 
             this.動作.HeaderText = "動作(新增/更新)";
             this.動作.Name = "動作";
+            this.動作.ReadOnly = true;
             // 
             // CheakDetail
             // 
             this.CheakDetail.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.CheakDetail.HeaderText = "檢視";
             this.CheakDetail.Name = "CheakDetail";
+            this.CheakDetail.ReadOnly = true;
             this.CheakDetail.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.CheakDetail.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.CheakDetail.Text = "檢視";
@@ -179,7 +187,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(828, 621);
+            this.ClientSize = new System.Drawing.Size(1084, 621);
             this.Controls.Add(this.btnExport);
             this.Controls.Add(this.lab1);
             this.Controls.Add(this.btnCondouct);

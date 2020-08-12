@@ -122,11 +122,11 @@
       <DependentUpon>GraduationPlanUpdateDetailForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Helper.cs" />
-    <Compile Include="ImportInfoForm.cs">
+    <Compile Include="ImportIOverViewForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ImportInfoForm.Designer.cs">
-      <DependentUpon>ImportInfoForm.cs</DependentUpon>
+    <Compile Include="ImportIOverViewForm.Designer.cs">
+      <DependentUpon>ImportIOverViewForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Import\ImportCoreTable.cs" />
     <Compile Include="Import\ImportProgramPlan.cs" />
@@ -142,6 +142,8 @@
     <Compile Include="Model\EnumAction.cs" />
     <Compile Include="Model\GraduationPlanInfo.cs" />
     <Compile Include="Model\MappingInfo.cs" />
+    <Compile Include="Model\ScAttandCourseInfo.cs" />
+    <Compile Include="Model\ScAttendInfo.cs" />
     <Compile Include="Model\SchoolYearAndSemester.cs" />
     <Compile Include="Model\UpdateCourseInfo.cs" />
     <Compile Include="Model\OldGraduationPlanInfo.cs" />
@@ -155,6 +157,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Service\DataService.cs" />
+    <Compile Include="UpdateScAttendSubjectCodeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpdateScAttendSubjectCodeForm.Designer.cs">
+      <DependentUpon>UpdateScAttendSubjectCodeForm.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="CodeMapping\ClassGroup.xml">
@@ -227,8 +235,8 @@
       <DependentUpon>GraduationPlanUpdateDetailForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ImportInfoForm.resx">
-      <DependentUpon>ImportInfoForm.cs</DependentUpon>
+    <EmbeddedResource Include="ImportIOverViewForm.resx">
+      <DependentUpon>ImportIOverViewForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InportForm\ImportCurriculumMappingForm.resx">
       <DependentUpon>ImportCurriculumMappingForm.cs</DependentUpon>
@@ -237,6 +245,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpdateScAttendSubjectCodeForm.resx">
+      <DependentUpon>UpdateScAttendSubjectCodeForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

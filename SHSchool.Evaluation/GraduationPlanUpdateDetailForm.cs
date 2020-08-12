@@ -22,10 +22,7 @@ namespace SHSchool.Evaluation
         public GraduationPlanUpdateDetailForm(GraduationPlanInfo graduationPlanInfo, string action)
         {
             InitializeComponent();
-
             this.GraduationPlanInfo = graduationPlanInfo;
-
-            // 如果 
             if (action == "差異更新")
             {
                 this.LoadCombo();
@@ -40,13 +37,14 @@ namespace SHSchool.Evaluation
             }
         }
 
-        public void  SettView(string action) 
+        public void SettView(string action)
         {
-            if (action == "新增") 
+            if (action == "新增")
             {
                 // 畫面設定前三行不用顯示
                 labelX1.Text = "課程規劃表名稱";
                 _DomainIndex.Visible = false;
+                授課學期學分.Visible = false;
                 科目代碼_原.Visible = false;
                 科目_原.Visible = false;
                 授課學期學分_新.Visible = true;
@@ -112,17 +110,22 @@ namespace SHSchool.Evaluation
                             row.Cells[科目_原.Index].Value = element.Attributes["SubjectName"].InnerText;
                             row.Cells[授課學期學分.Index].Value = element.HasAttribute("授課學期學分") ? element.Attributes["授課學期學分"].InnerText : "";
 
-                            // 如果有更新
+                            // gate   upddate如果有更新
                             if (CurrentGraduationPlan.UpdateCourseInfos.Any(x => x.OldSubjectCode == OldSubjectCode))
                             {
                                 row.Cells[科目代碼_新.Index].Value = CurrentGraduationPlan.UpdateCourseInfos.Find(x => x.OldSubjectCode == OldSubjectCode).NewSubjectCode;
                                 row.Cells[科目_新.Index].Value = CurrentGraduationPlan.UpdateCourseInfos.Find(x => x.OldSubjectCode == OldSubjectCode).NewSubjectName;
                                 row.Cells[Action.Index].Value = CurrentGraduationPlan.UpdateCourseInfos.Find(x => x.OldSubjectCode == OldSubjectCode).NewCourseInfo.Action;
+                                row.Cells[授課學期學分_新.Index].Value = CurrentGraduationPlan.UpdateCourseInfos.Find(x => x.OldSubjectCode == OldSubjectCode).NewCourseInfo.授課學期學分;
                                 // 異動欄位
                                 row.Cells[修改欄位.Index].Value = CurrentGraduationPlan.UpdateCourseInfos.Find(x => x.OldSubjectCode == OldSubjectCode).GetUpdateColumns();
                                 row.Cells[備註.Index].Value = CurrentGraduationPlan.UpdateCourseInfos.Find(x => x.OldSubjectCode == OldSubjectCode).GetErrorInfo();
 
-                                if (row.Cells[Action.Index].Value.ToString() == (EnumAction.修改授課學期學分_代碼.ToString()))
+
+
+
+                                if (CurrentGraduationPlan.UpdateCourseInfos.Find(x => x.OldSubjectCode == OldSubjectCode).UpdateTargets.Contains("授課學期學分"))
+                                if (CurrentGraduationPlan.UpdateCourseInfos.Find(x => x.OldSubjectCode == OldSubjectCode).UpdateTargets.Contains("授課學期學分"))
                                 {
                                     row.Cells[備註.Index].Value = "此動作只更新代碼(紀錄用)，實際授課學期/學分數之異動 請人員手動調整。";
                                     row.Cells[備註.Index].Style.ForeColor = Color.Red;
@@ -134,8 +137,6 @@ namespace SHSchool.Evaluation
                             {
                                 row.Cells[Action.Index].Value = CurrentGraduationPlan.UpdateCourseInfos.Find(x => x.OldSubjectCode == OldSubjectCode).NewCourseInfo.Action;
                             }
-
-
                             if (((row.Cells[Action.Index].Value == null) && ShowOnlyUpdate))
                             {
                                 continue;
@@ -161,14 +162,13 @@ namespace SHSchool.Evaluation
                 if (CurrentGraduationPlan.InsertCourseInfos.Count != 0)
                 {
                     DataGridViewRow row;
-
-
                     foreach (UpdateCourseInfo oldCourseInfo in CurrentGraduationPlan.InsertCourseInfos)
                     {
                         row = new DataGridViewRow();
                         row.CreateCells(dataGridViewX1);
                         row.Cells[科目代碼_新.Index].Value = oldCourseInfo.NewSubjectCode;
                         row.Cells[科目_新.Index].Value = oldCourseInfo.NewSubjectName;
+                        row.Cells[授課學期學分_新.Index].Value = oldCourseInfo.新_授課學期學分;
                         row.Cells[Action.Index].Value = oldCourseInfo.NewCourseInfo.Action;
                         dataGridViewX1.Rows.Add(row);
                     }
@@ -196,15 +196,15 @@ namespace SHSchool.Evaluation
         {
             this.cboGraduationName.Text = GraduationPlanInfo.GraduationName;
 
-            foreach (CourseInfo  courseInfo in this.GraduationPlanInfo.ListCourseInfos)
+            foreach (CourseInfo courseInfo in this.GraduationPlanInfo.ListCourseInfos)
             {
-                DataGridViewRow row = new DataGridViewRow();    
+                DataGridViewRow row = new DataGridViewRow();
 
                 row.CreateCells(dataGridViewX1);
-                row.Cells[科目代碼_新.Index].Value = courseInfo.New課程代碼 ;
-                row.Cells[科目_新.Index].Value = courseInfo.NewSubjectName ;
+                row.Cells[科目代碼_新.Index].Value = courseInfo.新課程代碼;
+                row.Cells[科目_新.Index].Value = courseInfo.NewSubjectName;
                 row.Cells[授課學期學分_新.Index].Value = courseInfo.授課學期學分;
-                row.Cells[備註.Index].Value = "" ;
+                row.Cells[備註.Index].Value = "";
 
 
 
@@ -237,6 +237,11 @@ namespace SHSchool.Evaluation
         private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void GraduationPlanUpdateDetailForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

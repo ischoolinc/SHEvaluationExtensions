@@ -27,31 +27,41 @@ namespace SHSchool.Evaluation.Model
             {
                 this.OldSubjectCode = newCourseInfo.OrginCourseCodeFromMOE;
                 this.OldSujectName = newCourseInfo.OrginSubjectName;
-                this.NewSubjectCode = newCourseInfo.New課程代碼;
+                this.NewSubjectCode = newCourseInfo.新課程代碼;
                 this.NewSubjectName = newCourseInfo.NewSubjectName;
+                this.新_授課學期學分 = newCourseInfo.授課學期學分;
 
                 // todo  判斷 科目代碼 及 科目皆無修改
 
                 // 如果 科目代碼 及科目名稱皆無修改 
-                if (newCourseInfo.OrginCourseCodeFromMOE == newCourseInfo.New課程代碼 && (newCourseInfo.OrginSubjectName == newCourseInfo.NewSubjectName))
+                if (newCourseInfo.OrginCourseCodeFromMOE == newCourseInfo.新課程代碼 && (newCourseInfo.OrginSubjectName == newCourseInfo.NewSubjectName))
                 {
-                    newCourseInfo.Action = EnumAction.修改授課學期學分_代碼;
+                    newCourseInfo.Action = EnumAction.修改;
+                    this.新_授課學期學分 = newCourseInfo.授課學期學分;
+                    this.NewSubjectCode = newCourseInfo.OrginCourseCodeFromMOE;
                 }
+                else if (newCourseInfo.OrginCourseCodeFromMOE==""&& newCourseInfo.OrginSubjectName=="") 
+                {
 
+                    this.新_授課學期學分 = newCourseInfo.授課學期學分;
+                    this.OldSubjectCode = newCourseInfo.新課程代碼;
+                    this.OldSujectName = newCourseInfo.NewSubjectName;
+
+                }
+                
             }
             else if (newCourseInfo.Action == EnumAction.新增)
             {
-                this.NewSubjectCode = newCourseInfo.New課程代碼;
+                this.NewSubjectCode = newCourseInfo.新課程代碼;
                 this.NewSubjectName = newCourseInfo.NewSubjectName;
+                this.新_授課學期學分 = newCourseInfo.授課學期學分;
 
             }
             else if (newCourseInfo.Action == EnumAction.刪除)
             {
-                this.NewSubjectCode = newCourseInfo.New課程代碼;
+                this.NewSubjectCode = newCourseInfo.新課程代碼;
                 this.OldSujectName = newCourseInfo.NewSubjectName;
             }
-
-
 
         }
 
@@ -65,8 +75,10 @@ namespace SHSchool.Evaluation.Model
         /// <summary>
         /// 科目名稱
         /// </summary>
-
         public string OldSujectName { get; set; }
+
+
+        public string 舊_授課學期學分 { get; set; }
 
         /// <summary>
         /// 學分
@@ -79,6 +91,8 @@ namespace SHSchool.Evaluation.Model
         public string NewSubjectCode { get; set; }
 
         public string NewSubjectName { get; set; }
+
+        public string 新_授課學期學分 { get; set; }
 
         public string NewEachSemsterStatus { get; set; }
 
@@ -177,7 +191,7 @@ namespace SHSchool.Evaluation.Model
             // 5. 科目名稱
             this.CollectIfDifferent("科目名稱", oldXmlElement.GetAttribute("SubjectName"), courseInfo.NewSubjectName);
             // 6. 課程代碼
-            this.CollectIfDifferent("課程代碼(課程計畫平台)", oldXmlElement.GetAttribute("課程代碼"), courseInfo.New課程代碼);
+            this.CollectIfDifferent("課程代碼(課程計畫平台)", oldXmlElement.GetAttribute("課程代碼"), courseInfo.新課程代碼);
             // 課程類別
             this.CollectIfDifferent("課程類別(課程計畫平台)", oldXmlElement.GetAttribute("課程類別"), courseInfo.課程類別說明);
             // 7. 開課方式
@@ -187,14 +201,14 @@ namespace SHSchool.Evaluation.Model
             // 9.領域名稱
             this.CollectIfDifferent("領域名稱(課程計畫平台)", oldXmlElement.GetAttribute("領域名稱"), courseInfo.領域名稱);
             // 10
-            if (oldXmlElement.HasAttribute("授課學期學分"))
-            {
-                this.CollectIfDifferent("授課學期學分代碼", oldXmlElement.GetAttribute("授課學期學分"), courseInfo.授課學期學分);
-            }
-            else
-            {
-                this.CollectIfDifferent("授課學期學分代碼", "", courseInfo.授課學期學分);
-            }
+            //if (oldXmlElement.HasAttribute("授課學期學分"))
+            //{
+            //    this.CollectIfDifferent("授課學期學分代碼", oldXmlElement.GetAttribute("授課學期學分"), courseInfo.授課學期學分);
+            //}
+            //else
+            //{
+            //    this.CollectIfDifferent("授課學期學分代碼", "", courseInfo.授課學期學分);
+            //}
         }
 
 
@@ -212,6 +226,19 @@ namespace SHSchool.Evaluation.Model
                 this.UpdateTargets.Add(columnName);
             }
         }
+        
+        /// <summary>
+        /// 直接給他值須更需欄位訊息  (比較授課學期學分)
+        /// </summary>
+        /// <param name="columnName"></param>
+
+        public void CollectIfDifferent(string columnName) 
+        {
+
+            this.UpdateTargets.Add(columnName);
+
+        }
+
 
         /// <summary>
         /// 取得值

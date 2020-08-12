@@ -100,7 +100,7 @@
             // btnSelectedClassGroup
             // 
             this.btnSelectedClassGroup.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnSelectedClassGroup.BackColor = System.Drawing.Color.Transparent;
+            this.btnSelectedClassGroup.BackColor = System.Drawing.Color.WhiteSmoke;
             this.btnSelectedClassGroup.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnSelectedClassGroup.Location = new System.Drawing.Point(250, 257);
             this.btnSelectedClassGroup.Name = "btnSelectedClassGroup";
@@ -204,6 +204,7 @@
             this.radioSemeterClass.TabStop = true;
             this.radioSemeterClass.Text = "更新 學期成績課程代碼";
             this.radioSemeterClass.UseVisualStyleBackColor = true;
+            this.radioSemeterClass.Visible = false;
             // 
             // radioScattend
             // 
@@ -216,6 +217,7 @@
             this.radioScattend.TabStop = true;
             this.radioScattend.Text = "更新 修課紀錄課程代碼";
             this.radioScattend.UseVisualStyleBackColor = true;
+            this.radioScattend.Visible = false;
             // 
             // redioUpdateGraduationPlan
             // 

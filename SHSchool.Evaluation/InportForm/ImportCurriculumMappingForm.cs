@@ -24,20 +24,16 @@ namespace SHSchool.Evaluation.InportForm
         private FileInfo _FileInfoForMD5;
         private FileInfo _FileInfoForcClassGroup;
         private Regex rgx = new Regex(@"^[A-Z]{1,1}"); //班群對照表驗證用
-        List<CourseInfo> m196CourseInfo = new List<CourseInfo>(); // 
+
         // Dictionary<string, List<CourseInfo>> DicGraduationPlan;  // 這行註解掉替換成物件
+
         Dictionary<string, GraduationPlanInfo> DicGraduationPlan; // 
-
-
+        // Dictionary<string, GraduationPlanInfo> DicGraduationPlan; // 
         Dictionary<string, XmlElement> dicMTypeSubjectTable;// 綜合高中核心科目表 核心科目用
-        //Dictionary<string, List<CourseInfo>> dicMTypeGraduationPlan = new Dictionary<string, List<CourseInfo>>();
-        Dictionary<string, GraduationPlanInfo> dicMTypeGraduationPlan = new Dictionary<string, GraduationPlanInfo>();
-
         /// <summary>
-        /// 目前課程規劃表_名稱
+        /// 學程規劃表
         /// </summary>
-        //private string CurrentCurriculumMappingName;
-
+        Dictionary<string, GraduationPlanInfo> DicMTypeGraduationPlan = new Dictionary<string, GraduationPlanInfo>();
         /// <summary>
         /// 存放CSVFile 轉成物件 
         /// </summary>
@@ -130,25 +126,17 @@ namespace SHSchool.Evaluation.InportForm
             _DicFixedCodes = new Dictionary<string, MappingInfo>();
             _DicLevel = new Dictionary<string, int>();
 
-
-
+            redioUpdateGraduationPlan.Checked = true;
             // 1.將資料讀進來比對 
-
-
             GetLevelMapping();
-
             // 1. 載入 對照表  與課程規劃表名稱有關之 欄位
             LoadCodeMapping();
             // 2. 載入 對照表 其他 欄位
             LoadCCodeMappingElse();
-
-
             // 3.載入學期對照表 
             GetGradeYearAndSenmester();
             // 4.載入 級別羅馬字對照表
             //GetLevelMapping();
-
-
         }
 
         //選擇檔案 
@@ -176,9 +164,6 @@ namespace SHSchool.Evaluation.InportForm
         //按下匯入
         private void btnImprt_Click(object sender, EventArgs e)
         {
-            // 1. UI 鎖住  
-            // 2.驗證 檔名
-
 
             if (String.IsNullOrEmpty(this.textFileCassGroup.Text))
             {
@@ -226,7 +211,6 @@ namespace SHSchool.Evaluation.InportForm
             // 載入 【班群對照表】  
             if (!String.IsNullOrEmpty(this.textFileCassGroup.Text))
             {
-
                 string loadResult = LoadCSVFileForClassGroup(_FileInfoForcClassGroup);
 
                 if (loadResult != "")
@@ -236,8 +220,6 @@ namespace SHSchool.Evaluation.InportForm
                     return;
                 }
             }
-
-
             //載入【課程代碼資料檔】
             try
             {
@@ -278,8 +260,6 @@ namespace SHSchool.Evaluation.InportForm
                     return;
                 }
                 //產生XML格式並更新
-
-                MotherForm.SetStatusBarMessage("課程規劃表匯入中....");
                 LuckUI();
                 ManageCourseInfo();
                 //todo 0727 1.顯示匯入檔資料
@@ -288,12 +268,15 @@ namespace SHSchool.Evaluation.InportForm
                 {
                     ImportGraduationPlanInfoForm ImportInfoForm = new ImportGraduationPlanInfoForm(this.DicGraduationPlan, EntryYears);
                     ImportInfoForm.ShowDialog();
-                    this.Close();
+                    this.pbLoding.Visible = false;
+                    this.btnImprt.Enabled = true;
+                    this.btnSelectFile.Enabled = true;
+                    this.btnSelectedClassGroup.Enabled = true;
                 }
-                else if (false) // 更新修課紀錄
+                else if (radioScattend.Checked) // 更新修課紀錄
                 {
-
-
+                    UpdateScAttendSubjectCodeForm UpdateScAttendSubjectCodeForm = new UpdateScAttendSubjectCodeForm(this.DicGraduationPlan);
+                    UpdateScAttendSubjectCodeForm.ShowDialog();
                 }
                 else if (false) // 更新學期成績
                 {
@@ -301,15 +284,7 @@ namespace SHSchool.Evaluation.InportForm
 
                 }
 
-                //CreateXmlAndInsert();
-                //PrintZeroCredit();
-
-
-
-
-
-
-                SmartSchool.Evaluation.GraduationPlan.GraduationPlan.Instance.Reflash();//同步 課程規劃表
+                // SmartSchool.Evaluation.GraduationPlan.GraduationPlan.Instance.Reflash();//同步 課程規劃表
 
 
             }
@@ -331,7 +306,7 @@ namespace SHSchool.Evaluation.InportForm
             {
                 #region 轉換中文  
                 //取得切割後code
-                string courseCodeFromMOE = _DicCourseInfo[keyCodeFromMOE].New課程代碼;    // 1 .課程代碼
+                string courseCodeFromMOE = _DicCourseInfo[keyCodeFromMOE].新課程代碼;    // 1 .課程代碼
                 string subjectName = _DicCourseInfo[keyCodeFromMOE].NewSubjectName;                // 2 .課程名稱
                 string Credit = _DicCourseInfo[keyCodeFromMOE].授課學期學分;                          // 3 .學分
                 string EnterYear = _DicCourseInfo[keyCodeFromMOE].EnterYear;                    // 入學學年度 
@@ -410,7 +385,7 @@ namespace SHSchool.Evaluation.InportForm
                     _DicCourseInfo[keyCodeFromMOE].科目屬性說明 = _DicSubjectAttribute[SubjectAttribute];
 
                     _DicCourseInfo[keyCodeFromMOE].Entry = Helper.GetEntryByCSVCodeDetail(_DicCourseInfo[keyCodeFromMOE].科目屬性說明);
-             
+
                 }
                 else
                 {
@@ -516,7 +491,6 @@ namespace SHSchool.Evaluation.InportForm
                         return;
                     }
                     XmlElement eleGraduationPlan = xmlDoc.CreateElement("GraduationPlan");
-                    // xmlDoc.AppendChild(eleGraduationPlan);
                     Dictionary<string, int> dicSubjectLevel = new Dictionary<string, int>();
                     int rows = 1;
 
@@ -570,7 +544,7 @@ namespace SHSchool.Evaluation.InportForm
                             eleSubject.SetAttribute("Semester", this._DicMappingSemester[semester].semester.ToString());
                             eleSubject.SetAttribute("SubjectName", courseInfo.NewSubjectName);
 
-                            eleSubject.SetAttribute("課程代碼", courseInfo.New課程代碼);
+                            eleSubject.SetAttribute("課程代碼", courseInfo.新課程代碼);
                             eleSubject.SetAttribute("課程類別", courseInfo.課程類別說明);
                             eleSubject.SetAttribute("開課方式", courseInfo.開課方式);
                             eleSubject.SetAttribute("科目屬性", courseInfo.科目屬性說明);
@@ -593,11 +567,11 @@ namespace SHSchool.Evaluation.InportForm
 
 
                     InsertGraduationPlan(gplanName, eleGraduationPlan.OuterXml);
-                    
-                    
-                    
+
+
+
                     // 掃描課程規劃表內容，建立學成核心科目表
-                    if (dicMTypeGraduationPlan.ContainsKey(gplanName))
+                    if (DicMTypeGraduationPlan.ContainsKey(gplanName))
                     {
                         XmlElement eleSubjectTable = xmlDoc.CreateElement("SubjectTableContent");
                         eleSubjectTable.SetAttribute("SchoolYear", eleGraduationPlan.GetAttribute("SchoolYear"));
@@ -708,7 +682,6 @@ SELECT 0
         private void LoadCSVFile(FileInfo _fileInfo)
         {
             _DicCourseInfo.Clear();
-
             using (StreamReader sr = new StreamReader(_fileInfo.OpenRead()))
             {
                 string row;
@@ -716,11 +689,18 @@ SELECT 0
                 {
                     while ((row = sr.ReadLine()) != null)
                     {
-                        string[] itemInRow = row.Split(',');
+                        string[] itemInRow;
+                        if (row.Contains("\t"))
+                        {
+                            itemInRow = row.Split('\t');
+                        }
+                        else
+                        {
+                            itemInRow = row.Split(',');
+                        }
 
                         //驗證長度 (課程代碼& 學期學分)
                         String lenErr = VaildateEachColumn(itemInRow);
-
                         string courseName = itemInRow[1].Trim();
                         string OrainMOECourseCode = "";
                         if (itemInRow.Length >= 4)
@@ -742,7 +722,7 @@ SELECT 0
                                 EntryYears.Add(courseInfo.EnterYear);
                             }
                             //加到課程代碼
-                            _DicCourseInfo.Add(courseInfo.New課程代碼, courseInfo);
+                            _DicCourseInfo.Add(courseInfo.新課程代碼, courseInfo);
                         }
                         else
                         {
@@ -1081,13 +1061,11 @@ SELECT 0
             }
             #endregion
 
-
             #region 更新 課程規劃表
             try
             {
                 string UpDateString = $"UPDATE graduation_plan SET  content ='{content}' WHERE id ={sysID} RETURNING *";
                 _Qh.Select(UpDateString);
-
             }
             catch (Exception ex)
             {
@@ -1114,7 +1092,7 @@ SELECT 0
             foreach (string errKey in exportTarget.Keys)
             {
                 i++;
-                wsheet.Cells[i, 0].PutValue(exportTarget[errKey].New課程代碼);
+                wsheet.Cells[i, 0].PutValue(exportTarget[errKey].新課程代碼);
                 wsheet.Cells[i, 1].PutValue(exportTarget[errKey].NewSubjectName);
                 wsheet.Cells[i, 2].PutValue(exportTarget[errKey].授課學期學分);
                 wsheet.Cells[i, 3].PutValue(String.Join(",", exportTarget[errKey].ErrorMessage));
@@ -1160,7 +1138,7 @@ SELECT 0
             {
                 i++;
                 int j = 0;
-                wsheet.Cells[i, j++].PutValue(_DicZeroCreditEachSems[key].New課程代碼);
+                wsheet.Cells[i, j++].PutValue(_DicZeroCreditEachSems[key].新課程代碼);
                 wsheet.Cells[i, j++].PutValue(_DicZeroCreditEachSems[key].NewSubjectName);
                 wsheet.Cells[i, j++].PutValue(_DicZeroCreditEachSems[key].授課學期學分);
                 wsheet.Cells[i, j++].PutValue(_DicZeroCreditEachSems[key].EnterYear); //入學年度
@@ -1221,8 +1199,6 @@ SELECT 0
                 }
                 else if (ofd.FileNames.Count() == 1)
                 {
-                    //檔案資訊 放入一個 FileInfo 物件
-
                     _FileInfoForcClassGroup = new FileInfo(ofd.FileNames[0]);
 
                     textFileCassGroup.Text = _FileInfoForcClassGroup.Name;
@@ -1282,68 +1258,133 @@ SELECT 0
             this._DicErrorCourse.Clear();
         }
 
-        private Dictionary<string, GraduationPlanInfo> ManageCourseInfo()
-        {
-            //各科課程規畫表
-            // Dictionary<string, List<CourseInfo>> dicGraduationPlan = new Dictionary<string, List<CourseInfo>>();
-            this.DicGraduationPlan = new Dictionary<string, GraduationPlanInfo>();
 
+        /// <summary>
+        /// 將資料整理
+        /// </summary>
+        private void ManageCourseInfo()
+        {
+            bool isMType = false;
+            // 此課程規劃表 一年級不分班群之資料 key 年度 學期
+            Dictionary<string, List<CourseInfo>> m196CourseInfos = new Dictionary<string, List<CourseInfo>>();
+            //各科課程規畫表
+            this.DicGraduationPlan = new Dictionary<string, GraduationPlanInfo>();
+            // List<CourseInfo> m196CourseInfo = new List<CourseInfo>();
             //綜合高中1年級不分群的科目清單
 
-            //綜合高中的課程規劃表
-            // Dictionary<string, List<CourseInfo>> dicMTypeGraduationPlan = new Dictionary<string, List<CourseInfo>>();
-            //綜合高中的學成核心科目表
-            //  Dictionary<string, XmlElement> dicMTypeSubjectTable = new Dictionary<string, XmlElement>();
+            //將資料一年級分成
 
-            //整理成各科課程規畫表
+
+            // 整理成各科課程規畫表
             foreach (string keyCodeFromMOE in this._DicCourseInfo.Keys)
             {
-                var target = this._DicCourseInfo[keyCodeFromMOE];
-                var graduatrionPlanKey = target.GetGradustionPlanKey();
-                //var name = target.GetCurriiculumMapName();
+                CourseInfo target = this._DicCourseInfo[keyCodeFromMOE].Clone();
+                string graduatrionPlanKey = target.GetGradustionPlanKey();
+
                 //綜合高中的要把1年級不分群和併入各學程的
-                //todo 代理解 高中國中
                 if (target.CourseType == "M")
                 {
-                    if (target.DeptCode == "196")//是1年級不分群
+                    isMType = true;
+                    //if (target.DeptCode == "196")//是1年級不分群
+                    //{
+                    //    //加入1年級不分群清單
+                    //    if (!m196CourseInfos.ContainsKey(target.EnterYear))
+                    //    {
+                    //        m196CourseInfos.Add(target.EnterYear, new List<CourseInfo>());
+                    //    }
+                    //    m196CourseInfos[target.EnterYear].Add(target.Clone());
+                    //   // m196CourseInfo.Add(target); //原有
+
+                    //    //加入已產生的學程課程規畫表
+                    //    foreach (var mTypeGPlanName in DicMTypeGraduationPlan.Keys)
+                    //    {
+                    //        DicMTypeGraduationPlan[mTypeGPlanName].AddCourseInfo(target);
+                    //    }
+                    //}
+                    //else // 如果不是一年級不分班群
                     {
-                        //加入1年級不分群清單
-                        m196CourseInfo.Add(target);
-                        //加入已產生的學程課程規畫表
-                        foreach (var mTypeGPlanName in dicMTypeGraduationPlan.Keys)
+                        if (target.DeptCode == "196")//是1年級不分群
                         {
-                            dicMTypeGraduationPlan[mTypeGPlanName].AddCourseInfo(target);
+                            //加入1年級不分群清單
+                            if (!m196CourseInfos.ContainsKey(target.EnterYear))
+                            {
+                                m196CourseInfos.Add(target.EnterYear, new List<CourseInfo>());
+                            }
+                            m196CourseInfos[target.EnterYear].Add(target.Clone());
+                            // m196CourseInfo.Add(target); //原有
+
+                            //加入已產生的學程課程規畫表
+                            foreach (var mTypeGPlanName in DicMTypeGraduationPlan.Keys)
+                            {
+                                DicMTypeGraduationPlan[mTypeGPlanName].AddCourseInfo(target);
+                            }
                         }
-                    }
-                    else // 如果不是一年級不分班群
-                    {
+
                         if (!DicGraduationPlan.ContainsKey(graduatrionPlanKey))
                         {
-
                             //以1年級不分群的科目清單為基礎內容
-                            DicGraduationPlan.Add(graduatrionPlanKey, new GraduationPlanInfo(target, m196CourseInfo));
+                            if (m196CourseInfos.ContainsKey(target.EnterYear))  // 如果有包含該課程規劃表196不分班群是該學年度
+                            {
+                                DicGraduationPlan.Add(graduatrionPlanKey, new GraduationPlanInfo(target));
+                            }
+                            else
+                            {
+                                DicGraduationPlan.Add(graduatrionPlanKey, new GraduationPlanInfo(target));
+                            }
                         }
                         // 加入入學 學年度
 
                         DicGraduationPlan[graduatrionPlanKey].AddCourseInfo(target);
                         //加入對照表
-                        if (!dicMTypeGraduationPlan.ContainsKey(graduatrionPlanKey))
+                        if (!DicMTypeGraduationPlan.ContainsKey(graduatrionPlanKey))
                         {
-                            dicMTypeGraduationPlan.Add(graduatrionPlanKey, DicGraduationPlan[graduatrionPlanKey]);
+                            DicMTypeGraduationPlan.Add(graduatrionPlanKey, DicGraduationPlan[graduatrionPlanKey]);
                         }
                     }
+
+
                 }
                 else
                 {//職校或普通高中
                     if (!DicGraduationPlan.ContainsKey(graduatrionPlanKey))
                     {
-                        DicGraduationPlan.Add(graduatrionPlanKey, new GraduationPlanInfo(target, new List<CourseInfo>()));
+                        DicGraduationPlan.Add(graduatrionPlanKey, new GraduationPlanInfo(target));
                     }
                     DicGraduationPlan[graduatrionPlanKey].AddCourseInfo(target);
                 }
             }
 
-            return dicMTypeGraduationPlan;
+
+            // 如果是綜合高中 需要在做處理 確認一年級是否合併到 同一分
+            if (isMType)
+            {
+                //看看有沒有196
+                foreach (string gPlanKey in DicGraduationPlan.Keys)
+                {
+                    if (gPlanKey.Substring(12, 3) == "196")
+                    {
+                        if (m196CourseInfos.ContainsKey(DicGraduationPlan[gPlanKey].EntryYear))
+                        {
+                            if (!m196CourseInfos.ContainsKey(DicGraduationPlan[gPlanKey].EntryYear)) 
+                            {
+                            m196CourseInfos.Add(DicGraduationPlan[gPlanKey].EntryYear, DicGraduationPlan[gPlanKey].ListCourseInfos.ConvertAll(courseInfo => courseInfo.Clone())); // 如果是有跟其他的一起複製一份到
+                            
+                            }
+                        }
+                    }
+                }
+                foreach (string gPlanKey in DicGraduationPlan.Keys)
+                {
+                    if (m196CourseInfos.ContainsKey(DicGraduationPlan[gPlanKey].EntryYear))
+                    {
+                        DicGraduationPlan[gPlanKey].AddMtypeCourses(m196CourseInfos[DicGraduationPlan[gPlanKey].EntryYear]);
+                    }
+                }
+
+
+
+
+            }
         }
     }
 }

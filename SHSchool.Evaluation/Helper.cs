@@ -46,13 +46,21 @@ namespace SHSchool.Evaluation
             return result+1;
         }
 
+        public static int GetSubjectCount(System.Xml.XmlElement orgainXml ,string subjectName)
+        {
+            // 取得所有 
+            int result = orgainXml.SelectNodes ($"//Subject/child[@SubjectName='{subjectName}']").Count;
+            return result + 1;
+        }
 
 
-         /// <summary>
-         /// 
-         /// </summary>
-         /// <param name="EntryString"></param>
-         /// <returns></returns>
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="EntryString"></param>
+        /// <returns></returns>
         public static string  GetEntryByCSVCodeDetail(string EntryString) 
         {
 
@@ -131,23 +139,11 @@ namespace SHSchool.Evaluation
                 case 6:
                     result = "VI";
                     break;
+        
             }
-
             return result;
         }
 
 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public int GetStartLevel() 
-        {
-
-
-            return 1;
-        
-        }
     }
 }
