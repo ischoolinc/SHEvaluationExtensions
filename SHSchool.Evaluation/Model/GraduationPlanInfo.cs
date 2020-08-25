@@ -8,16 +8,17 @@ namespace SHSchool.Evaluation.Model
     /// <summary>
     ///  裝課程規劃表 csv讀進來的
     /// </summary>
-   public class GraduationPlanInfo
+    public class GraduationPlanInfo
     {
-      
-      /// <summary>
-      /// 
-      /// </summary>
-      /// <param name="courseInfo">課程資訊</param>
-      /// <param name="mTypecourseInfos"></param>
-        public GraduationPlanInfo(CourseInfo courseInfo )
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="courseInfo">課程資訊</param>
+        /// <param name="mTypecourseInfos"></param>
+        public GraduationPlanInfo(CourseInfo courseInfo)
         {
+           
             this.GraduationName = courseInfo.GetCurriiculumMapName();
             this.EntryYear = courseInfo.EnterYear;
             this.CourseType = courseInfo.CourseType;
@@ -25,8 +26,8 @@ namespace SHSchool.Evaluation.Model
             this.CourseInfos = new Dictionary<string, CourseInfo>();
             this.GraduationPlanKeys = new List<string>();
             this.ListCourseInfos = new List<CourseInfo>();
-        
-           // this.MTypeGrade1CourseInfo = mTypecourseInfos;
+
+            // this.MTypeGrade1CourseInfo = mTypecourseInfos;
             // this.ListCourseInfos.AddRange( courseInfos);
             this.GetGraduationPlanCode(); // 取的PlanCode
             this.DicOldGraduationPlanInfos = new Dictionary<string, OldGraduationPlanInfo>();
@@ -40,7 +41,7 @@ namespace SHSchool.Evaluation.Model
         /// 課程規劃表下的課程
         /// </summary>
         public List<CourseInfo> ListCourseInfos { get; set; }
-        
+
         /// <summary>
         /// 入學年度
         /// </summary>
@@ -83,15 +84,15 @@ namespace SHSchool.Evaluation.Model
         /// <summary>
         /// 對應舊資料 OldGraduationInfo key =id 
         /// </summary>
-        public  Dictionary<string , OldGraduationPlanInfo> DicOldGraduationPlanInfos { get; set; }
+        public Dictionary<string, OldGraduationPlanInfo> DicOldGraduationPlanInfos { get; set; }
 
         /// <summary>
         /// 把 同學年度學期的加進來
         /// </summary>
-        public  void AddMtypeCourses(List<CourseInfo> MtypcourseInfos) 
+        public void AddMtypeCourses(List<CourseInfo> MtypcourseInfos)
         {
             this.MTypeGrade1CourseInfo = MtypcourseInfos;
-            this.ListCourseInfos.InsertRange(0,MtypcourseInfos.ConvertAll(courseInfo => courseInfo.Clone()));// 複製到課程規劃表裡
+            this.ListCourseInfos.InsertRange(0, MtypcourseInfos.ConvertAll(courseInfo => courseInfo.Clone()));// 複製到課程規劃表裡
         }
 
 
@@ -99,7 +100,7 @@ namespace SHSchool.Evaluation.Model
         ///  加入課程
         /// </summary>
         /// <param name="courseInfo"></param>
-        public void AddCourseInfo(CourseInfo courseInfo) 
+        public void AddCourseInfo(CourseInfo courseInfo)
         {
             this.ListCourseInfos.Add(courseInfo);
         }
@@ -107,7 +108,7 @@ namespace SHSchool.Evaluation.Model
         /// <summary>
         /// 取得所有課程清單
         /// </summary>
-        public List<CourseInfo> GetAllCourseInfoList() 
+        public List<CourseInfo> GetAllCourseInfoList()
         {
             return this.ListCourseInfos;
         }
@@ -119,7 +120,7 @@ namespace SHSchool.Evaluation.Model
         {
             foreach (string courseName in this.CourseInfos.Keys)
             {
-                 // 處理 GraduationCode
+                // 處理 GraduationCode
                 if (CourseInfos[courseName].GraduationPlanCode.Substring(12, 3) != "196")
                 {
                     if (this.GraduationPlanKey != "")
@@ -134,12 +135,12 @@ namespace SHSchool.Evaluation.Model
         /// 將舊課程計畫資料加入Dic
         /// </summary>
         /// <param name="oldGraduationPlanInfo"></param>
-        public void AddOldGraduationPlan(OldGraduationPlanInfo oldGraduationPlanInfo ) 
+        public void AddOldGraduationPlan(OldGraduationPlanInfo oldGraduationPlanInfo)
         {
             if (!this.DicOldGraduationPlanInfos.ContainsKey(oldGraduationPlanInfo.SysID))  // 如果不包含systemCode
             {
                 oldGraduationPlanInfo.NewCourseInfos = this.ListCourseInfos.ConvertAll(courseInfo => courseInfo.Clone());
-                oldGraduationPlanInfo.ManagerUpdateCourseInfo(); 
+                oldGraduationPlanInfo.ManagerUpdateCourseInfo();
                 this.DicOldGraduationPlanInfos.Add(oldGraduationPlanInfo.SysID, oldGraduationPlanInfo); //
 
             }
@@ -149,7 +150,7 @@ namespace SHSchool.Evaluation.Model
 
 
             }
-        
+
         }
 
 
@@ -158,7 +159,7 @@ namespace SHSchool.Evaluation.Model
         /// 
         /// </summary>
         /// <returns></returns>
-        public Dictionary <string ,OldGraduationPlanInfo> GetAllOldGraduationPlan()
+        public Dictionary<string, OldGraduationPlanInfo> GetAllOldGraduationPlan()
         {
             return this.DicOldGraduationPlanInfos;
         }
@@ -169,10 +170,10 @@ namespace SHSchool.Evaluation.Model
         /// </summary>
         /// <param name="systemID"></param>
         /// <returns></returns>
-        public  OldGraduationPlanInfo GetOldGPlanBySysID(string systemID) 
+        public OldGraduationPlanInfo GetOldGPlanBySysID(string systemID)
         {
             OldGraduationPlanInfo result = null;
-            if (this.DicOldGraduationPlanInfos.ContainsKey(systemID)) 
+            if (this.DicOldGraduationPlanInfos.ContainsKey(systemID))
             {
                 return DicOldGraduationPlanInfos[systemID];
             }
@@ -183,14 +184,14 @@ namespace SHSchool.Evaluation.Model
         /// 如果 課程規劃表contain 特定系統編號課程規劃表 
         /// </summary>
         /// <returns></returns>
-        public bool DicOldGPlansContain(string systemID) 
+        public bool DicOldGPlansContain(string systemID)
         {
             return this.DicOldGraduationPlanInfos.ContainsKey(systemID);
         }
 
 
 
-       
+
 
 
     }

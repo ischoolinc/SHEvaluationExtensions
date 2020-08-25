@@ -43,31 +43,7 @@ namespace SHSchool.Evaluation.Model
 
 
 
-        public void AddOldCourseInfo (UpdateCourseInfo oldCourseInfo , EnumAction action)
-        {
+   
 
-            if (action == EnumAction.修改)
-            {
-                this.UpdateCourseInfo.Add( oldCourseInfo);
-            }
-            else if (action == EnumAction.刪除)
-            {
-                this.DeleteCourseInfo.Add(oldCourseInfo);
-
-            } else if (action == EnumAction.新增)
-            {
-                this.InsertCourseInfo.Add(oldCourseInfo);
-            }
-
-        
-        }
-
-        public void  AddNewGraduationPlan() 
-        {
-        
-        
-        
-        
-        }
     }
 }

@@ -108,66 +108,77 @@ namespace SHSchool.Evaluation.Model
         {
             #region 檢查授課學期學分
 
-            string CourseCodeFromMOE = courseInfo.OrginCourseCodeFromMOE != "" ? courseInfo.OrginCourseCodeFromMOE : courseInfo.新課程代碼;
-            XmlElement ele = (XmlElement)this.OldContentXml.SelectSingleNode($"/GraduationPlan/Subject[@課程代碼='{CourseCodeFromMOE}']");
-            if(ele!=null)
+            if (courseInfo.Action == EnumAction.刪除)
             {
-                if (((ele.SelectSingleNode("@授課學期學分")) == null ? "" : (ele.SelectSingleNode("@授課學期學分")).Value.ToString()) != courseInfo.授課學期學分)
+                UpdateCourseInfo oldCourseInfo = new UpdateCourseInfo(this.SysID, courseInfo);
+                this.DeleteCourseInfos.Add(oldCourseInfo);
+            }
+            else
+            {
+
+                string CourseCodeFromMOE = courseInfo.OrginCourseCodeFromMOE != "" ? courseInfo.OrginCourseCodeFromMOE : courseInfo.新課程代碼;
+                XmlElement ele = (XmlElement)this.OldContentXml.SelectSingleNode($"/GraduationPlan/Subject[@課程代碼='{CourseCodeFromMOE}']");
+                if (ele != null)
+                {
+                    if (((ele.SelectSingleNode("@授課學期學分")) == null ? "" : (ele.SelectSingleNode("@授課學期學分")).Value.ToString()) != courseInfo.授課學期學分)
+                    {
+                        try
+                        {
+                            courseInfo.Action = EnumAction.修改;
+                            UpdateCourseInfo oldCourseInfo = new UpdateCourseInfo(this.SysID, courseInfo);
+                            oldCourseInfo.CollectIfDifferent("授課學期學分代碼");
+                            oldCourseInfo.GenerateUpdateTarget(this.GetOneXmlElementBySubjectCode(oldCourseInfo.OldSubjectCode), courseInfo); // 取得更新之欄位
+                            this.UpdateCourseInfos.Add(oldCourseInfo);
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                    }
+                }
+                #endregion
+                if (courseInfo.Action == EnumAction.修改)
                 {
                     try
                     {
-                        courseInfo.Action = EnumAction.修改;
-                        UpdateCourseInfo oldCourseInfo = new UpdateCourseInfo(this.SysID, courseInfo);
-                        oldCourseInfo.CollectIfDifferent("授課學期學分代碼");
-                        oldCourseInfo.GenerateUpdateTarget(this.GetOneXmlElementBySubjectCode(oldCourseInfo.OldSubjectCode), courseInfo); // 取得更新之欄位
-                        this.UpdateCourseInfos.Add(oldCourseInfo);
+                        UpdateCourseInfo oldCourseInfo;
+                        if (this.UpdateCourseInfos.Any(x => x.OldSubjectCode == courseInfo.OrginCourseCodeFromMOE))
+                        {
+                            oldCourseInfo = GetUpdateCourseInfos(courseInfo.OrginCourseCodeFromMOE);
+                        }
+                        else
+                        {
+                            oldCourseInfo = new UpdateCourseInfo(this.SysID, courseInfo);
+                            oldCourseInfo.GenerateUpdateTarget(this.GetOneXmlElementBySubjectCode(oldCourseInfo.OldSubjectCode), courseInfo); // 取得更新之欄位
+                            this.UpdateCourseInfos.Add(oldCourseInfo);
+                        }
+
                     }
                     catch (Exception ex)
                     {
 
                     }
                 }
-            }
-            #endregion
-            if (courseInfo.Action == EnumAction.修改)
-            {
-                try
-                {
-                    UpdateCourseInfo oldCourseInfo;
-                    if (this.UpdateCourseInfos.Any(x => x.OldSubjectCode == courseInfo.OrginCourseCodeFromMOE))
-                    {
-                        oldCourseInfo = GetUpdateCourseInfos(courseInfo.OrginCourseCodeFromMOE);
-                    }
-                    else
-                    {
-                        oldCourseInfo = new UpdateCourseInfo(this.SysID, courseInfo);
-                        oldCourseInfo.GenerateUpdateTarget(this.GetOneXmlElementBySubjectCode(oldCourseInfo.OldSubjectCode), courseInfo); // 取得更新之欄位
-                        this.UpdateCourseInfos.Add(oldCourseInfo);
-                    }
-                  
-                }
-                catch (Exception ex)
-                {
 
-                }
-            }
-            else if (courseInfo.Action == EnumAction.刪除)
-            {
-                UpdateCourseInfo oldCourseInfo = new UpdateCourseInfo(this.SysID, courseInfo);
-                this.DeleteCourseInfos.Add(oldCourseInfo);
-            }
-            else if (courseInfo.Action == EnumAction.新增)
-            {
-                if (this.IsContainSubjectCode(courseInfo.新課程代碼)) // 如果舊有課程規劃表 已經有本課程 => Action 調整為 "未調整"
+                if (courseInfo.Action == EnumAction.新增)
                 {
-                    courseInfo.Action = EnumAction.未調整;
+                    if (this.IsContainSubjectCode(courseInfo.新課程代碼)) // 如果舊有課程規劃表 已經有本課程 => Action 調整為 "未調整"
+                    {
+                        courseInfo.Action = EnumAction.未調整;
+                    }
+                    else // 不包含課程規劃表
+                    {
+                        UpdateCourseInfo oldCourseInfo = new UpdateCourseInfo(this.SysID, courseInfo);
+                        this.InsertCourseInfos.Add(oldCourseInfo);
+                    }
                 }
-                else // 不包含課程規劃表
-                {
-                    UpdateCourseInfo oldCourseInfo = new UpdateCourseInfo(this.SysID, courseInfo);
-                    this.InsertCourseInfos.Add(oldCourseInfo);
-                }
+
+
+
+
             }
+
+
         }
 
         /// <summary>
@@ -254,6 +265,13 @@ namespace SHSchool.Evaluation.Model
                 foreach (XmlElement element in this.GetOneXmlElementBySubjectCodes(this.UpdateContentXml, courseInfo.OldSubjectCode))
                 {
                     this.SetAttributeByUpdate(element, "Domain", courseInfo.NewCourseInfo.領域名稱);
+
+                    if (element.HasAttribute("FullName"))
+                    {
+                        string oldFullName = element.GetAttribute("FullName");
+                        string newFullName = oldFullName.Replace(courseInfo.OldSujectName, courseInfo.NewCourseInfo.NewSubjectName);
+                        this.SetAttributeByUpdate(element, "FullName", newFullName);
+                    }
                     this.SetAttributeByUpdate(element, "Entry", courseInfo.NewCourseInfo.Entry);
                     this.SetAttributeByUpdate(element, "Required", courseInfo.NewCourseInfo.Required);
                     this.SetAttributeByUpdate(element, "RequiredBy", courseInfo.NewCourseInfo.RequiredBy);
@@ -272,9 +290,9 @@ namespace SHSchool.Evaluation.Model
             foreach (var courseInfo in DeleteCourseInfos)
             {
                 // 取得標的
-                foreach (XmlElement element in this.GetOneXmlElementBySubjectCodes(this.UpdateContentXml, courseInfo.OldSubjectCode))
+                foreach (XmlElement element in this.GetOneXmlElementBySubjectCodes(this.UpdateContentXml, courseInfo.NewSubjectCode))
                 {
-                    this.SetAttributeByUpdate(this.UpdateContentXml, "課程代碼", "");
+                    this.SetAttributeByUpdate(element, "課程代碼", "");
                 }
             }
             // 新增 Append
@@ -312,6 +330,7 @@ namespace SHSchool.Evaluation.Model
                 Dictionary<int, string> CreditSemesters = insertCourseInfo.NewCourseInfo.DicCreditEachSemester;
                 string rowIndex = Helper.GetMaxRow(orginXmlContent).ToString();
                 int level = 1;
+                int startLevel = 0;
                 foreach (int semester in CreditSemesters.Keys)
                 {
                     XmlElement subjectNode = doc.CreateElement("Subject");
@@ -321,14 +340,26 @@ namespace SHSchool.Evaluation.Model
                     subjectNode.SetAttribute("Domain", insertCourseInfo.NewCourseInfo.領域名稱);
                     subjectNode.SetAttribute("Entry", Helper.GetEntryByCSVCodeDetail(insertCourseInfo.NewCourseInfo.科目屬性說明));
                     subjectNode.SetAttribute("GradeYear", Helper.GetGradeYear(semester).GradeYear.ToString());
+
                     // 處理一下級別
                     if (Helper.GetSubjectCount(orginXmlContent, insertCourseInfo.NewCourseInfo.NewSubjectName) > 0)
                     {
-                        level = Helper.GetSubjectCount(orginXmlContent, insertCourseInfo.NewCourseInfo.NewSubjectName) + 1;
+
+                        if (insertCourseInfo.NewCourseInfo.NewSubjectName.Contains("國語文"))
+                        {
+                        
+                        }
+                        level = Helper.GetSubjectCount(orginXmlContent, insertCourseInfo.NewCourseInfo.NewSubjectName) ;
+                        if (startLevel == 0)
+                        {
+                            insertCourseInfo.NewCourseInfo.StartLevel = Helper.GetSubjectCount(orginXmlContent, insertCourseInfo.NewCourseInfo.NewSubjectName);
+                            startLevel = insertCourseInfo.NewCourseInfo.StartLevel;
+                        }
+
                     }
                     subjectNode.SetAttribute("Level", level.ToString());
-                    subjectNode.SetAttribute("FullName", insertCourseInfo.NewCourseInfo.NewSubjectName + Helper.GetRomaNumber(level));
-                    subjectNode.SetAttribute("NotIncludedInCalc", "False");
+                    subjectNode.SetAttribute("FullName", insertCourseInfo.NewCourseInfo.NewSubjectName + " " + Helper.GetRomaNumber(level));
+                    subjectNode.SetAttribute("NotIncludedInCalc", "False"); 
                     subjectNode.SetAttribute("NotIncludedInCredit", "False");
                     subjectNode.SetAttribute("Required", insertCourseInfo.NewCourseInfo.Required);
                     subjectNode.SetAttribute("RequiredBy", insertCourseInfo.NewCourseInfo.RequiredBy);
@@ -345,7 +376,8 @@ namespace SHSchool.Evaluation.Model
                     XmlElement groupNode = doc.CreateElement("Grouping");
                     subjectNode.AppendChild(groupNode);
                     groupNode.SetAttribute("RowIndex", rowIndex);
-                    groupNode.SetAttribute("startLevel", "1");
+
+                    groupNode.SetAttribute("startLevel", insertCourseInfo.NewCourseInfo.StartLevel.ToString());
 
                     level++;
                 }

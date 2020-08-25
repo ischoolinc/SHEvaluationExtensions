@@ -141,7 +141,7 @@ HAVING
 
                 if (this.NewGraduationInfos.ContainsKey(graduationPlanCode)) //如果已經有存在之課程規劃表
                 {
-                    if (deptCode != "196" ||(deptCode == "196"&& count =="1")) // 如果是一年級不分群 ==> 排除(不加到主key) 或是 雖藍是196但數字只有一份
+                    if (deptCode != "196" ||(deptCode == "196" && count =="1")) // 如果是一年級不分群 ==> 排除(不加到主key) 或是 是196但數字只有一份
                     {
                         if (!this.NewGraduationInfos[graduationPlanCode].DicOldGPlansContain(graduationplanID)) // 如果裝舊課程規劃表沒有這個id
                         {
@@ -167,7 +167,7 @@ HAVING
                 return;
             }
 
-            if (dataGridViewX1.Columns[e.ColumnIndex].HeaderText != "檢視")
+            if (dataGridViewX1.Columns[e.ColumnIndex].HeaderText != "檢視") // 點檢視 才有用
             {
                 return;
             }

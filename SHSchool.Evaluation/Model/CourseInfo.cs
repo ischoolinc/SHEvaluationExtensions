@@ -212,10 +212,20 @@ namespace SHSchool.Evaluation.Model
         /// <param name="orginSubjectName"></param>
         public CourseInfo(string courseCodeFromMOE, string subjectName, string credit, string orginCourseCodeFromMOE, string orginSubjectName)
         {
-            this.新課程代碼 = courseCodeFromMOE;
-            this.NewSubjectName = subjectName;
+            if (courseCodeFromMOE == "" && subjectName == "")
+            {
+                this.Action = EnumAction.刪除;
+                this.新課程代碼 = orginCourseCodeFromMOE;
+                this.NewSubjectName = orginSubjectName;
+            }
+            else {
+
+                this.新課程代碼 = courseCodeFromMOE;
+                this.NewSubjectName = subjectName;
+            }
+         
             this.授課學期學分 = credit;
-            this.GraduationPlanCode = courseCodeFromMOE.Substring(0, 16);
+            this.GraduationPlanCode = this.新課程代碼.Substring(0, 16);
             this.StartLevel = 1; //開始級別設為1
             this.OrginCourseCodeFromMOE = orginCourseCodeFromMOE;
             this.OrginSubjectName = orginSubjectName;
@@ -229,7 +239,7 @@ namespace SHSchool.Evaluation.Model
         /// </summary>
         private void SliceToEachColumn()
         {
-            if (新課程代碼.Length == 23 && 授課學期學分.Length == 6)
+            if (新課程代碼.Length == 23 )
             {
                 this.EnterYear = 新課程代碼.Substring(0, 3);
                 this.SchoolCode = 新課程代碼.Substring(3, 6);
@@ -303,6 +313,7 @@ namespace SHSchool.Evaluation.Model
         /// <returns></returns>GetCurriiculumMapName
         public string GetCurriiculumMapName()
         {
+            
             CurrucyCurriculumMapName = $"{ this.EnterYear }{this.科別代碼說明}{this.班群碼說明}";
             return CurrucyCurriculumMapName;
         }
@@ -322,14 +333,7 @@ namespace SHSchool.Evaluation.Model
             // 如果後面4 5皆有東西
             if (!string.IsNullOrEmpty(orginCourseCodeFromMOE) && !string.IsNullOrEmpty(orginSubjectName))  // 如果讀取進來第四列第五列有東西其中一列有資料
             {
-
-                //  如果前三行為空值
-                if (string.IsNullOrEmpty(orginCourseCodeFromMOE) && string.IsNullOrEmpty(subjectName) && string.IsNullOrEmpty(credit))
-                {
-                    this.Action = EnumAction.刪除;
-
-                }
-                else // 如果沒有三行都空白
+                if (this.Action != EnumAction.刪除)
                 {
                     this.Action = EnumAction.修改;
                 }

@@ -46,10 +46,16 @@ namespace SHSchool.Evaluation
             return result+1;
         }
 
+        /// <summary>
+        /// 取得現有科目
+        /// </summary>
+        /// <param name="orgainXml"></param>
+        /// <param name="subjectName"></param>
+        /// <returns></returns>
         public static int GetSubjectCount(System.Xml.XmlElement orgainXml ,string subjectName)
         {
             // 取得所有 
-            int result = orgainXml.SelectNodes ($"//Subject/child[@SubjectName='{subjectName}']").Count;
+            int result = orgainXml.SelectNodes ($"//Subject[@SubjectName='{subjectName}']").Count;
             return result + 1;
         }
 
