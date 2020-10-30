@@ -114,6 +114,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extension\Extensions.cs" />
+    <Compile Include="GraduationPlanUpdateDetailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GraduationPlanUpdateDetailForm.Designer.cs">
+      <DependentUpon>GraduationPlanUpdateDetailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helper.cs" />
+    <Compile Include="ImportIOverViewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportIOverViewForm.Designer.cs">
+      <DependentUpon>ImportIOverViewForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Import\ImportCoreTable.cs" />
     <Compile Include="Import\ImportProgramPlan.cs" />
     <Compile Include="Import\ImportSubjectTable.cs" />
@@ -124,7 +138,16 @@
       <DependentUpon>ImportCurriculumMappingForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\CourseInfo.cs" />
+    <Compile Include="Model\CourseInfoExport.cs" />
+    <Compile Include="Model\EnumAction.cs" />
+    <Compile Include="Model\GraduationPlanInfo.cs" />
     <Compile Include="Model\MappingInfo.cs" />
+    <Compile Include="Model\ScAttandCourseInfo.cs" />
+    <Compile Include="Model\ScAttendInfo.cs" />
+    <Compile Include="Model\SchoolYearAndSemester.cs" />
+    <Compile Include="Model\UpdateCourseInfo.cs" />
+    <Compile Include="Model\OldGraduationPlanInfo.cs" />
+    <Compile Include="Model\UpdateService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Import\Helper\ProgramPlanHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -132,6 +155,13 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Service\DataService.cs" />
+    <Compile Include="UpdateScAttendSubjectCodeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpdateScAttendSubjectCodeForm.Designer.cs">
+      <DependentUpon>UpdateScAttendSubjectCodeForm.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -201,6 +231,13 @@
     <Content Include="XMLFile3.xml" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="GraduationPlanUpdateDetailForm.resx">
+      <DependentUpon>GraduationPlanUpdateDetailForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportIOverViewForm.resx">
+      <DependentUpon>ImportIOverViewForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="InportForm\ImportCurriculumMappingForm.resx">
       <DependentUpon>ImportCurriculumMappingForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -209,8 +246,12 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="UpdateScAttendSubjectCodeForm.resx">
+      <DependentUpon>UpdateScAttendSubjectCodeForm.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Source\匯出課程規劃表樣版.xlsx" />
     <None Include="Templete\課程規劃表匯入_0學分清單.xlsx" />
     <None Include="Templete\高中課程名稱_轉換匯出.xlsx" />
     <None Include="Templete\高中課程規劃表匯入_錯誤清單.xlsx" />
