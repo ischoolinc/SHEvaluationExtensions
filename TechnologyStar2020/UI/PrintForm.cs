@@ -92,8 +92,8 @@ namespace TechnologyStar2020.UI
                     {
                         System.Windows.Forms.SaveFileDialog sd = new System.Windows.Forms.SaveFileDialog();
                         sd.Title = "另存新檔";
-                        sd.FileName = reportName + ".doc";
-                        sd.Filter = "Word檔案 (*.doc)|*.doc|所有檔案 (*.*)|*.*";
+                        sd.FileName = reportName + ".xls";
+                        sd.Filter = "Excel檔案 (*.xls)|*.xls|所有檔案 (*.*)|*.*";
                         if (sd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                         {
                             try
