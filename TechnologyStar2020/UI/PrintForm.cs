@@ -27,6 +27,8 @@ namespace TechnologyStar2020.UI
         // 學生群對照表 DeptName key
         Dictionary<string, udtRegistrationDept> RegistrationDeptDict = new Dictionary<string, udtRegistrationDept>();
 
+        string selectItemName = "";
+
         public PrintForm()
         {
             InitializeComponent();
@@ -327,7 +329,18 @@ namespace TechnologyStar2020.UI
 
         private void BgLoadData_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            btnExport.Enabled = true;
+
+            if (StudentList != null && StudentList.Count > 0)
+            {
+
+                bgExportData.RunWorkerAsync();
+            }
+            else
+            {
+                MsgBox.Show("沒有資料。");
+                btnExport.Enabled = true;
+            }
+
             FISCA.Presentation.MotherForm.SetStatusBarMessage("");
         }
 
@@ -347,15 +360,26 @@ namespace TechnologyStar2020.UI
             StudentList = qd.GetStudentList();
             bgLoadData.ReportProgress(50);
             // 取得學生固定排名資料
-            StudentScoreDict = qd.GetStudentScoreDict();
+            StudentScoreDict = qd.GetStudentScoreDict(selectItemName);
             bgLoadData.ReportProgress(100);
         }
 
         private void PrintForm_Load(object sender, EventArgs e)
         {
             this.MaximumSize = this.MinimumSize = this.Size;
-            this.btnExport.Enabled = false;
-            bgLoadData.RunWorkerAsync();
+
+            string item1 = "學業、專業及實習(部定必修)、國英數(部定必修)。";
+            string item2 = "學業、專業及實習、國英數(部定必修)。";
+
+
+            cboSelectItem.Items.Add(item1);
+            cboSelectItem.Items.Add(item2);
+
+            // 預設選第一項
+            if (cboSelectItem.Items.Count > 0)
+                cboSelectItem.SelectedIndex = 0;
+
+            //bgLoadData.RunWorkerAsync();
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -365,16 +389,10 @@ namespace TechnologyStar2020.UI
 
         private void btnExport_Click(object sender, EventArgs e)
         {
+            selectItemName = cboSelectItem.Text;
             btnExport.Enabled = false;
-            if (StudentList != null && StudentList.Count > 0)
-            {
-                bgExportData.RunWorkerAsync();
-            }
-            else
-            {
-                MsgBox.Show("沒有資料。");
-                btnExport.Enabled = true;
-            }
+            bgLoadData.RunWorkerAsync();
+            
         }
 
 
