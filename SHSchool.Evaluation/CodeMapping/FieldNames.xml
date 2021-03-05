@@ -25,13 +25,14 @@
   <FieldName code="0S" name="體育專業學科" crstype ="|H|V|M|C|E|F|" />
   <FieldName code="0T" name="體育專項術科" crstype ="|H|V|M|C|E|F|" />
   <FieldName code="10" name="特殊需求領域" crstype ="|V|M|C|" />
-  <FieldName code="11" name="特殊需求領域(身心障礙)" crstype ="|H|V|M|C|" />
-  <FieldName code="12" name="特殊需求領域(資賦優異)" crstype ="|H|V|M|C|" />
-  <FieldName code="13" name="特殊需求領域(音樂專長)" crstype ="|H|V|M|C|" />
-  <FieldName code="14" name="特殊需求領域(美術專長)" crstype ="|H|V|M|C|" />
-  <FieldName code="15" name="特殊需求領域(舞蹈專長)" crstype ="|H|V|M|C|" />
-  <FieldName code="16" name="特殊需求領域(戲劇專長)" crstype ="|H|V|M|C|" />
-  <FieldName code="17" name="特殊需求領域(體育專長)" crstype ="|H|V|M|C|" />
+  <FieldName code="11" name="特殊需求領域(身心障礙)" crstype ="|H|S|V|M|C|" />
+  <FieldName code="12" name="特殊需求領域(資賦優異)" crstype ="|H|S|V|M|C|" />
+  <FieldName code="13" name="特殊需求領域(音樂專長)" crstype ="|H|S|V|M|C|" />
+  <FieldName code="14" name="特殊需求領域(美術專長)" crstype ="|H|S|V|M|C|" />
+  <FieldName code="15" name="特殊需求領域(舞蹈專長)" crstype ="|H|S|V|M|C|" />
+  <FieldName code="16" name="特殊需求領域(戲劇專長)" crstype ="|H|S|V|M|C|" />
+  <FieldName code="17" name="特殊需求領域(體育專長)" crstype ="|H|S|V|M|C|" />
+  <FieldName code="18" name="特殊需求領域(實驗課程)" crstype ="|H|S|V|M|C|" />
   <FieldName code="91" name="藝術才能專長領域" crstype ="|H|" />
   <FieldName code="92" name="生涯發展" crstype ="|H|" />
   <FieldName code="93" name="職能探索" crstype ="|H|" />

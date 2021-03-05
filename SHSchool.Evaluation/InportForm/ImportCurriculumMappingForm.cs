@@ -129,10 +129,10 @@ namespace SHSchool.Evaluation.InportForm
             redioUpdateGraduationPlan.Checked = true;
             // 1.將資料讀進來比對 
             GetLevelMapping();
-            // 1. 載入 對照表  與課程規劃表名稱有關之 欄位
-            LoadCodeMapping();
-            // 2. 載入 對照表 其他 欄位
-            LoadCCodeMappingElse();
+            ////// 1. 載入 對照表  與課程規劃表名稱有關之 欄位
+            ////LoadCodeMapping();
+            ////// 2. 載入 對照表 其他 欄位
+            ////LoadCCodeMappingElse();
             // 3.載入學期對照表 
             GetGradeYearAndSenmester();
             // 4.載入 級別羅馬字對照表
@@ -164,6 +164,13 @@ namespace SHSchool.Evaluation.InportForm
         //按下匯入
         private void btnImprt_Click(object sender, EventArgs e)
         {
+            this._DicCourseInfo.Clear();
+
+            // 1. 載入 對照表  與課程規劃表名稱有關之 欄位
+            LoadCodeMapping();
+            // 2. 載入 對照表 其他 欄位
+            LoadCCodeMappingElse();
+
 
             if (String.IsNullOrEmpty(this.textFileCassGroup.Text))
             {
@@ -308,6 +315,7 @@ namespace SHSchool.Evaluation.InportForm
         /// </summary>
         private void ValidateCourseFileContent()
         {
+
             //讀取 CSV 資料  
 
             //如果載入有誤
@@ -315,14 +323,14 @@ namespace SHSchool.Evaluation.InportForm
             //將資料轉成對應中文
             foreach (string keyCodeFromMOE in this._DicCourseInfo.Keys)
             {
-                string courseCodeFromMOE="";
+                string courseCodeFromMOE = "";
                 string subjectName = "";
-              
+
                 #region 轉換中文  
                 //取得切割後code
-                 courseCodeFromMOE = _DicCourseInfo[keyCodeFromMOE].新課程代碼;    // 1 .課程代碼
-                 subjectName = _DicCourseInfo[keyCodeFromMOE].NewSubjectName;                // 2 .課程名稱
-                string Credit = _DicCourseInfo[keyCodeFromMOE].授課學期學分;                          // 3 .學分
+                courseCodeFromMOE = _DicCourseInfo[keyCodeFromMOE].新課程代碼;                  // 課程代碼
+                subjectName = _DicCourseInfo[keyCodeFromMOE].NewSubjectName;                    // 課程名稱
+                string Credit = _DicCourseInfo[keyCodeFromMOE].授課學期學分;                    // 學分
                 string EnterYear = _DicCourseInfo[keyCodeFromMOE].EnterYear;                    // 入學學年度 
                 string SchoolCode = _DicCourseInfo[keyCodeFromMOE].SchoolCode;                  // 學校代碼
                 string CourseType = _DicCourseInfo[keyCodeFromMOE].CourseType;                  // 課程類型  
@@ -799,6 +807,7 @@ SELECT 0
             {
                 string code = ((XmlElement)courseType).GetAttribute("code");
                 string name = ((XmlElement)courseType).GetAttribute("name");
+                if (!_DicCourseType.ContainsKey(code)) 
                 this._DicCourseType.Add(code, new MappingInfo(code, name));
             }
             #endregion
@@ -867,6 +876,7 @@ SELECT 0
             {
                 string code = ((XmlElement)courseType).GetAttribute("code");
                 string name = ((XmlElement)courseType).GetAttribute("name");
+                if(!_DicClassGroup.ContainsKey(code))
                 this._DicClassGroup.Add(code, name);
             }
             #endregion
@@ -888,6 +898,7 @@ SELECT 0
             {
                 string code = ((XmlElement)courseType).GetAttribute("code");
                 string name = ((XmlElement)courseType).GetAttribute("name");
+                if (!_DicCourseClassified.ContainsKey(code))
                 this._DicCourseClassified.Add(code, name);
             }
 
@@ -899,6 +910,7 @@ SELECT 0
             {
                 string code = ((XmlElement)courseType).GetAttribute("code");
                 string name = ((XmlElement)courseType).GetAttribute("name");
+                if(!this._DicOpenWay.ContainsKey(code))
                 this._DicOpenWay.Add(code, name);
             }
 
@@ -908,6 +920,7 @@ SELECT 0
             {
                 string code = ((XmlElement)courseType).GetAttribute("code");
                 string name = ((XmlElement)courseType).GetAttribute("name");
+                if (this._DicOpenWay.ContainsKey(code))
                 this._DicOpenWay.Add(code, name);
             }
 
@@ -920,6 +933,7 @@ SELECT 0
             {
                 string code = ((XmlElement)courseType).GetAttribute("code");
                 string name = ((XmlElement)courseType).GetAttribute("name");
+                if (!this._DicSubjectAttribute.ContainsKey(code)) 
                 this._DicSubjectAttribute.Add(code, name);
             }
 
@@ -1363,10 +1377,10 @@ SELECT 0
                 {
                     if (m196CourseInfos.ContainsKey(DicGraduationPlan[gPlanKey].EntryYear))
                     {
-                        if (gPlanKey.Substring(12, 3)!= "196") 
+                        if (gPlanKey.Substring(12, 3) != "196")
                         {
-                        DicGraduationPlan[gPlanKey].AddMtypeCourses(m196CourseInfos[DicGraduationPlan[gPlanKey].EntryYear]);
-                        
+                            DicGraduationPlan[gPlanKey].AddMtypeCourses(m196CourseInfos[DicGraduationPlan[gPlanKey].EntryYear]);
+
                         }
                     }
                 }
