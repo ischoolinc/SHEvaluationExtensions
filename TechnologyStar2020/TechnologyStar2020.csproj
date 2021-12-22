@@ -122,6 +122,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="UI\PrintForm111.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\PrintForm111.Designer.cs">
+      <DependentUpon>PrintForm111.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\PrintForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -167,12 +173,16 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\PrintForm111.resx">
+      <DependentUpon>PrintForm111.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\PrintForm.resx">
       <DependentUpon>PrintForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Template\Template.xls" />
+    <None Include="Template\Template111.xls" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

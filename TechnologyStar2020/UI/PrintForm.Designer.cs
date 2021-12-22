@@ -38,7 +38,6 @@
             // btnExport
             // 
             this.btnExport.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnExport.AutoSize = true;
             this.btnExport.BackColor = System.Drawing.Color.Transparent;
             this.btnExport.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnExport.Location = new System.Drawing.Point(214, 170);
@@ -52,7 +51,6 @@
             // btnExit
             // 
             this.btnExit.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnExit.AutoSize = true;
             this.btnExit.BackColor = System.Drawing.Color.Transparent;
             this.btnExit.ColorTable = DevComponents.DotNetBar.eButtonColor.OrangeWithBackground;
             this.btnExit.Location = new System.Drawing.Point(315, 170);
@@ -88,7 +86,7 @@
             this.labelX2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.labelX2.Location = new System.Drawing.Point(26, 114);
             this.labelX2.Name = "labelX2";
-            this.labelX2.Size = new System.Drawing.Size(60, 21);
+            this.labelX2.Size = new System.Drawing.Size(75, 26);
             this.labelX2.TabIndex = 4;
             this.labelX2.Text = "成績來源";
             // 
@@ -98,16 +96,16 @@
             this.cboSelectItem.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cboSelectItem.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboSelectItem.FormattingEnabled = true;
-            this.cboSelectItem.ItemHeight = 19;
+            this.cboSelectItem.ItemHeight = 23;
             this.cboSelectItem.Location = new System.Drawing.Point(93, 112);
             this.cboSelectItem.Name = "cboSelectItem";
-            this.cboSelectItem.Size = new System.Drawing.Size(302, 25);
+            this.cboSelectItem.Size = new System.Drawing.Size(302, 29);
             this.cboSelectItem.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.cboSelectItem.TabIndex = 5;
             // 
             // PrintForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(425, 213);
             this.Controls.Add(this.cboSelectItem);
