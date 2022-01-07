@@ -395,12 +395,15 @@ student.id AS student_id
                         }
 
                         int colIndex = 0;
+
+                        //修讀合計
                         float totalCredit = 0;
                         // 累計實得
                         float totalHaveCredit = 0;
                         float totalCoreCredit = 0;
                         float totalHaveToCredit = 0;
                         float totalSelectedCredit = 0;
+
                         Dictionary<string, CreditRec> dicCreditRecByKey = dicCreditRecByClassStuKey[classID][stuID];
 
                         // 座號 姓名
@@ -451,8 +454,11 @@ student.id AS student_id
 
 
                         // 累計實得學分
-                        // 核心必修                       
 
+                        //修讀合計
+                        sheet.Cells[rowIndex, colIndex++].PutValue(totalCredit);
+
+                        // 核心必修                       
                         if (nototalCoreCredit)
                         {
                             sheet.Cells[rowIndex, colIndex++].PutValue("");
