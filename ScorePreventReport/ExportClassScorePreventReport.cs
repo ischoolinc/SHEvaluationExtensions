@@ -475,7 +475,7 @@ student.id AS student_id
                         // 合計
                         sheet.Cells[rowIndex, colIndex++].PutValue(totalHaveCredit);
 
-                        Range currentRow = sheet.Cells.CreateRange(rowIndex, 0, 1, 30);
+                        Range currentRow = sheet.Cells.CreateRange(rowIndex, 0, 1, 31);
                         currentRow.ApplyStyle(style, styleFlag);
 
                         rowIndex++;
