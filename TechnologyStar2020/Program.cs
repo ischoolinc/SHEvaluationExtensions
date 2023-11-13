@@ -45,8 +45,7 @@ namespace TechnologyStar2020
             rbItem2["報表"]["技職繁星報名資料(111學年度適用)"].Enable = UserAcl.Current[guidb].Executable;
             rbItem2["報表"]["技職繁星報名資料(111學年度適用)"].Click += delegate
             {
-                UI.PrintForm111 pr = new UI.PrintForm111();
-                pr.ShowDialog();
+                new UI.TeachnologyStar2023().Export();
             };
 
             // 技職繁星
